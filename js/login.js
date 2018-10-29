@@ -1,7 +1,7 @@
 function submitForm(){
    var name = document.getElementById("name").value;
    var password = document.getElementById("password").value;
-   url = "/user/login?name=" + "qingju" + "&password=" + "ggreener"
+   url = "/user/login?name=" + name + "&password=" + password
    $.ajax({    
         type:'get',        
         url: url,    
@@ -12,20 +12,16 @@ function submitForm(){
         crossDomain: true,
         credentials: 'include',  
         dataType:'json',    
-        success:function(data, request){
-            window.location.href="./ggreen.html";
-  
+        success:function(data){
+            if (data.status == 0) {
+                window.location.href="./ggreen.html";
+            } else {
+                $.messager.alert('登录失败', data.message,'error');
+            }
+            
         },
 		error:function(data, request){
-            $.messager.show({
-                title:'登录失败',
-                msg: data,
-                showType:'fade',
-                style:{
-                    left:0,
-                    right:'',
-                }
-            });
+            $.messager.alert('登录失败', data.message,'error');
         }  
     }); 
 }
