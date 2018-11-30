@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Layout - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="./jquery-easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="./jquery-easyui/themes/icon.css">
+	<script type="text/javascript" src="./jquery-easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="./jquery-easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="./js/create.js"></script>
+	<style> 
+		html,body{height:100%} 
+	</style> 
+</head>
+<body>
+    <div class="easyui-layout" border="false" style="width:100%;height:100%;">
+        <div data-options="region:'north'" style="height:80px;text-align: center"><h1>绿色低碳企业信息管理平台</h2></div>
+        <div data-options="region:'center'">
+        	<div id="tt" class="easyui-tabs" style="width:100%;height:100%" data-options="tabPosition: 'top'">
+		        <div title="基本信息" style="padding:20px">
+            		<div style="margin-top:20px">
+            			<input class="easyui-textbox" label="单位名称：" labelPosition="before" data-options="prompt:'请输入单位名称...'" style="width:38.2%;">
+						<select id="attention" class="easyui-combobox" label="关注等级：" labelPosition="left" style="width:19%;">	
+						</select>					
+						<select id="region" class="easyui-combobox" label="所在地区：" labelPosition="left" style="width:19%;">
+						</select>
+                        <select id="zol" class="easyui-combobox" label="中光村：" labelPosition="left" style="width:19%;">
+						</select>									
+					</div>
+					<div style="margin-top:20px">
+						<select id="companyTypes" class="easyui-combobox" label="单位性质：" labelPosition="left" style="width:19%;">
+						</select>	
+						<input id="createTime" class="easyui-datebox" label="成立时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:19%;">
+						<select id="register" class="easyui-textbox" label="注册资金：" labelPosition="left" style="width:19%;"/>
+						</select>
+						<select id="equity" class="easyui-combobox" label="出资方式：" labelPosition="left" style="width:19%;"/>
+						</select>
+						<select id="equity" class="easyui-combobox" label="高新技术：" labelPosition="left" style="width:19%;"/>
+						</select>
+					</div>
+					<div style="margin-top:20px">
+						<select id="companyTypes" class="easyui-combobox" label="上市公司：" labelPosition="left" style="width:19%;">
+						</select>	
+						<select id="register" class="easyui-textbox" label="股票代码：" labelPosition="left" style="width:19%;"/>
+						</select>
+						<select id="register" class="easyui-combobox" label="单位类型：" labelPosition="left" style="width:19%;"/>
+						</select>
+						<select id="equity" class="easyui-combobox" label="所属行业：" labelPosition="left" style="width:19%;"/>
+						</select>
+						<select id="equity" class="easyui-combobox" label="主营业务：" labelPosition="left" style="width:19%;"/>
+						</select>
+					</div>
+					<div style="margin-top:20px">
+						<select id="companyTypes" class="easyui-combobox" label="业务领域：" labelPosition="left" style="width:19%;">
+						</select>	
+						<select id="register" class="easyui-textbox" label="细分市场：" labelPosition="left" style="width:19%;"/>
+						</select>
+						<select id="register" class="easyui-combobox" label="技术产品：" labelPosition="left" style="width:19%;"/>
+						</select>
+						<select id="equity" class="easyui-combobox" label="发明专利：" labelPosition="left" style="width:19%;"/>
+						</select>
+						<select id="equity" class="easyui-combobox" label="实用专利：" labelPosition="left" style="width:19%;"/>
+						</select>
+					</div>
+					<div style="margin-top:20px">
+						<select id="companyTypes" class="easyui-combobox" label="软件著作：" labelPosition="left" style="width:19%;">
+						</select>	
+						<select id="register" class="easyui-textbox" label="单位优势：" labelPosition="left" style="width:19%;"/>
+						</select>
+						<select id="register" class="easyui-combobox" label="员工人数：" labelPosition="left" style="width:19%;"/>
+						</select>
+						<select id="equity" class="easyui-combobox" label="技术人员：" labelPosition="left" style="width:19%;"/>
+						</select>
+						<select id="equity" class="easyui-combobox" label="办公面积：" labelPosition="left" style="width:19%;"/>
+						</select>
+					</div>
+					<div style="margin-top:20px">
+						<input class="easyui-textbox" label="自主研发技术产品：" labelPosition="before" style="width:38.2%;">
+					</div>
+					<div style="margin-top:20px;text-align:center">
+						<a id="addCompany" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" style="width:15%;">新增</a>
+            			<a id="addCompany" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" style="width:15%;margin-left:20px;">取消</a>
+					</div>
+		        </div>
+		        <div title="会员信息" style="padding:10px">
+		            <div style="margin-top:20px">
+						<select id="attention" class="easyui-combobox" label="会员级别：" labelPosition="left" style="width:19%;">	
+						</select>					
+						<select id="region" class="easyui-combobox" label="入会日期：" labelPosition="left" style="width:19%;">
+						</select>
+                        <select id="zol" class="easyui-combobox" label="有效日期：" labelPosition="left" style="width:19%;">
+						</select>										
+					</div>
+					<div style="margin-top:20px;text-align:center">
+						<a id="addCompany" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" style="width:15%;">新增</a>
+            			<a id="addCompany" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" style="width:15%;margin-left:20px;">取消</a>
+					</div>
+		        </div>
+		        <div title="需求信息" style="padding:10px">
+		        	需求信息
+		        </div>
+		        <div title="联系信息" style="padding:10px">
+		            联系信息
+		        </div>
+		        <div title="互动信息" style="padding:10px">
+		            互动信息
+		        </div>
+		        <div title="合作信息" style="padding:10px">
+		            合作信息
+		        </div>
+		        <div title="经营信息" style="padding:10px">
+		            经营信息
+		        </div>
+		        <div title="开票信息" style="padding:10px">
+		            开票信息
+		        </div>
+		    </div>
+        </div>
+    </div>
+</body>
+</html>
