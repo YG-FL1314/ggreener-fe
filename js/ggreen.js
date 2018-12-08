@@ -1,7 +1,12 @@
 /*全局变量*/
-var USER_NAME = ''
+USER_NAME = 'unkown'
+USER_ROLE = 2
 
 $.messager.defaults.ok = "确认"
+
+//检查session是否过期
+isLogin()
+
 function getTags(parentId) {
     var result, url;
     if (!parentId && parentId != 0) { 
@@ -76,7 +81,7 @@ function isLogin() {
      $.ajax({
         url: "/user/islogin",
         dataType: 'json',
-                xhrFields:{
+        xhrFields:{
             withCredentials:true
         }, 
         crossDomain: true,
@@ -89,12 +94,7 @@ function isLogin() {
                 window.location.href="./login.html";
             } 
             USER_NAME = data.obj.name
-            if (data.obj.role == 1) {
-                showUserTabs()
-            } else {
-                hideUserTabs()
-            }
-            
+            USER_ROLE = data.obj.role
         },
         error: function(){
             window.location.href="./login.html";
@@ -388,15 +388,107 @@ function getListUsers() {
     return result
 }
 
-function locationCreate() {
+function searchClick() {
+    $('#companys').datagrid({'data': searchCompanies()}) 
+}
+
+function searchCompanies() {
+    var result = []
+    var name = $('#name').textbox('getValue').trim()
+    var tags = []
+    var member = $('#member').combobox('getValue').trim()
+    var attention = $('#attention').combobox('getValue').trim()
+    var region = $('#region').combobox('getValue').trim()
+    var zol = $('#zol').combobox('getValue').trim()
+    var unitProperties = $('#unitProperties').textbox('getValue').trim()
+    var equity = $('#equity').combobox('getValue').trim()
+    var companyType = $('#companyType').combobox('getValue').trim()
+    var industry = $('#industry').combobox('getValue').trim()
+    var companyMarker = $('#companyMarker').textbox('getValue').trim()
+    var business = $('#business').combobox('getValue').trim()
+    var highTech = $('#highTech').combobox('getValue').trim()
+    var businessArea = $('#businessArea').combobox('getValue').trim()
+    var segmentMarket = $('#segmentMarket').combobox('getValue').trim()
+    var advantages = $('#advantages').combobox('getValue').trim()
+    if (!isEmpty(member)) tags.push(member)
+    if (!isEmpty(attention)) tags.push(attention)
+    if (!isEmpty(region)) tags.push(region)    
+    if (!isEmpty(zol)) tags.push(zol) 
+    if (!isEmpty(unitProperties)) tags.push(unitProperties) 
+    if (!isEmpty(equity)) tags.push(equity) 
+    if (!isEmpty(companyType)) tags.push(companyType) 
+    if (!isEmpty(industry)) tags.push(industry) 
+    if (!isEmpty(companyMarker)) tags.push(companyMarker) 
+    if (!isEmpty(business)) tags.push(business) 
+    if (!isEmpty(highTech)) tags.push(highTech) 
+    if (!isEmpty(businessArea)) tags.push(businessArea) 
+    if (!isEmpty(segmentMarket)) tags.push(segmentMarket) 
+    if (!isEmpty(advantages)) tags.push(advantages)   
+    var opts = $('#companys').datagrid('options');
+    var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
+    var end = start + parseInt(opts.pageSize);  
+    $.ajax({
+        url: "/company/list",
+        xhrFields:{
+            withCredentials:true
+        }, 
+        type: 'post',
+        crossDomain: true,
+        credentials: 'include', 
+        data: JSON.stringify({
+          "name": name,
+          "tags": tags,
+          "start": start,
+          "limit": end
+        }),
+        dataType:'json', 
+        contentType: 'application/json;charset=UTF-8',
+        async: false,
+        success: function(data){
+            var items = []
+            if (data.status == 0) {
+                $.each(data.obj.list,function(idx,item){ 
+                        items[idx] = {
+                        id: item.companyId,    
+                        memberCode: item.memberCode,
+                        memberName: item.member,
+                        attention: item.attention,
+                        name: item.name,
+                        region: item.region,
+                        createTime: item.createTime.substring(0,10),
+                        registeredCapital: item.register,
+                        unitType: item.unitProperty,
+                        industry: item.industry,
+                        business: item.business,
+                        businessArea: item.businessArea,
+                        advantages: item.advantage
+                    }
+                })
+            } else if (data.status == 2) {
+                window.location.href = data.message;
+            }
+            result = items
+        },
+        error: function(){
+            $.messager.alert('企业','查询企业失败!','error');
+        }
+    });
+    return result
+}
+
+function createCompany() {
     window.location.href = "./create.html"
 }
 
 /*页面加载*/ 
 window.onload = function () { 
-    //检查session是否过期
-    isLogin()
     $('#user').linkbutton({text: USER_NAME});
+    if (USER_ROLE == 1) {
+        showUserTabs()
+    } else {
+        hideUserTabs()
+    }
+    //会员级别
     $('#member').combobox({
         valueField: 'id', 
         textField: 'name',
@@ -404,21 +496,7 @@ window.onload = function () {
         limitToList: false,
         data: getTags(MEMBER_FLAG)
     });
-
-    $('#companyTypes').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        data: getTags(COMPANY_TYPE_FLAG)
-    });
-    $('#region').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        //panelHeight:'auto', 
-        limitToList: true,
-        data: getTags(REGION_FLAG)
-    });
+    //关注等级
     $('#attention').combobox({
         valueField: 'id', 
         textField: 'name',
@@ -426,6 +504,15 @@ window.onload = function () {
         limitToList: false,
         data: getTags(ATTENTION_FLAG)
     });
+    //地区
+    $('#region').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        //panelHeight:'auto', 
+        limitToList: true,
+        data: getTags(REGION_FLAG)
+    });
+    //中关村
     $('#zol').combobox({
         valueField: 'id', 
         textField: 'name',
@@ -433,19 +520,92 @@ window.onload = function () {
         limitToList: false,
         data: getTags(ZOL_FLAG)
     });
+    //单位性质
+    $('#unitProperties').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: false,
+        data: getTags(UNIT_PROPERTIES_FLAG)
+    });
+    //出资方式
+    $('#equity').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: false,
+        data: getTags(EQUITY_PARTICIPATION_FLAG)
+    });
+    //单位类型
+    $('#companyType').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: false,
+        data: getTags(COMPANY_TYPE_FLAG)
+    });
+    //所属行业
+    $('#industry').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: false,
+        data: getTags(INDUSTRIES_FLAG)
+    });
+    //上市公司
+    $('#companyMarker').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: false,
+        data: getTags(COMPANY_MARKET_FLAG)
+    });
+    //主营业务
+    $('#business').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: false,
+        data: getTags(BUSINESS_FLAG)
+    });
+    //高薪技术
+    $('#highTech').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: false,
+        data: getTags(HIGH_TECHNOLOGY_FLAG)
+    });
+    //业务领域
+    $('#businessArea').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: false,
+        data: getTags(BUSINESS_AREA_FLAG)
+    });
+    //细分市场
+    $('#segmentMarket').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        //panelHeight:'auto', 
+        limitToList: false,
+        data: getTags(SEGMENT_MARKET_FLAG)
+    });
+    //单位优势
+    $('#advantages').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: false,
+        data: getTags(ADVANTAGES_FLAG)
+    });
     $('#tagParents').combobox({
         valueField: 'id', 
         textField: 'name',
         //panelHeight:'auto', 
         limitToList: false,
         data: getTags(PARENT_FLAG)
-    });
-    $('#unitProperties').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        //panelHeight:'auto', 
-        limitToList: false,
-        data: getTags(UNIT_PROPERTIES_FLAG)
     });
     $('#parents').combobox({
         valueField: 'id', 
@@ -460,6 +620,12 @@ window.onload = function () {
 
     $('#tags').datagrid({'data': getTags()})
     $('#users').datagrid({'data': getListUsers()})
+    $('#companys').datagrid({
+        'data': searchCompanies(),
+        onDblClickRow: function(rowIndex, rowData) {  
+            window.location.href = "./detail.html?companyId=" + rowData.id  
+        }
+    }) 
 }
 
 

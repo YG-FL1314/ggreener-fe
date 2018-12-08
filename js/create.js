@@ -1,4 +1,6 @@
 /*全局变量*/
+var COMPANY_ID = ''
+
 
 $.messager.defaults.ok = "确认"
 function getTags(parentId) {
@@ -151,7 +153,9 @@ function addCompany() {
             if (data.status == 2) {
                 window.location.href = data.message
             } else if (data.status == 0){
+                COMPANY_ID = data.obj.id
                 $.messager.alert('公司','添加公司成功!','info');
+                $('#tt').tabs('select', '会员信息');
             } else {
                 $.messager.alert('公司',data.message,'error');
             }
@@ -162,6 +166,104 @@ function addCompany() {
         }
     });
 
+}
+
+function addMember() {
+    if (COMPANY_ID == '') {
+        $.messager.alert('公司','请先添加公司！','info');
+    } else {
+        var memberCode = $('#memberCode').textbox('getValue').trim()
+        var tagId = $('#member').combobox('getValue').trim()
+        var joiningTime = $('#joiningTime').datebox('getValue').trim()
+        var validityTime = $('#validityTime').datebox('getValue').trim()
+
+        $.ajax({
+            type:'post',
+            url: "/member/add",
+            xhrFields:{
+                withCredentials:true
+            }, 
+            crossDomain: true,
+            credentials: 'include',  
+            async: false, //同步调用
+            data: JSON.stringify({
+              "companyId": COMPANY_ID,
+              "tagId": tagId,
+              "memberCode": memberCode,
+              "joiningTime": joiningTime,
+              "validityTime": validityTime
+            }),
+            dataType:'json', 
+            contentType: 'application/json;charset=UTF-8',
+            success: function(data){
+                if (data.status == 2) {
+                    window.location.href = data.message
+                } else if (data.status == 0){
+                    $.messager.alert('公司','添加会员信息成功!','info');
+                    $('#tt').tabs('select', '需求信息');
+                } else {
+                    $.messager.alert('公司',data.message,'error');
+                }
+                
+            },
+            error: function(){
+                $.messager.alert('公司','添加会员信息失败!','error');
+            }
+        });
+    }
+}
+
+function addContact() {
+    if (COMPANY_ID == '') {
+        $.messager.alert('公司','请先添加公司！','info');
+    } else {
+        var name = $('#contactNameInput').textbox('getValue').trim()
+        var duty = $('#contactDutyInput').combobox('getValue').trim()
+        var phone1 = $('#contactPhone1Input').textbox('getValue').trim()
+        var phone2 = $('#contactPhone2Input').textbox('getValue').trim()
+        var tel = $('#contactTelInput').textbox('getValue').trim()
+        var mail = $('#mailInput').textbox('getValue').trim()
+        var weixin = $('#weixinInput').textbox('getValue').trim()
+        var qq = $('#qqInput').textbox('getValue').trim()
+        var remark = $('#remarkInput').textbox('getValue').trim()
+        $.ajax({
+            type:'post',
+            url: "/contact/add",
+            xhrFields:{
+                withCredentials:true
+            }, 
+            crossDomain: true,
+            credentials: 'include',  
+            async: false, //同步调用
+            data: JSON.stringify({
+              "companyId": COMPANY_ID,
+              "name": name,
+              "dutyId": duty,
+              "mail": mail,
+              "weixin": weixin,
+              "remark": remark,
+              "qq": qq,
+              "telephone": phone1 + "," + phone2,
+              "phone":tel
+            }),
+            dataType:'json', 
+            contentType: 'application/json;charset=UTF-8',
+            success: function(data){
+                if (data.status == 2) {
+                    window.location.href = data.message
+                } else if (data.status == 0){
+                    $.messager.alert('公司','添加会员信息成功!','info');
+                    $('#tt').tabs('select', '需求信息');
+                } else {
+                    $.messager.alert('公司',data.message,'error');
+                }
+                
+            },
+            error: function(){
+                $.messager.alert('公司','添加会员信息失败!','error');
+            }
+        });
+    }
 }
 
 /*页面加载*/ 
@@ -265,6 +367,19 @@ window.onload = function () {
         limitToList: false,
         data: getTags(ADVANTAGES_FLAG)
     });
-    
+    $('#member').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: false,
+        data: getTags(MEMBER_FLAG)
+    });
+    $('#contactDuty').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: false,
+        data: getTags(MEMBER_FLAG)
+    });
     
 }

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Basic Layout - jQuery EasyUI Demo</title>
+    <title>绿色低碳企业信息管理平台</title>
 	<link rel="stylesheet" type="text/css" href="./jquery-easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="./jquery-easyui/themes/icon.css">
 	<script type="text/javascript" src="./jquery-easyui/jquery.min.js"></script>
@@ -36,102 +36,52 @@
         <div data-options="region:'center'">
         	<div id="tt" class="easyui-tabs" style="width:100%;height:100%" data-options="tabPosition: 'left'">
 		        <div title="企业管理" style="padding:20px">
-            		<input class="easyui-textbox" label="单位名称：" labelPosition="before" data-options="prompt:'请输入单位名称...'" style="width:40%;">
-            		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" style="width:26%;margin-left:20px;">搜索</a>
-            		<a id="addCompany" href="#" class="easyui-linkbutton" onclick="locationCreate()" data-options="iconCls:'icon-add'" style="width:26%;margin-left:20px;">新增企业</a>
+            		<input id = "name" class="easyui-textbox" label="单位名称：" labelPosition="before" data-options="prompt:'请输入单位名称...'" style="width:40%;">
+            		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="searchClick()" style="width:26%;margin-left:20px;">搜索</a>
+            		<a id="addCompany" href="#" class="easyui-linkbutton" onclick="createCompany()" data-options="iconCls:'icon-add'" style="width:26%;margin-left:20px;">新增企业</a>
             		<div style="margin-top:20px">
 						<select id="member" class="easyui-combobox" label="会员级别：" labelPosition="left" style="width:19%;">	
 						</select>					
-						<select id="region" class="easyui-combobox" label="入会日期：" labelPosition="left" style="width:19%;">
-						</select>
-                        <select id="zol" class="easyui-combobox" label="有效日期：" labelPosition="left" style="width:19%;">
-						</select>	
 						<select id="attention" class="easyui-combobox" label="关注等级：" labelPosition="left" style="width:19%;">	
 						</select>					
 						<select id="region" class="easyui-combobox" label="所在地区：" labelPosition="left" style="width:19%;">
-						</select>									
-					</div>
-            		<div style="margin-top:20px">
-                        <select id="zol" class="easyui-combobox" label="中光村：" labelPosition="left" style="width:19%;">
+						</select>	
+						<select id="zol" class="easyui-combobox" label="中光村：" labelPosition="left" style="width:19%;">
 						</select>						
 						<select id="unitProperties" class="easyui-combobox" label="单位性质：" labelPosition="left" style="width:19%;">
-						</select>
-						<select id="createTime" class="easyui-combobox" label="成立时间：" labelPosition="left" style="width:19%;">
-						</select>
-						<select id="register" class="easyui-combobox" label="注册资金：" labelPosition="left" style="width:19%;">
-						</select>
+						</select>								
+					</div>
+            		<div style="margin-top:20px"> 
 						<select id="equity" class="easyui-combobox" label="出资方式：" labelPosition="left" style="width:19%;">
 						</select>				
-					</div>
-					<div style="margin-top:20px">
-						<select id="unitType" class="easyui-combobox" label="单位类型：" labelPosition="left" style="width:19%;">
+						<select id="companyType" class="easyui-combobox" label="单位类型：" labelPosition="left" style="width:19%;">
 						</select>
 						<select id="industry" class="easyui-combobox" label="所属行业：" labelPosition="left" style="width:19%;">
 						</select>
 						<select id="companyMarker" class="easyui-combobox" label="上市公司：" labelPosition="left" style="width:19%;">
 						</select>
-						<select id="shareCode" class="easyui-textbox" label="股票代码：" labelPosition="left" style="width:19%;">
-						</select>
-						<select id="highTech" class="easyui-combobox" label="高新技术：" labelPosition="left" style="width:19%;">
+						<select id="business" class="easyui-combobox" label="主营业务：" labelPosition="left" style="width:19%;">
 						</select>
 					</div>
 					<div style="margin-top:20px">
-						<select id="business" class="easyui-combobox" label="主营业务：" labelPosition="left" style="width:19%;">
+						<select id="highTech" class="easyui-combobox" label="高新技术：" labelPosition="left" style="width:19%;">
 						</select>
 						<select id="businessArea" class="easyui-combobox" label="业务领域：" labelPosition="left" style="width:19%;">
 						</select>
 						<select id="segmentMarket" class="easyui-combobox" label="细分市场：" labelPosition="left" style="width:19%;">
 						</select>
-						<select id="techProducts" class="easyui-textbox" label="技术产品：" labelPosition="left" style="width:19%;">
-						</select>
-						<select id="patents" class="easyui-combobox" label="专利著作：" labelPosition="left" style="width:19%;">
-						</select>
-					</div>
-					<div style="margin-top:20px">
-						<select id="staffs" class="easyui-combobox" label="员工人数：" labelPosition="left" style="width:19%;">
-						</select>
-						<select id="techStaffs" class="easyui-combobox" label="技术人员：" labelPosition="left" style="width:19%;">
-						</select>
-						<select id="officeArea" class="easyui-combobox" label="办公面积：" labelPosition="left" style="width:19%;">
-						</select>
 						<select id="advantages" class="easyui-textbox" label="单位优势：" labelPosition="left" style="width:19%;">
 						</select>
-						<select id="totalAsset" class="easyui-combobox" label="总资产：" labelPosition="left" style="width:19%;">
-						</select>
 					</div>
 					<div style="margin-top:20px">
-						<select id="netAsset" class="easyui-combobox" label="净资产：" labelPosition="left" style="width:19%;">
-						</select>
-						<select id="operatingReceipt" class="easyui-combobox" label="营业收入：" labelPosition="left" style="width:19%;">
-						</select>
-						<select id="gain" class="easyui-combobox" label="利润：" labelPosition="left" style="width:19%;">
-						</select>
-						<select id="amountInvested" class="easyui-textbox" label="投资额：" labelPosition="left" style="width:19%;">
-						</select>
-						<select id="debtRatio" class="easyui-combobox" label="负债率：" labelPosition="left" style="width:19%;">
-						</select>
-					</div>
-					<div style="margin-top:20px">
-						<select id="contractAmount" class="easyui-combobox" label="合同额：" labelPosition="left" style="width:19%;">
-						</select>
-						<select id="cooperationAmount " class="easyui-combobox" label="年度合作金额：" labelPosition="left" style="width:19%;">
-						</select>
-						<select id="interactionTimes" class="easyui-combobox" label="年度互动频次：" labelPosition="left" style="width:19%;">
-						</select>
-						<select id="cooperationTimes" class="easyui-combobox" label="年度合作次数：" labelPosition="left" style="width:19%;">
-						</select>
-						<select id="requirements" class="easyui-combobox" label="需求：" labelPosition="left" style="width:19%;">
-						</select>
-					</div>
-					<div style="margin-top:20px">
-			            <table id="companys" style="width:100%;height:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationUser'">
-					        <thead>
+			            <table id="companys" class="easyui-datagrid" style="width:100%;height:260px" data-options="rownumbers:true,singleSelect:true,pagination:true">
+        					<thead>
 					            <tr>
-					                <th field="member" align="center" width="8%">会员编号</th>
-					                <th field="memberLeve" align="center" width="8%">会员等级</th>
-					                <th field="concernLevel" align="center" width="8%">关注等级</th>
+					                <th field="memberCode" align="center" width="8%">会员编号</th>
+					                <th field="memberName" align="center" width="8%">会员等级</th>
+					                <th field="attention" align="center" width="8%">关注等级</th>
 					                <th field="name" align="center" width="8%">单位名称</th>
-					                <th field="area" align="center" width="8%">所在地区</th>
+					                <th field="region" align="center" width="8%">所在地区</th>
 					                <th field="createTime" align="center" width="8%">成立时间</th>
 					                <th field="registeredCapital" align="center" width="8%">注册资金</th>
 					                <th field="unitType" align="center" width="8%">单位类型</th>

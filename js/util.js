@@ -33,8 +33,6 @@ const BUSINESS_AREA_NAME = '业务领域'
 const SEGMENT_MARKET_NAME = '细分市场'
 const TECHNOLOGY_PRODUCT_NAME = '技术产品'
 const ADVANTAGES_NAME = '单位优势'
-var USER_NAME = ''
-
 
 function convertIdToName(parentId) {
     var name = ""
@@ -95,4 +93,12 @@ function convertIdToName(parentId) {
       name = ""
     }
     return name
+}
+
+function isEmpty(str) {
+  if(typeof str == "undefined" || str == null || str == ""){
+      return true;
+  }else{
+      return false;
+  }
 }
