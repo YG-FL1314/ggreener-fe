@@ -1,8 +1,11 @@
 /*全局变量*/
 var COMPANY_ID = ''
 
-
 $.messager.defaults.ok = "确认"
+
+//检查session是否过期
+isLogin()
+
 function getTags(parentId) {
     var result;
     $.ajax({
@@ -71,6 +74,7 @@ function dateParser(s){
         return new Date();
     }
 }
+
 function dateFormatter(date){
     var y = date.getFullYear();
     var m = date.getMonth()+1;
@@ -81,9 +85,6 @@ function dateFormatter(date){
 function cancel() {
     window.location.href = './ggreen.html'
 }
-
-//检查session是否过期
-isLogin()
 
 function addCompany() {
     var tags = []
@@ -252,18 +253,75 @@ function addContact() {
                 if (data.status == 2) {
                     window.location.href = data.message
                 } else if (data.status == 0){
-                    $.messager.alert('公司','添加会员信息成功!','info');
-                    $('#tt').tabs('select', '需求信息');
+                    $.messager.alert('公司','添加联系人成功!','info');
+                    $('#addContact').window('close')
+                    $('#contact').datagrid({'data': listContacts(COMPANY_ID)})
                 } else {
                     $.messager.alert('公司',data.message,'error');
                 }
                 
             },
             error: function(){
-                $.messager.alert('公司','添加会员信息失败!','error');
+                $.messager.alert('公司','添加联系人失败!','error');
             }
         });
     }
+}
+
+function listContacts(companyId) {
+    var result = []
+    if (COMPANY_ID == '') {
+        $.messager.alert('公司','请先添加公司！','info');
+    } else {
+        $.ajax({
+            type:'get',
+            url: "/contact/list?companyId=" + companyId,
+            xhrFields:{
+                withCredentials:true
+            }, 
+            crossDomain: true,
+            credentials: 'include',  
+            async: false, //同步调用
+            contentType: 'application/json;charset=UTF-8',
+            success: function(data){
+                if (data.status == 2) {
+                    window.location.href = data.message
+                } else if (data.status == 0){
+                    var items = []
+                    $.each(data.obj,function(idx,item){ 
+                        var phone1 = ""
+                        var phone2 = ""
+                        var telephones = item.telephone.split(",")
+                        if (telephones.length == 2) {
+                            phone1 = telephones[0];phone2 = telephones[1];
+                        } else if (telephones.length == 1) {
+                            phone1 = telephones[0]
+                        }
+                        items[idx] = {
+                            id: item.id,
+                            contactName: item.name,
+                            duty: item.duty,
+                            phone1: phone1,
+                            phone2: phone2,
+                            telephone: item.phone,
+                            mail: item.mail,
+                            weixin: item.weixin,
+                            qq: item.qq,
+                            remark: item.remark
+                        }
+                    })
+                    result = items
+                } else {
+                    $.messager.alert('公司',data.message,'error');
+                }
+                
+            },
+            error: function(){
+                $.messager.alert('公司','获取联系人失败!','error');
+            }
+        });
+    }
+    return result
 }
 
 /*页面加载*/ 
@@ -374,12 +432,11 @@ window.onload = function () {
         limitToList: false,
         data: getTags(MEMBER_FLAG)
     });
-    $('#contactDuty').combobox({
+    $('#contactDutyInput').combobox({
         valueField: 'id', 
         textField: 'name',
         panelHeight:'auto', 
         limitToList: false,
-        data: getTags(MEMBER_FLAG)
+        data: getTags(DUTY_FLAG)
     });
-    
 }

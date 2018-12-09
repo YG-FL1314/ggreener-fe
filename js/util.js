@@ -15,6 +15,7 @@ const BUSINESS_AREA_FLAG = 13
 const SEGMENT_MARKET_FLAG = 14
 const TECHNOLOGY_PRODUCT_FLAG = 15
 const ADVANTAGES_FLAG = 16
+const DUTY_FLAG = 144
 
 const PARENT_NAME = '一级标签'
 const MEMBER_NAME = '会员等级'
@@ -33,6 +34,7 @@ const BUSINESS_AREA_NAME = '业务领域'
 const SEGMENT_MARKET_NAME = '细分市场'
 const TECHNOLOGY_PRODUCT_NAME = '技术产品'
 const ADVANTAGES_NAME = '单位优势'
+const DUTY_NAME = '职务'
 
 function convertIdToName(parentId) {
     var name = ""
@@ -88,6 +90,9 @@ function convertIdToName(parentId) {
       break;
     case 16:
       name = ADVANTAGES_NAME
+      break;
+    case 144:
+      name = DUTY_NAME
       break;
     default:
       name = ""

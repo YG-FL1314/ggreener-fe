@@ -374,9 +374,9 @@ function getListUsers() {
             var items = []
             $.each(data.obj,function(idx,item){ 
                 items[idx] = {
-                    id: item.uuid,
+                    id: item.id,
                     name: item.name,
-                    status: item.status
+                    status: item.status                
                 }
             })
             result = items
@@ -623,7 +623,7 @@ window.onload = function () {
     $('#companys').datagrid({
         'data': searchCompanies(),
         onDblClickRow: function(rowIndex, rowData) {  
-            window.location.href = "./detail.html?companyId=" + rowData.id  
+            window.location.href = "./update.html?companyId=" + rowData.id  
         }
     }) 
 }
