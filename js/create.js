@@ -4,7 +4,7 @@ var COMPANY_ID = ''
 $.messager.defaults.ok = "确认"
 
 //检查session是否过期
-//isLogin()
+isLogin()
 
 function getTags(parentId) {
     var result;
@@ -367,7 +367,7 @@ window.onload = function () {
         panelHeight:'auto', 
         limitToList: false,
         multiple: true,
-        data: getTags(HIGH_TECHNOLOGY_FLAG)，
+        data: getTags(HIGH_TECHNOLOGY_FLAG),
         formatter: function (row) {
             var opts = $(this).combobox('options');
             return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
