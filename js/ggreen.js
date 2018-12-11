@@ -478,7 +478,8 @@ function searchCompanies() {
 }
 
 function createCompany() {
-    window.location.href = "./create.html"
+    //window.location.href = "./create.html"
+    window.open("./create.html")
 }
 
 /*页面加载*/ 
@@ -720,7 +721,8 @@ window.onload = function () {
     $('#companys').datagrid({
         'data': searchCompanies(),
         onDblClickRow: function(rowIndex, rowData) {  
-            window.location.href = "./update.html?companyId=" + rowData.id  
+            //window.location.href = "./update.html?companyId=" + rowData.id  
+            window.open("./update.html?companyId=" + rowData.id)
         }
     }) 
 }
