@@ -4,7 +4,7 @@ var COMPANY_ID = ''
 $.messager.defaults.ok = "确认"
 
 //检查session是否过期
-isLogin()
+//isLogin()
 
 function getTags(parentId) {
     var result;
@@ -96,7 +96,7 @@ function addCompany() {
     var createTime = $('#createTime').datebox('getValue').trim()
     var register = $('#register').textbox('getValue').trim()
     var equity = $('#equity').combobox('getValue').trim()
-    var highTech = $('#highTech').combobox('getValue').trim()
+    var highTech = $('#highTech').combobox('getValues').trim()
     var companyMarket = $('#companyMarket').combobox('getValue').trim()
     var sharesCode = $('#sharesCode').textbox('getValue').trim()
     var companyTypes = $('#companyTypes').combobox('getValue').trim()
@@ -366,7 +366,22 @@ window.onload = function () {
         textField: 'name',
         panelHeight:'auto', 
         limitToList: false,
-        data: getTags(HIGH_TECHNOLOGY_FLAG)
+        multiple: true,
+        data: getTags(HIGH_TECHNOLOGY_FLAG)，
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
     });
     $('#companyMarket').combobox({
         valueField: 'id', 
@@ -387,28 +402,92 @@ window.onload = function () {
         textField: 'name',
         panelHeight:'auto', 
         limitToList: false,
-        data: getTags(INDUSTRIES_FLAG)
+        multiple: true,
+        data: getTags(INDUSTRIES_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
     });
     $('#business').combobox({
         valueField: 'id', 
         textField: 'name',
         panelHeight:'auto', 
         limitToList: false,
-        data: getTags(BUSINESS_FLAG)
+        multiple: true,
+        data: getTags(BUSINESS_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
     });
     $('#businessArea').combobox({
         valueField: 'id', 
         textField: 'name',
         panelHeight:'auto', 
         limitToList: false,
-        data: getTags(BUSINESS_AREA_FLAG)
+        multiple: true,
+        data: getTags(BUSINESS_AREA_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
     });
     $('#segmentMarket').combobox({
         valueField: 'id', 
         textField: 'name',
         //panelHeight:'auto', 
         limitToList: false,
-        data: getTags(SEGMENT_MARKET_FLAG)
+        multiple: true,
+        data: getTags(SEGMENT_MARKET_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
     });
 
     $('#techProduct').combobox({
@@ -423,7 +502,23 @@ window.onload = function () {
         textField: 'name',
         panelHeight:'auto', 
         limitToList: false,
-        data: getTags(ADVANTAGES_FLAG)
+        multiple: true,
+        data: getTags(ADVANTAGES_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
     });
     $('#member').combobox({
         valueField: 'id', 

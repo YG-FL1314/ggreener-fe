@@ -417,13 +417,13 @@ function searchCompanies() {
     if (!isEmpty(unitProperties)) tags.push(unitProperties) 
     if (!isEmpty(equity)) tags.push(equity) 
     if (!isEmpty(companyType)) tags.push(companyType) 
-    if (!isEmpty(industry)) tags.push(industry) 
+    if (!isEmpty(industry)) tags = tags.concat(industry) 
     if (!isEmpty(companyMarker)) tags.push(companyMarker) 
-    if (!isEmpty(business)) tags.push(business) 
-    if (!isEmpty(highTech)) tags.push(highTech) 
-    if (!isEmpty(businessArea)) tags.push(businessArea) 
-    if (!isEmpty(segmentMarket)) tags.push(segmentMarket) 
-    if (!isEmpty(advantages)) tags.push(advantages)   
+    if (!isEmpty(business)) tags = tags.concat(business) 
+    if (!isEmpty(highTech)) tags = tags.concat(highTech) 
+    if (!isEmpty(businessArea)) tags = tags.concat(businessArea) 
+    if (!isEmpty(segmentMarket)) tags = tags.concat(segmentMarket) 
+    if (!isEmpty(advantages)) tags = tags.concat(advantages)   
     var opts = $('#companys').datagrid('options');
     var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
     var end = start + parseInt(opts.pageSize);  
@@ -550,7 +550,23 @@ window.onload = function () {
         textField: 'name',
         panelHeight:'auto', 
         limitToList: false,
-        data: getTags(INDUSTRIES_FLAG)
+        multiple: true,
+        data: getTags(INDUSTRIES_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
     });
     //上市公司
     $('#companyMarker').combobox({
@@ -566,7 +582,23 @@ window.onload = function () {
         textField: 'name',
         panelHeight:'auto', 
         limitToList: false,
-        data: getTags(BUSINESS_FLAG)
+        multiple: true,
+        data: getTags(BUSINESS_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
     });
     //高薪技术
     $('#highTech').combobox({
@@ -574,23 +606,71 @@ window.onload = function () {
         textField: 'name',
         panelHeight:'auto', 
         limitToList: false,
-        data: getTags(HIGH_TECHNOLOGY_FLAG)
+        multiple: true,
+        data: getTags(HIGH_TECHNOLOGY_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
     });
     //业务领域
     $('#businessArea').combobox({
         valueField: 'id', 
         textField: 'name',
         panelHeight:'auto', 
+        multiple: true,
         limitToList: false,
-        data: getTags(BUSINESS_AREA_FLAG)
+        data: getTags(BUSINESS_AREA_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
     });
     //细分市场
     $('#segmentMarket').combobox({
         valueField: 'id', 
         textField: 'name',
         //panelHeight:'auto', 
+        multiple: true,
         limitToList: false,
-        data: getTags(SEGMENT_MARKET_FLAG)
+        data: getTags(SEGMENT_MARKET_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
     });
     //单位优势
     $('#advantages').combobox({
@@ -598,7 +678,23 @@ window.onload = function () {
         textField: 'name',
         panelHeight:'auto', 
         limitToList: false,
-        data: getTags(ADVANTAGES_FLAG)
+        multiple: true,
+        data: getTags(ADVANTAGES_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
     });
     $('#tagParents').combobox({
         valueField: 'id', 
