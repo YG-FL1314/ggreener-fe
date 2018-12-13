@@ -7,8 +7,8 @@
 	<link rel="stylesheet" type="text/css" href="./jquery-easyui/themes/icon.css">
 	<script type="text/javascript" src="./jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="./jquery-easyui/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="./js/update.js"></script>
 	<script type="text/javascript" src="./js/util.js"></script>
+	<script type="text/javascript" src="./js/update.js"></script>
 	<style> 
 		html,body{height:100%} 
 	</style> 
@@ -85,8 +85,8 @@
 						<input id="companyAddress" class="easyui-textbox" label="单位地址：" labelPosition="before" style="width:19%;">
 					</div>
 					<div style="margin-top:20px;text-align:center">
-						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="addCompany()" style="width:15%;">新增</a>
-            			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onClick="cancel()" style="width:15%;margin-left:20px;">取消</a>
+						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="updateCompany()" style="width:15%;">更新</a>
+            			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onClick="cancel()" style="width:15%;margin-left:20px;">返回</a>
 					</div>
 		        </div>
 		        <div title="会员信息" style="padding:10px">
@@ -99,8 +99,8 @@
                         <input id="validityTime" class="easyui-datebox" label="有效期至：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:19%;">
 					</div>
 					<div style="margin-top:20px;text-align:center"> 
-						<a href="#" class="easyui-linkbutton" onclick="addMember()" data-options="iconCls:'icon-add'" style="width:15%;">新增</a>
-            			<a href="#" class="easyui-linkbutton" onclick="cancel()" data-options="iconCls:'icon-cancel'" style="width:15%;margin-left:20px;">取消</a>
+						<a href="#" class="easyui-linkbutton" onclick="updateMember()" data-options="iconCls:'icon-add'" style="width:15%;">更新</a>
+            			<a href="#" class="easyui-linkbutton" onclick="cancel()" data-options="iconCls:'icon-cancel'" style="width:15%;margin-left:20px;">返回</a>
 					</div>
 		        </div>
 		        <div title="需求信息" style="padding:10px">
@@ -157,7 +157,7 @@
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="addContact()">新增</a>
-		                	 <a href="#" class="easyui-linkbutton" onclick="$('#addContact').window('close')" style="text-align:center;width:20%;margin-left:20px;">取消</a>
+		                	 <a href="#" class="easyui-linkbutton" onclick="$('#addContact').window('close')" style="text-align:center;width:20%;margin-left:20px;">返回</a>
 		                </div>
 				    </div>
 				    <div id="updateContact" class="easyui-window" title="更新联系人" data-options="closed:true,iconCls:'icon-save'" style="width:450px;height:500px;padding:5px;">

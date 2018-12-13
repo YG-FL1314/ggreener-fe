@@ -37,30 +37,6 @@ function getTags(parentId) {
     return result;
 }
 
-function isLogin() {
-     $.ajax({
-        url: "/user/islogin",
-        dataType: 'json',
-                xhrFields:{
-            withCredentials:true
-        }, 
-        crossDomain: true,
-        credentials: 'include',  
-        async: false,
-        success: function(data){
-            if (data.status == 2) {
-                window.location.href = data.message
-            } else if (data.status == 1){
-                window.location.href="./login.html";
-            }
-
-        },
-        error: function(){
-            window.location.href="./login.html";
-        }
-    });
-}
-
 //时间戳的转化
 function dateParser(s){
     if (!s) return new Date();
@@ -96,19 +72,19 @@ function addCompany() {
     var createTime = $('#createTime').datebox('getValue').trim()
     var register = $('#register').textbox('getValue').trim()
     var equity = $('#equity').combobox('getValue').trim()
-    var highTech = $('#highTech').combobox('getValues').trim()
+    var highTech = $('#highTech').combobox('getValues')
     var companyMarket = $('#companyMarket').combobox('getValue').trim()
     var sharesCode = $('#sharesCode').textbox('getValue').trim()
     var companyTypes = $('#companyTypes').combobox('getValue').trim()
-    var industries = $('#industries').combobox('getValue').trim()
-    var business = $('#business').combobox('getValue').trim()
-    var businessArea = $('#businessArea').combobox('getValue').trim()
-    var segmentMarket = $('#segmentMarket').combobox('getValue').trim()
+    var industries = $('#industries').combobox('getValues')
+    var business = $('#business').combobox('getValues')
+    var businessArea = $('#businessArea').combobox('getValues')
+    var segmentMarket = $('#segmentMarket').combobox('getValues')
     var techProduct = $('#techProduct').combobox('getValue').trim()
     var patents = $('#patents').textbox('getValue').trim()
     var utilityPatents = $('#utilityPatents').textbox('getValue').trim()
     var softwares = $('#softwares').textbox('getValue').trim()
-    var advantages = $('#advantages').combobox('getValue').trim()
+    var advantages = $('#advantages').combobox('getValues')
     var staffNumber = $('#staffNumber').textbox('getValue').trim()
     var technicians = $('#technicians').textbox('getValue').trim()
     var officeArea = $('#officeArea').textbox('getValue').trim()
@@ -117,9 +93,19 @@ function addCompany() {
     var fax = $('#companyFax').textbox('getValue').trim()
     var website = $('#companyWebsite').textbox('getValue').trim()
     var address = $('#companyAddress').textbox('getValue').trim()
-    tags.push(attention);tags.push(region);tags.push(zol);tags.push(unitProperties);tags.push(equity);
-    tags.push(highTech);tags.push(companyMarket);tags.push(companyTypes);tags.push(industries);tags.push(business);
-    tags.push(businessArea);tags.push(segmentMarket);tags.push(techProduct);tags.push(advantages);
+    if (!isEmpty(attention)) tags.push(attention)
+    if (!isEmpty(region)) tags.push(region)    
+    if (!isEmpty(zol)) tags.push(zol) 
+    if (!isEmpty(unitProperties)) tags.push(unitProperties) 
+    if (!isEmpty(equity)) tags.push(equity) 
+    if (!isEmpty(companyTypes)) tags.push(companyTypes) 
+    if (!isEmpty(industries)) tags = tags.concat(industries) 
+    if (!isEmpty(companyMarket)) tags.push(companyMarket) 
+    if (!isEmpty(business)) tags = tags.concat(business) 
+    if (!isEmpty(highTech)) tags = tags.concat(highTech) 
+    if (!isEmpty(businessArea)) tags = tags.concat(businessArea) 
+    if (!isEmpty(segmentMarket)) tags = tags.concat(segmentMarket) 
+    if (!isEmpty(advantages)) tags = tags.concat(advantages)   
 
     $.ajax({
         type:'post',

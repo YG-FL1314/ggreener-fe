@@ -1,7 +1,3 @@
-/*全局变量*/
-USER_NAME = 'unkown'
-USER_ROLE = 2
-
 $.messager.defaults.ok = "确认"
 
 //检查session是否过期
@@ -77,30 +73,6 @@ function modifyUser() {
     });
 }
 
-function isLogin() {
-     $.ajax({
-        url: "/user/islogin",
-        dataType: 'json',
-        xhrFields:{
-            withCredentials:true
-        }, 
-        crossDomain: true,
-        credentials: 'include',  
-        async: false,
-        success: function(data){
-            if (data.status == 2) {
-                window.location.href = data.message
-            } else if (data.status == 1){
-                window.location.href="./login.html";
-            } 
-            USER_NAME = data.obj.name
-            USER_ROLE = data.obj.role
-        },
-        error: function(){
-            window.location.href="./login.html";
-        }
-    });
-}
 
 function addTag() {
     var tagName = $('#tagName').textbox('getValue')
@@ -389,11 +361,14 @@ function getListUsers() {
 }
 
 function searchClick() {
-    $('#companys').datagrid({'data': searchCompanies()}) 
+    var opts = $('#companys').datagrid('options');
+    var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
+    var limit = start + parseInt(opts.pageSize); 
+    $('#companys').datagrid('loadData', searchCompanies(start, limit))
 }
 
-function searchCompanies() {
-    var result = []
+function searchCompanies(start, limit) {
+    var result = {}
     var name = $('#name').textbox('getValue').trim()
     var tags = []
     var member = $('#member').combobox('getValue').trim()
@@ -405,7 +380,7 @@ function searchCompanies() {
     var companyType = $('#companyType').combobox('getValue').trim()
 
     var industry = $('#industry').combobox('getValues')
-    var companyMarker = $('#companyMarker').textbox('getValue').trim()
+    var companyMarket = $('#companyMarket').textbox('getValue').trim()
     var business = $('#business').combobox('getValues')
     var highTech = $('#highTech').combobox('getValues')
     var businessArea = $('#businessArea').combobox('getValues')
@@ -419,15 +394,12 @@ function searchCompanies() {
     if (!isEmpty(equity)) tags.push(equity) 
     if (!isEmpty(companyType)) tags.push(companyType) 
     if (!isEmpty(industry)) tags = tags.concat(industry) 
-    if (!isEmpty(companyMarker)) tags.push(companyMarker) 
+    if (!isEmpty(companyMarket)) tags.push(companyMarket) 
     if (!isEmpty(business)) tags = tags.concat(business) 
     if (!isEmpty(highTech)) tags = tags.concat(highTech) 
     if (!isEmpty(businessArea)) tags = tags.concat(businessArea) 
     if (!isEmpty(segmentMarket)) tags = tags.concat(segmentMarket) 
     if (!isEmpty(advantages)) tags = tags.concat(advantages)   
-    var opts = $('#companys').datagrid('options');
-    var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
-    var end = start + parseInt(opts.pageSize);  
     $.ajax({
         url: "/company/list",
         xhrFields:{
@@ -440,7 +412,7 @@ function searchCompanies() {
           "name": name,
           "tags": tags,
           "start": start,
-          "limit": end
+          "limit": limit
         }),
         dataType:'json', 
         contentType: 'application/json;charset=UTF-8',
@@ -448,8 +420,8 @@ function searchCompanies() {
         success: function(data){
             var items = []
             if (data.status == 0) {
-                $.each(data.obj.list,function(idx,item){ 
-                        items[idx] = {
+                $.each(data.obj.list, function(idx,item){ 
+                    items[idx] = {
                         id: item.companyId,    
                         memberCode: item.memberCode,
                         memberName: item.member,
@@ -458,17 +430,21 @@ function searchCompanies() {
                         region: item.region,
                         createTime: item.createTime.substring(0,10),
                         registeredCapital: item.register,
-                        unitType: item.unitProperty,
+                        companyType: item.companyType,
                         industry: item.industry,
                         business: item.business,
                         businessArea: item.businessArea,
                         advantages: item.advantage
                     }
                 })
+                result['rows'] = items
+                result['total'] = data.obj.count
             } else if (data.status == 2) {
                 window.location.href = data.message;
+            } else {
+                result['rows'] = items
+                result['total'] = 0
             }
-            result = items
         },
         error: function(){
             $.messager.alert('企业','查询企业失败!','error');
@@ -481,6 +457,50 @@ function createCompany() {
     //window.location.href = "./create.html"
     window.open("./create.html")
 }
+
+function updateCompany() {
+    var row = $('#companys').datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('企业','请先选择一个企业!','info'); 
+    } else {
+        window.open("./update.html?companyId=" + row.id) 
+    }
+}
+
+function deleteCompany() {
+    var row = $('#companys').datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('企业','请先选择一个企业!','info'); 
+    } else { 
+        $.ajax({
+            url: "/company/delete?companyId=" + row.id,
+            xhrFields:{
+                withCredentials:true
+            }, 
+            type: 'delete',
+            crossDomain: true,
+            credentials: 'include', 
+            contentType: 'application/json;charset=UTF-8',
+            async: false,
+            success: function(data){
+                if (data.status == 0) {
+                    $.messager.alert('企业','删除企业成功!','info');
+                    var opts = $('#companys').datagrid('options');
+                    var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
+                    var limit = start + parseInt(opts.pageSize); 
+                    $('#companys').datagrid('loadData', searchCompanies(start, limit))
+                } else if (data.status == 2) {
+                    window.location.href = data.message;
+                } else {
+                    $.messager.alert('企业', data.message,'error');
+                }
+            },
+            error: function(){
+                $.messager.alert('企业','删除企业失败!','error');
+            }
+        });
+    }
+} 
 
 /*页面加载*/ 
 window.onload = function () { 
@@ -698,33 +718,47 @@ window.onload = function () {
             el.find('input.combobox-checkbox')._propAttr('checked', false);
         }
     });
-    $('#tagParents').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        //panelHeight:'auto', 
-        limitToList: false,
-        data: getTags(PARENT_FLAG)
-    });
-    $('#parents').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        //panelHeight:'auto', 
-        limitToList: false,
-        data: getTags(PARENT_FLAG),
-        onChange:function(){  
-            $('#tags').datagrid({'data': getTags(($('#parents').combobox('getValue')))});  
-        } 
-    });
-
-    $('#tags').datagrid({'data': getTags()})
-    $('#users').datagrid({'data': getListUsers()})
+    var opts = $('#companys').datagrid('options');
+    var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
+    var limit = start + parseInt(opts.pageSize);  
     $('#companys').datagrid({
-        'data': searchCompanies(),
-        onDblClickRow: function(rowIndex, rowData) {  
-            //window.location.href = "./update.html?companyId=" + rowData.id  
-            window.open("./update.html?companyId=" + rowData.id)
+        'data': searchCompanies(start, limit),
+        'pageList': [10, 20, 50]
+    })
+    $('#companys').datagrid('getPager').pagination({
+        onSelectPage: function(pageNum, pageSize) {
+            $('#companys').datagrid('loadData', searchCompanies((pageNum - 1) * pageSize, pageSize))
         }
-    }) 
+    });
+
+    $('#tt').tabs({
+        onSelect: function(title,index) {
+            if (title == "项目管理") {
+
+            } else if (title == "企业管理") {
+                $('#companys').datagrid({'data': searchCompanies()}) 
+            } else if (title == "用户管理") {
+                $('#users').datagrid({'data': getListUsers()})
+            } else if (title == "标签管理") {
+                $('#tagParents').combobox({
+                    valueField: 'id', 
+                    textField: 'name',
+                    //panelHeight:'auto', 
+                    limitToList: false,
+                    data: getTags(PARENT_FLAG)
+                });
+                $('#parents').combobox({
+                    valueField: 'id', 
+                    textField: 'name',
+                    //panelHeight:'auto', 
+                    limitToList: false,
+                    data: getTags(PARENT_FLAG),
+                    onChange:function(){  
+                        $('#tags').datagrid({'data': getTags(($('#parents').combobox('getValue')))});  
+                    } 
+                });
+                $('#tags').datagrid({'data': getTags()})
+            }
+        }
+    });
 }
-
-

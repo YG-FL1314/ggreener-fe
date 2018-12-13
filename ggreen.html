@@ -7,8 +7,8 @@
 	<link rel="stylesheet" type="text/css" href="./jquery-easyui/themes/icon.css">
 	<script type="text/javascript" src="./jquery-easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="./jquery-easyui/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="./js/ggreen.js"></script>
 	<script type="text/javascript" src="./js/util.js"></script>
+	<script type="text/javascript" src="./js/ggreen.js"></script>
 	<style> 
 		html,body{height:100%} 
 	</style> 
@@ -58,7 +58,7 @@
 						</select>
 						<select id="industry" class="easyui-combobox" label="所属行业：" labelPosition="left" style="width:19%;">
 						</select>
-						<select id="companyMarker" class="easyui-combobox" label="上市公司：" labelPosition="left" style="width:19%;">
+						<select id="companyMarket" class="easyui-combobox" label="上市公司：" labelPosition="left" style="width:19%;">
 						</select>
 						<select id="business" class="easyui-combobox" label="主营业务：" labelPosition="left" style="width:19%;">
 						</select>
@@ -74,24 +74,29 @@
 						</select>
 					</div>
 					<div style="margin-top:20px">
-			            <table id="companys" class="easyui-datagrid" style="width:100%;height:260px" data-options="rownumbers:true,singleSelect:true,pagination:true">
+			            <table id="companys" class="easyui-datagrid" style="width:100%;height:300px" data-options="rownumbers:true,singleSelect:true,pagination:true,toolbar:'#operationCompany'">
         					<thead>
 					            <tr>
-					                <th field="memberCode" align="center" width="8%">会员编号</th>
-					                <th field="memberName" align="center" width="8%">会员等级</th>
-					                <th field="attention" align="center" width="8%">关注等级</th>
-					                <th field="name" align="center" width="8%">单位名称</th>
-					                <th field="region" align="center" width="8%">所在地区</th>
-					                <th field="createTime" align="center" width="8%">成立时间</th>
-					                <th field="registeredCapital" align="center" width="8%">注册资金</th>
-					                <th field="unitType" align="center" width="8%">单位类型</th>
-					                <th field="industry" align="center" width="8%">所属行业</th>
-					                <th field="business" align="center" width="8%">主营业务</th>
-					                <th field="businessArea" align="center" width="8%">业务领域</th>
-					                <th field="advantages" align="center" width="8%">单位优势</th>
+					                <th field="memberCode" align="center" width="8%" data-options="formatter:formatCellTooltip">会员编号</th>
+					                <th field="memberName" align="center" width="8%" data-options="formatter:formatCellTooltip">会员等级</th>
+					                <th field="attention" align="center" width="6%" data-options="formatter:formatCellTooltip">关注等级</th>
+					                <th field="name" align="center" width="12%" data-options="formatter:formatCellTooltip">单位名称</th>
+					                <th field="region" align="center" width="6%" data-options="formatter:formatCellTooltip">所在地区</th>
+					                <th field="createTime" align="center" width="8%" data-options="formatter:formatCellTooltip">成立时间</th>
+					                <th field="registeredCapital" align="center" width="8%" data-options="formatter:formatCellTooltip">注册资金</th>
+					                <th field="companyType" align="center" width="8%" data-options="formatter:formatCellTooltip">单位类型</th>
+					                <th field="industry" align="center" width="8%" data-options="formatter:formatCellTooltip">所属行业</th>
+					                <th field="business" align="center" width="8%" data-options="formatter:formatCellTooltip">主营业务</th>
+					                <th field="businessArea" align="center" width="8%" data-options="formatter:formatCellTooltip">业务领域</th>
+					                <th field="advantages" align="center" width="8%" data-options="formatter:formatCellTooltip">单位优势</th>
 					            </tr>
 					        </thead>
 					    </table>
+					    <div id="operationCompany" style="padding:2px 5px;">
+					        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="createCompany()" plain="true"></a>
+					        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="updateCompany()"></a>
+					        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteCompany()"></a>
+					    </div>
 			        </div>
 		        </div>
 		        <div title="项目管理" style="padding:20px">
@@ -116,7 +121,7 @@
 				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteUserByAdmin()"></a>
 				    </div>
 		        </div>
-		        <div id="userManagers" title="用户管理" style="padding:20px">
+		        <div title="用户管理" style="padding:20px">
 		            <table id="users" style="width:80%;height:80%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationUser'">
 				        <thead>
 				            <tr>

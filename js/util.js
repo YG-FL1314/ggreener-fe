@@ -1,3 +1,7 @@
+/*全局变量*/
+USER_NAME = 'unkown'
+USER_ROLE = 2
+
 const PARENT_FLAG = 0
 const MEMBER_FLAG = 1
 const UNIT_PROPERTIES_FLAG = 2
@@ -107,3 +111,34 @@ function isEmpty(str) {
       return false;
   }
 }
+
+function isLogin() {
+     $.ajax({
+        url: "/user/islogin",
+        dataType: 'json',
+        xhrFields:{
+            withCredentials:true
+        }, 
+        crossDomain: true,
+        credentials: 'include',  
+        async: false,
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } else if (data.status == 1){
+                window.location.href="./login.html";
+            }
+            USER_NAME = data.obj.name
+            USER_ROLE = data.obj.role
+
+        },
+        error: function(){
+            window.location.href="./login.html";
+        }
+    });
+}
+
+
+function formatCellTooltip(value){  
+    return "<span title='" + value + "'>" + value + "</span>";  
+} 
