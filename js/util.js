@@ -144,7 +144,7 @@ function isLogin() {
 }
 
 
-function formatCellTooltip(value){  
+function formatCellTooltip(value) {  
     return "<span title='" + value + "'>" + value + "</span>";  
 } 
 
