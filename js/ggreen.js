@@ -702,7 +702,10 @@ window.onload = function () {
             if (title == "项目管理") {
 
             } else if (title == "企业管理") {
-                $('#companys').datagrid({'data': searchCompanies()}) 
+                var opts = $('#companys').datagrid('options');
+                var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
+                var limit = start + parseInt(opts.pageSize); 
+                $('#companys').datagrid({'data': searchCompanies(start, limit)}) 
             } else if (title == "用户管理") {
                 $('#users').datagrid({'data': getListUsers()})
             } else if (title == "标签管理") {
