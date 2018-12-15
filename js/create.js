@@ -37,27 +37,6 @@ function getTags(parentId) {
     return result;
 }
 
-//时间戳的转化
-function dateParser(s){
-    if (!s) return new Date();
-    var ss = (s.split('-'));
-    var y = parseInt(ss[0],10);
-    var m = parseInt(ss[1],10);
-    var d = parseInt(ss[2],10);
-    if (!isNaN(y) && !isNaN(m) && !isNaN(d)){
-        return new Date(y,m-1,d);
-    } else {
-        return new Date();
-    }
-}
-
-function dateFormatter(date){
-    var y = date.getFullYear();
-    var m = date.getMonth()+1;
-    var d = date.getDate();
-    return y+'-'+(m<10?('0'+m):m)+'-'+(d<10?('0'+d):d);
-}
-
 function cancel() {
     window.location.href = './ggreen.html'
 }
@@ -309,6 +288,251 @@ function listContacts(companyId) {
     }
     return result
 }
+
+function addChatClick() {
+    if (COMPANY_ID == '') {
+        $.messager.alert('企业','请先添加企业！','info');
+    } else {
+        $('#addChat').window('open')
+    }
+}
+
+function addChat() {
+    var chatTime = $('#chatTime').datetimebox('getValue').trim()
+    var chatType = $('#chatType').combobox('getValue').trim()
+    var chatAddress = $('#chatAddress').textbox('getValue').trim()
+    var chatOthers = $('#chatOthers').combobox('getText')
+    var chatOwners = $('#chatOwners').combobox('getText')
+    var chatContent = $('#chatContent').textbox('getValue')
+    $.ajax({
+        type:'post',
+        url: "/chat/add",
+        xhrFields:{
+            withCredentials:true
+        }, 
+        crossDomain: true,
+        credentials: 'include',  
+        async: false, //同步调用
+        data: JSON.stringify({
+            "companyId": COMPANY_ID,
+            "chatTime": chatTime,
+            "chatType": chatType,
+            "chatAddress": chatAddress,
+            "customers": chatOthers,
+            "owners": chatOwners,
+            "content": chatContent
+        }),
+        dataType:'json', 
+        contentType: 'application/json;charset=UTF-8',
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } else if (data.status == 0){
+                $.messager.alert('企业','添加互动信息成功!','info');
+                $('#addChat').window('close')
+                $('#chat').datagrid({'data': listChats(COMPANY_ID)})
+            } else {
+                $.messager.alert('企业',data.message,'error');
+            }
+            
+        },
+        error: function(){
+            $.messager.alert('企业','添加联系人失败!','error');
+        }
+    });
+}
+
+function updateChatClick() {
+    var row = $('#chat').datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('互动信息','请先选择一条互动信息!','info'); 
+    } else {
+        $('#chatTypeUpdate').combobox({
+            valueField: 'id', 
+            textField: 'name',
+            panelHeight:'auto', 
+            limitToList: true,
+            data: getTags(CHAT_TYPE_FLAG)
+        });
+
+        $('#chatOwnersUpdate').combobox({
+            valueField: 'id', 
+            textField: 'name',
+            panelHeight:'auto', 
+            limitToList: true,
+            multiple: true,
+            data: getListUsers(),
+            formatter: function (row) {
+                var opts = $(this).combobox('options');
+                return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+            },
+            onSelect: function (row) {
+                //console.log(row);
+                var opts = $(this).combobox('options');
+                var el = opts.finder.getEl(this, row[opts.valueField]);
+                el.find('input.combobox-checkbox')._propAttr('checked', true);
+            },
+            onUnselect: function (row) {
+                var opts = $(this).combobox('options');
+                var el = opts.finder.getEl(this, row[opts.valueField]);
+                el.find('input.combobox-checkbox')._propAttr('checked', false);
+            }
+        });
+
+        $('#chatOthersUpdate').combobox({
+            valueField: 'id', 
+            textField: 'contactName',
+            panelHeight:'auto', 
+            limitToList: true,
+            multiple: true,
+            data: listContacts(COMPANY_ID),
+            formatter: function (row) {
+                var opts = $(this).combobox('options');
+                return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+            },
+            onSelect: function (row) {
+                //console.log(row);
+                var opts = $(this).combobox('options');
+                var el = opts.finder.getEl(this, row[opts.valueField]);
+                el.find('input.combobox-checkbox')._propAttr('checked', true);
+            },
+            onUnselect: function (row) {
+                var opts = $(this).combobox('options');
+                var el = opts.finder.getEl(this, row[opts.valueField]);
+                el.find('input.combobox-checkbox')._propAttr('checked', false);
+            }
+        });
+        $('#chatId').textbox('setValue', row.id)
+        $('#chatTimeUpdate').datetimebox('setValue', row.chatTime)
+        $('#chatTypeUpdate').combobox('setText', row.chatType)
+        $('#chatAddressUpdate').textbox('setValue', row.chatAddress)
+        $('#chatOthersUpdate').combobox('setText', row.others)
+        $('#chatOwnersUpdate').combobox('setText', row.owners)
+        $('#chatContentUpdate').textbox('setValue', row.content)
+        $('#updateChat').window('open') 
+    }
+}
+
+function updateChat() {
+    var chatId = $('#chatId').textbox('getValue')
+    var chatTime = $('#chatTimeUpdate').datetimebox('getValue').trim()
+    var chatType = $('#chatTypeUpdate').combobox('getValue').trim()
+    var chatAddress = $('#chatAddressUpdate').textbox('getValue').trim()
+    var chatOthers = $('#chatOthersUpdate').combobox('getText').trim()
+    var chatOwners = $('#chatOwnersUpdate').combobox('getText').trim()
+    var chatContent = $('#chatContentUpdate').textbox('getValue').trim()
+    $.ajax({
+        type:'put',
+        url: "/chat/update",
+        xhrFields:{
+            withCredentials:true
+        }, 
+        crossDomain: true,
+        credentials: 'include',  
+        async: false, //同步调用
+        data: JSON.stringify({
+            "id": chatId,
+            "chatTime": chatTime,
+            "chatType": chatType,
+            "chatAddress": chatAddress,
+            "customers": chatOthers,
+            "owners": chatOwners,
+            "content": chatContent
+        }),
+        dataType:'json', 
+        contentType: 'application/json;charset=UTF-8',
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } else if (data.status == 0){
+                $.messager.alert('企业','更新互动信息成功!','info');
+                $('#updateChat').window('close')
+                $('#chat').datagrid({'data': listChats(COMPANY_ID)})
+            } else {
+                $.messager.alert('企业',data.message,'error');
+            }
+            
+        },
+        error: function(){
+            $.messager.alert('企业','更新互动信息失败!','error');
+        }
+    });
+}
+
+function deleteChat() {
+    var row = $('#chat').datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('互动信息','请先选择一条互动信息!','info'); 
+    } else {
+        $.ajax({
+        type:'delete',
+        url: "/chat/delete?id="+row.id,
+        xhrFields:{
+            withCredentials:true
+        }, 
+        crossDomain: true,
+        credentials: 'include',  
+        async: false, //同步调用
+        contentType: 'application/json;charset=UTF-8',
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } else if (data.status == 0){
+                $.messager.alert('企业','删除互动信息成功!','info');
+                $('#chat').datagrid({'data': listChats(COMPANY_ID)})
+            } else {
+                $.messager.alert('企业',data.message,'error');
+            }
+        },
+        error: function(){
+            $.messager.alert('企业','删除互动信息失败!','error');
+        }
+    });
+    }
+}
+
+function listChats(companyId) {
+    var result = []
+    $.ajax({
+        type:'get',
+        url: "/chat/list?companyId=" + companyId,
+        xhrFields:{
+            withCredentials:true
+        }, 
+        crossDomain: true,
+        credentials: 'include',  
+        async: false, //同步调用
+        contentType: 'application/json;charset=UTF-8',
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } else if (data.status == 0){
+                var items = []
+                $.each(data.obj,function(idx,item){ 
+                    items[idx] = {
+                        id: item.id,
+                        companyId: item.companyId,
+                        chatTime: item.chatTime,
+                        chatType: item.chatType,
+                        chatAddress: item.chatAddress,
+                        others: item.customers,
+                        owners: item.owners,
+                        content: item.content
+                    }
+                })
+                result = items
+            } else {
+                $.messager.alert('企业',data.message,'error');
+            }
+            
+        },
+        error: function(){
+            $.messager.alert('企业','获取互动信息失败!','error');
+        }
+    });
+    return result
+}
+
 
 /*页面加载*/ 
 window.onload = function () { 

@@ -73,7 +73,6 @@ function modifyUser() {
     });
 }
 
-
 function addTag() {
     var tagName = $('#tagName').textbox('getValue')
     var tagParentId = $('#tagParents').combobox('getValue')
@@ -325,39 +324,6 @@ function hideUserTabs() {
 function showUserTabs() {
     $('#tt').tabs('getTab',"用户管理").panel('options').tab.show();
     $('#tt').tabs('getTab',"标签管理").panel('options').tab.show(); 
-}
-
-function getListUsers() {
-    var result
-    $.ajax({
-        url: "/user/list",
-        xhrFields:{
-            withCredentials:true
-        }, 
-        type: 'get',
-        crossDomain: true,
-        credentials: 'include', 
-        contentType: 'application/json;charset=UTF-8',
-        async: false,
-        success: function(data){
-            if (data.status == 2) {
-                window.location.href = data.message
-            } 
-            var items = []
-            $.each(data.obj,function(idx,item){ 
-                items[idx] = {
-                    id: item.id,
-                    name: item.name,
-                    status: item.status                
-                }
-            })
-            result = items
-        },
-        error: function(){
-            window.location.href="./login.html";
-        }
-    });
-    return result
 }
 
 function searchClick() {

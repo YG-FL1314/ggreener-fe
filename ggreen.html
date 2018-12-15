@@ -15,7 +15,7 @@
 </head>
 <body>
 	<div id="top" style="text-align:right;margin-bottom:5px">
-		<a id="user" href="#" class="easyui-linkbutton" onclick="$('#modifyUser').window('open')" data-options="plain:true" style="text-align:center;width:5%;height:25px;"></a>
+		<a id="user" href="#" class="easyui-linkbutton" onclick="$('#modifyUser').window('open')" data-options="plain:true" style="text-align:center;width:8%;height:25px;"></a>
 		<a href="#" class="easyui-linkbutton" onclick="logout()" data-options="plain:true" style="text-align:center;width:5%;height:25px;">退出</a>
 		<div id="modifyUser" class="easyui-window" title="修改密码" data-options="closed:true,iconCls:'icon-save'" style="width:300px;height:200px;padding:5px;">
         	<div style="text-align:center;margin-top:10px;">
@@ -185,13 +185,13 @@
 				    </div>
 			        <div id="addTags" class="easyui-window" title="新增标签" data-options="closed:true,iconCls:'icon-save'" style="width:420px;height:300px;padding:5px;">
 			        	<div style="text-align:center;margin-top:20px;">
-			        		<input id="tagName" class="easyui-textbox" label="标签名称：" labelPosition="before" style="width:70%;">
+			        		<input id="tagName" class="easyui-textbox" label="标签名称：" labelPosition="before" style="width:300px">
 			        	</div>
 		                <div style="text-align:center;margin-top:20px;">
-		                	<input id="tagParents" class="easyui-combobox" label="父标签：" labelPosition="before"  style="width:70%;">
+		                	<input id="tagParents" class="easyui-combobox" label="父标签：" labelPosition="before"  style="width:300px">
 		                </div>
 		                <div style="text-align:center;margin-top:20px;">
-		                	<input id="tagOrder" class="easyui-textbox" label="标签顺序：" labelPosition="before"  style="width:70%;">
+		                	<input id="tagOrder" class="easyui-textbox" label="标签顺序：" labelPosition="before"  style="width:300px">
 		                </div>
 		                <div style="text-align:center;margin-top:20px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="addTag()">新增</a>
@@ -200,16 +200,16 @@
 				    </div>
 				    <div id="updateTags" class="easyui-window" title="修改标签" data-options="closed:true,iconCls:'icon-save'" style="width:420px;height:320px;padding:5px;">
 				    	<div style="text-align:center;margin-top:20px;">
-			        		<input id="tagIdUpdate" class="easyui-textbox" label="标签ID：" labelPosition="before" disabled="true" style="width:70%;">
+			        		<input id="tagIdUpdate" class="easyui-textbox" label="标签ID：" labelPosition="before" disabled="true" style="width:300px">
 			        	</div>
 				     	<div style="text-align:center;margin-top:20px;">
-			        		<input id="tagNameUpdate" class="easyui-textbox" label="标签名称：" labelPosition="before" style="width:70%;">
+			        		<input id="tagNameUpdate" class="easyui-textbox" label="标签名称：" labelPosition="before" style="width:300px">
 			        	</div>
 		                <div style="text-align:center;margin-top:20px;">
-		                	<input id="tagParentsUpdate" class="easyui-combobox" label="父标签：" labelPosition="before"  style="width:70%;">
+		                	<input id="tagParentsUpdate" class="easyui-combobox" label="父标签：" labelPosition="before"  style="width:300px">
 		                </div>
 		                <div style="text-align:center;margin-top:20px;">
-		                	<input id="tagOrderUpdate" class="easyui-textbox" label="标签顺序：" labelPosition="before"  style="width:70%;">
+		                	<input id="tagOrderUpdate" class="easyui-textbox" label="标签顺序：" labelPosition="before"  style="width:300px">
 		                </div>
 		                <div style="text-align:center;margin-top:20px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="updateTagByAdmin()">修改</a>
