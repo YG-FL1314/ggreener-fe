@@ -468,15 +468,8 @@ function deleteCompany() {
     }
 } 
 
-/*页面加载*/ 
-window.onload = function () { 
-    $('#user').linkbutton({text: USER_NAME});
-    if (USER_ROLE == 1) {
-        showUserTabs()
-    } else {
-        hideUserTabs()
-    }
-    //会员级别
+$(function() {
+        //会员级别
     $('#member').combobox({
         valueField: 'id', 
         textField: 'name',
@@ -695,11 +688,21 @@ window.onload = function () {
         }
     })
     $('#companys').datagrid('getPager').pagination({
+        'displayMsg': '共计{total}家企业',
         onSelectPage: function(pageNum, pageSize) {
             $('#companys').datagrid('loadData', searchCompanies((pageNum - 1) * pageSize, pageSize))
         }
     });
+})
 
+/*页面加载*/ 
+window.onload = function () { 
+    $('#user').linkbutton({text: USER_NAME});
+    if (USER_ROLE == 1) {
+        showUserTabs()
+    } else {
+        hideUserTabs()
+    }
     $('#tt').tabs({
         onSelect: function(title,index) {
             if (title == "项目管理") {
