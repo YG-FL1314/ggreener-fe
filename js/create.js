@@ -533,6 +533,189 @@ function listChats(companyId) {
     return result
 }
 
+function addInvoice() {
+    if (COMPANY_ID == '') {
+        $.messager.alert('企业','请先添加企业！','info');
+    } else {
+        var invoiceName = $('#invoiceName').textbox('getValue').trim()
+        var invoiceNumber = $('#invoiceNumber').textbox('getValue').trim()
+        var invoiceAddress = $('#invoiceAddress').textbox('getValue').trim()
+        var invoicePhone = $('#invoicePhone').textbox('getValue').trim()
+        var invoiceBank = $('#invoiceBank').textbox('getValue').trim()
+        var invoiceAccount = $('#invoiceAccount').textbox('getValue').trim()
+        $.ajax({
+            type:'post',
+            url: "/invoice/add",
+            xhrFields:{
+                withCredentials:true
+            }, 
+            crossDomain: true,
+            credentials: 'include',  
+            async: false, //同步调用
+            data: JSON.stringify({
+                "companyId": COMPANY_ID,
+                "name": invoiceName,
+                "payNumber": invoiceNumber,
+                "address": invoiceAddress,
+                "telephone": invoicePhone,
+                "bankName": invoiceBank,
+                "accountNumber": invoiceAccount
+            }),
+            dataType:'json', 
+            contentType: 'application/json;charset=UTF-8',
+            success: function(data){
+                if (data.status == 2) {
+                    window.location.href = data.message
+                } else if (data.status == 0){
+                    $.messager.alert('企业','添加开票信息成功!','info');
+                    $('#addInvoice').window('close')
+                    $('#invoice').datagrid({'data': listInvoices(COMPANY_ID)})
+                } else {
+                    $.messager.alert('企业',data.message,'error');
+                }
+                
+            },
+            error: function(){
+                $.messager.alert('企业','添加开票信息失败!','error');
+            }
+        });
+    }
+}
+
+function listInvoices(companyId) {
+    var result = []
+    $.ajax({
+        type:'get',
+        url: "/invoice/list?companyId=" + companyId,
+        xhrFields:{
+            withCredentials:true
+        }, 
+        crossDomain: true,
+        credentials: 'include',  
+        async: false, //同步调用
+        contentType: 'application/json;charset=UTF-8',
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } else if (data.status == 0){
+                var items = []
+                $.each(data.obj,function(idx,item){ 
+                    items[idx] = {
+                        id: item.id,
+                        invoiceName: item.name,
+                        invoiceAddress: item.address,
+                        invoiceNumber: item.payNumber,
+                        invoicePhone: item.telephone,
+                        invoiceBank: item.bankName,
+                        invoiceAccount: item.accountNumber
+                    }
+                })
+                result = items
+            } else {
+                $.messager.alert('企业',data.message,'error');
+            }
+            
+        },
+        error: function(){
+            $.messager.alert('企业','获取开票信息失败!','error');
+        }
+    });
+    return result
+}
+
+function updateInvoiceClick() {
+    var row = $('#invoice').datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('开票信息','请先选择一条开票信息!','info'); 
+    } else {
+        $('#invoiceId').textbox('setValue', row.id)
+        $('#invoiceNameUpdate').textbox('setValue', row.invoiceName)
+        $('#invoiceNumberUpdate').textbox('setValue', row.invoiceNumber)
+        $('#invoiceAddressUpdate').textbox('setValue', row.invoiceAddress)
+        $('#invoicePhoneUpdate').textbox('setValue', row.invoicePhone)
+        $('#invoiceBankUpdate').textbox('setValue', row.invoiceBank)
+        $('#invoiceAccountUpdate').textbox('setValue', row.invoiceAccount)
+        $('#updateInvoice').window('open') 
+    }
+}
+
+function updateInvoice() {
+    var invoiceId = $('#invoiceId').textbox('getValue')
+    var invoiceName = $('#invoiceNameUpdate').textbox('getValue').trim()
+    var invoiceNumber = $('#invoiceNumberUpdate').textbox('getValue').trim()
+    var invoiceAddress = $('#invoiceAddressUpdate').textbox('getValue').trim()
+    var invoicePhone = $('#invoicePhoneUpdate').textbox('getValue').trim()
+    var invoiceBank = $('#invoiceBankUpdate').textbox('getValue').trim()
+    var invoiceAccount = $('#invoiceAccountUpdate').textbox('getValue').trim()
+    $.ajax({
+        type:'put',
+        url: "/invoice/update",
+        xhrFields:{
+            withCredentials:true
+        }, 
+        crossDomain: true,
+        credentials: 'include',  
+        async: false, //同步调用
+        data: JSON.stringify({
+            "id": invoiceId,
+            "name": invoiceName,
+            "payNumber": invoiceNumber,
+            "address": invoiceAddress,
+            "telephone": invoicePhone,
+            "bankName": invoiceBank,
+            "accountNumber": invoiceAccount
+        }),
+        dataType:'json', 
+        contentType: 'application/json;charset=UTF-8',
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } else if (data.status == 0){
+                $.messager.alert('企业','更新互动信息成功!','info');
+                $('#updateInvoice').window('close')
+                $('#invoice').datagrid({'data': listInvoices(COMPANY_ID)})
+            } else {
+                $.messager.alert('企业',data.message,'error');
+            }
+            
+        },
+        error: function(){
+            $.messager.alert('企业','更新互动信息失败!','error');
+        }
+    });
+}
+
+function deleteInvoice() {
+    var row = $('#invoice').datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('开票信息','请先选择一条开票信息!','info'); 
+    } else {
+        $.ajax({
+            type:'delete',
+            url: "/invoice/delete?id="+row.id,
+            xhrFields:{
+                withCredentials:true
+            }, 
+            crossDomain: true,
+            credentials: 'include',  
+            async: false, //同步调用
+            contentType: 'application/json;charset=UTF-8',
+            success: function(data){
+                if (data.status == 2) {
+                    window.location.href = data.message
+                } else if (data.status == 0){
+                    $.messager.alert('企业','删除开票信息成功!','info');
+                    $('#invoice').datagrid({'data': listInvoices(COMPANY_ID)})
+                } else {
+                    $.messager.alert('企业',data.message,'error');
+                }
+            },
+            error: function(){
+                $.messager.alert('企业','删除开票信息失败!','error');
+            }
+        });
+    }
+}
 
 /*页面加载*/ 
 window.onload = function () { 

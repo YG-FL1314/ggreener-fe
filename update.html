@@ -291,18 +291,69 @@
 				        <thead>
 				            <tr>
 				            	<th field="invoiceName" align="center" width="15%">单位名称</th>
-				                <th field="chatAddress" align="center" width="15%">纳税人识别号</th>
-				                <th field="phone1" align="center" width="15%">地址</th>
-				                <th field="phone2" align="center" width="15%">电话</th>
-				                <th field="telephone" align="center" width="15%">开户行</th>
-				                <th field="mail" align="center" width="15%">账号</th>
+				                <th field="invoiceNumber" align="center" width="15%">纳税人识别号</th>
+				                <th field="invoiceAddress" align="center" width="15%">地址</th>
+				                <th field="invoicePhone" align="center" width="15%">电话</th>
+				                <th field="invoiceBank" align="center" width="15%">开户行</th>
+				                <th field="invoiceAccount" align="center" width="15%">账号</th>
 				            </tr>
 				        </thead>
 				    </table>
 			        <div id="operationInvoice" style="padding:2px 5px;">
-				        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="$('#addProject').window('open')" plain="true"></a>
-				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="modifyUserOperationByAdmin()"></a>
-				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteUserByAdmin()"></a>
+				        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="$('#addInvoice').window('open')" plain="true"></a>
+				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="updateInvoiceClick()"></a>
+				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteInvoice()"></a>
+				    </div>
+				    <div id="addInvoice" class="easyui-window" title="新增开票信息" data-options="closed:true,iconCls:'icon-save'" style="width:440px;height:360px;padding:5px;">
+			        	<div style="text-align:center;margin-top:10px;">
+			        		<input id="invoiceName" class="easyui-textbox" label="单位名称：" labelPosition="before" style="width:340px">
+			        	</div>
+		                <div style="text-align:center;margin-top:10px;">
+		                	<input id="invoiceNumber" class="easyui-textbox" label="纳税人识别号：" labelPosition="before"  style="width:340px">
+		                </div>
+		                <div style="text-align:center;margin-top:10px;">
+			        		<input id="invoiceAddress" class="easyui-textbox" label="地址：" labelPosition="before" style="width:340px">
+			        	</div>
+		                <div style="text-align:center;margin-top:10px;">
+		                	<input id="invoicePhone" class="easyui-textbox" label="电话：" labelPosition="before"  style="width:340px">
+		                </div>
+		                <div style="text-align:center;margin-top:10px;">
+			        		<input id="invoiceBank" class="easyui-textbox" label="开会行：" labelPosition="before" style="width:340px">
+			        	</div>
+		                <div style="text-align:center;margin-top:10px;">
+		                	<input id="invoiceAccount" class="easyui-textbox" label="账号：" labelPosition="before"  style="width:340px">
+		                </div>		    
+		                <div style="text-align:center;margin-top:20px;">
+		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="addInvoice()">新增</a>
+		                	 <a href="#" class="easyui-linkbutton" onclick="$('#addInvoice').window('close')" style="text-align:center;width:20%;margin-left:20px;">返回</a>
+		                </div>
+				    </div>
+				    <div id="updateInvoice" class="easyui-window" title="更新开票信息" data-options="closed:true,iconCls:'icon-save'" style="width:440px;height:400px;padding:5px;">
+				    	<div style="text-align:center;margin-top:10px;">
+			        		<input id="invoiceId" class="easyui-textbox" label="开票ID：" labelPosition="before" disabled="true" style="width:340px">
+			        	</div>
+			        	<div style="text-align:center;margin-top:10px;">
+			        		<input id="invoiceNameUpdate" class="easyui-textbox" label="单位名称：" labelPosition="before" style="width:340px">
+			        	</div>
+		                <div style="text-align:center;margin-top:10px;">
+		                	<input id="invoiceNumberUpdate" class="easyui-textbox" label="纳税人识别号" labelPosition="before"  style="width:340px">
+		                </div>
+		                <div style="text-align:center;margin-top:10px;">
+			        		<input id="invoiceAddressUpdate" class="easyui-textbox" label="地址：" labelPosition="before" style="width:340px">
+			        	</div>
+		                <div style="text-align:center;margin-top:10px;">
+		                	<input id="invoicePhoneUpdate" class="easyui-textbox" label="电话：" labelPosition="before"  style="width:340px">
+		                </div>
+		                <div style="text-align:center;margin-top:10px;">
+			        		<input id="invoiceBankUpdate" class="easyui-textbox" label="开会行：" labelPosition="before" style="width:340px">
+			        	</div>
+		                <div style="text-align:center;margin-top:10px;">
+		                	<input id="invoiceAccountUpdate" class="easyui-textbox" label="账号：" labelPosition="before"  style="width:340px">
+		                </div>		    
+		                <div style="text-align:center;margin-top:20px;">
+		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="updateInvoice()">更新</a>
+		                	 <a href="#" class="easyui-linkbutton" onclick="$('#updateInvoice').window('close')" style="text-align:center;width:20%;margin-left:20px;">返回</a>
+		                </div>
 				    </div>
 		        </div>
 		    </div>
