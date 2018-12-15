@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>绿色低碳企业信息管理平台</title>
+	<link rel="stylesheet" type="text/css" href="./jquery-easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="./jquery-easyui/themes/icon.css">
+	<script type="text/javascript" src="./jquery-easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="./jquery-easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="./js/util.js"></script>
+	<script type="text/javascript" src="./js/update.js"></script>
+	<style> 
+		html,body{height:100%} 
+	</style> 
+</head>
+<body>
+    <div class="easyui-layout" border="false" style="width:100%;height:100%;">
+        <div data-options="region:'north'" style="height:80px;text-align: center"><h1>绿色低碳企业信息管理平台</h2></div>
+        <div data-options="region:'center'">
+        	<div id="tt" class="easyui-tabs" style="width:100%;height:100%" data-options="tabPosition: 'top'">
+		        <div title="基本信息" style="padding:20px">
+            		<div style="margin-top:20px">
+            			<input id="name" class="easyui-textbox" label="单位名称：" labelPosition="before" data-options="formatter:formatCellTooltip" style="width:38.2%;" disabled="true">
+						<select id="attention" class="easyui-combobox" label="关注等级：" labelPosition="left" style="width:19%;" disabled="true">	
+						</select>					
+						<select id="region" class="easyui-combobox" label="所在地区：" labelPosition="left" style="width:19%;" disabled="true">
+						</select>
+                        <select id="zol" class="easyui-combobox" label="中光村：" labelPosition="left" style="width:19%;" disabled="true">
+						</select>									
+					</div>
+					<div style="margin-top:20px">
+						<select id="unitProperties" class="easyui-combobox" label="单位性质：" labelPosition="left" style="width:19%;" disabled="true">
+						</select>	
+						<input id="createTime" class="easyui-datebox" label="成立时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:19%;" disabled="true">
+						<select id="register" class="easyui-textbox" label="注册资金：" labelPosition="left" style="width:19%;" disabled="true">
+						</select>
+						<select id="equity" class="easyui-combobox" label="出资方式：" labelPosition="left" style="width:19%;" disabled="true">
+						</select>
+						<select id="highTech" class="easyui-combobox" label="高新技术：" labelPosition="left" style="width:19%;" disabled="true">
+						</select>
+					</div>
+					<div style="margin-top:20px">
+						<select id="companyMarket" class="easyui-combobox" label="上市公司：" labelPosition="left" style="width:19%;" disabled="true">
+						</select>	
+						<select id="sharesCode" class="easyui-textbox" label="股票代码：" labelPosition="left" style="width:19%;" disabled="true">
+						</select>
+						<select id="companyTypes" class="easyui-combobox" label="单位类型：" labelPosition="left" style="width:19%;" disabled="true">
+						</select>
+						<select id="industries" class="easyui-combobox" label="所属行业：" labelPosition="left" style="width:19%;" disabled="true">
+						</select>
+						<select id="business" class="easyui-combobox" label="主营业务：" labelPosition="left" style="width:19%;" disabled="true">
+						</select>
+					</div>
+					<div style="margin-top:20px">
+						<select id="businessArea" class="easyui-combobox" label="业务领域：" labelPosition="left" style="width:19%;" disabled="true"> 
+						</select>	
+						<select id="segmentMarket" class="easyui-combobox" label="细分市场：" labelPosition="left" style="width:19%;" disabled="true"/>
+						</select>
+						<select id="techProduct" class="easyui-combobox" label="技术产品：" labelPosition="left" style="width:19%;" disabled="true"/>
+						</select>
+						<select id="patents" class="easyui-textbox" label="发明专利：" labelPosition="left" style="width:19%;" disabled="true"/>
+						</select>
+						<select id="utilityPatents" class="easyui-textbox" label="实用专利：" labelPosition="left" style="width:19%;" disabled="true"/>
+						</select>
+					</div>
+					<div style="margin-top:20px">
+						<select id="softwares" class="easyui-textbox" label="软件著作：" labelPosition="left" style="width:19%;" disabled="true">
+						</select>	
+						<select id="advantages" class="easyui-textbox" label="单位优势：" labelPosition="left" style="width:19%;" disabled="true"/>
+						</select>
+						<select id="staffNumber" class="easyui-textbox" label="员工人数：" labelPosition="left" style="width:19%;" disabled="true"/>
+						</select>
+						<select id="technicians" class="easyui-textbox" label="技术人员：" labelPosition="left" style="width:19%;" disabled="true"/>
+						</select>
+						<select id="officeArea" class="easyui-textbox" label="办公面积：" labelPosition="left" style="width:19%;" disabled="true"/>
+						</select>
+					</div>
+					<div style="margin-top:20px">
+						<input id="products" class="easyui-textbox" label="自主研发技术产品：" labelPosition="before" style="width:38.2%;" disabled="true">
+					</div>
+					<div style="margin-top:20px">
+						<input id="companyPhone" class="easyui-textbox" label="单位总机：" labelPosition="before" style="width:19%;" disabled="true">
+						<input id="companyFax" class="easyui-textbox" label="单位传真：" labelPosition="before" style="width:19%;" disabled="true">
+						<input id="companyWebsite" class="easyui-textbox" label="单位网址：" labelPosition="before" style="width:19%;" disabled="true">
+						<input id="companyAddress" class="easyui-textbox" label="单位地址：" labelPosition="before" style="width:19%;" disabled="true">
+					</div>
+		        </div>
+		        <div title="会员信息" style="padding:10px">
+		            <div style="margin-top:20px">
+		            	<input id="memberCode" class="easyui-textbox" label="会员编码：" labelPosition="before" style="width:19%;" disabled="true">
+						<select id="member" class="easyui-combobox" label="会员级别：" labelPosition="left" style="width:19%;" disabled="true">	
+						</select>					
+						<input id="joiningTime" class="easyui-datebox" label="入会日期：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:19%;" disabled="true">
+						</select>
+                        <input id="validityTime" class="easyui-datebox" label="有效期至：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:19%;" disabled="true">
+					</div>
+		        </div>
+		        <div title="需求信息" style="padding:10px">
+		        	需求信息
+		        </div>
+		        <div title="联系信息" style="padding:10px">
+		            <table id="contact" style="width:100%;heighct:100%" class="easyui-datagrid" singleSelect="true" data-options="rownumbers:true">
+				        <thead>
+				            <tr>
+				            	<th field="contactName" align="center" width="10%">姓名</th>
+				                <th field="duty" align="center" width="10%">职务</th>
+				                <th field="phone1" align="center" width="10%">手机号1</th>
+				                <th field="phone2" align="center" width="10%">手机号2</th>
+				                <th field="telephone" align="center" width="10%">座机</th>
+				                <th field="mail" align="center" width="10%">邮箱</th>
+				                <th field="weixin" align="center" width="10%">微信号</th>
+				                <th field="qq" align="center" width="10%">QQ号</th>
+				                <th field="remark" align="center" width="10%">备注</th>
+				            </tr>
+				        </thead>
+				    </table>
+		        </div>
+		        <div title="互动信息" style="padding:10px">
+		            <table id="chat" style="width:100%;heighct:100%" class="easyui-datagrid" singleSelect="true" data-options="rownumbers:true">
+				        <thead>
+				            <tr>
+				            	<th field="chatTime" align="center" width="15%" data-options="formatter:formatCellTooltip">互动时间</th>
+				            	<th field="chatType" align="center" width="10%" data-options="formatter:formatCellTooltip">互动方式</th>
+				                <th field="chatAddress" align="center" width="15%" data-options="formatter:formatCellTooltip">互动地点</th>
+				                <th field="others" align="center" width="15%" data-options="formatter:formatCellTooltip">该方参与人</th>
+				                <th field="owners" align="center" width="15%" data-options="formatter:formatCellTooltip">我方参与人</th>
+				                <th field="content" align="center" width="30%" data-options="formatter:formatCellTooltip">交流内容</th>
+				            </tr>
+				        </thead>
+				    </table>
+		        </div>
+		        <div title="合作信息" style="padding:10px">
+		            合作信息
+		        </div>
+		        <div title="经营信息" style="padding:10px">
+		            <table id="holder" style="width:40%;height:50%" class="easyui-datagrid" singleSelect="true" data-options="rownumbers:true">
+				        <thead>
+				            <tr>
+				            	<th field="holderName" align="center" width="30%">股东名称</th>
+				                <th field="holderAmount" align="center" width="30%">出资额</th>
+				                <th field="holderPercent" align="center" width="30%">出资比例</th>
+				            </tr>
+				        </thead>
+				    </table>
+		        </div>
+		        <div title="开票信息" style="padding:10px">
+		            <table id="invoice" style="width:100%;heighct:100%" class="easyui-datagrid" singleSelect="true" data-options="rownumbers:true">
+				        <thead>
+				            <tr>
+				            	<th field="invoiceName" align="center" width="15%">单位名称</th>
+				                <th field="invoiceNumber" align="center" width="15%">纳税人识别号</th>
+				                <th field="invoiceAddress" align="center" width="15%">地址</th>
+				                <th field="invoicePhone" align="center" width="15%">电话</th>
+				                <th field="invoiceBank" align="center" width="15%">开户行</th>
+				                <th field="invoiceAccount" align="center" width="15%">账号</th>
+				            </tr>
+				        </thead>
+				    </table>
+		        </div>
+		    </div>
+        </div>
+    </div>
+</body>
+</html>

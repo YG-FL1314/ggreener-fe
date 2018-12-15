@@ -689,7 +689,10 @@ window.onload = function () {
     var limit = start + parseInt(opts.pageSize);  
     $('#companys').datagrid({
         'data': searchCompanies(start, limit),
-        'pageList': [10, 20, 50]
+        'pageList': [10, 20, 50],
+        onDblClickRow: function(rowIndex, rowData) {  
+            window.open("./detail.html?companyId=" + rowData.id)
+        }
     })
     $('#companys').datagrid('getPager').pagination({
         onSelectPage: function(pageNum, pageSize) {
