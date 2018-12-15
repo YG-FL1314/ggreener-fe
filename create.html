@@ -86,7 +86,7 @@
 					</div>
 					<div style="margin-top:20px;text-align:center">
 						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="addCompany()" style="width:15%;">新增</a>
-            			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onClick="cancel()" style="width:15%;margin-left:20px;">取消</a>
+            			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onClick="cancel()" style="width:15%;margin-left:20px;">返回</a>
 					</div>
 		        </div>
 		        <div title="会员信息" style="padding:10px">
@@ -100,14 +100,14 @@
 					</div>
 					<div style="margin-top:20px;text-align:center"> 
 						<a href="#" class="easyui-linkbutton" onclick="addMember()" data-options="iconCls:'icon-add'" style="width:15%;">新增</a>
-            			<a href="#" class="easyui-linkbutton" onclick="cancel()" data-options="iconCls:'icon-cancel'" style="width:15%;margin-left:20px;">取消</a>
+            			<a href="#" class="easyui-linkbutton" onclick="cancel()" data-options="iconCls:'icon-cancel'" style="width:15%;margin-left:20px;">返回</a>
 					</div>
 		        </div>
 		        <div title="需求信息" style="padding:10px">
 		        	需求信息
 		        </div>
 		        <div title="联系信息" style="padding:10px">
-		            <table id="contact" style="width:100%;heighct:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationContact'">
+		            <table id="contact" style="width:100%;heighct:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationContact',rownumbers:true">
 				        <thead>
 				            <tr>
 				            	<th field="contactName" align="center" width="10%">姓名</th>
@@ -157,7 +157,7 @@
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="addContact()">新增</a>
-		                	 <a href="#" class="easyui-linkbutton" onclick="$('#addContact').window('close')" style="text-align:center;width:20%;margin-left:20px;">取消</a>
+		                	 <a href="#" class="easyui-linkbutton" onclick="$('#addContact').window('close')" style="text-align:center;width:20%;margin-left:20px;">返回</a>
 		                </div>
 				    </div>
 				     <div id="updateContact" class="easyui-window" title="新增联系人" data-options="closed:true,iconCls:'icon-save'" style="width:450px;height:460px;padding:5px;">
@@ -190,12 +190,12 @@
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="updateContact()">更新</a>
-		                	 <a href="#" class="easyui-linkbutton" onclick="$('#updateContact').window('close')" style="text-align:center;width:20%;margin-left:20px;">取消</a>
+		                	 <a href="#" class="easyui-linkbutton" onclick="$('#updateContact').window('close')" style="text-align:center;width:20%;margin-left:20px;">返回</a>
 		                </div>
 				    </div>
 		        </div>
 		        <div title="互动信息" style="padding:10px">
-		            <table id="chat" style="width:100%;heighct:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationChat'">
+		            <table id="chat" style="width:100%;heighct:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationChat',rownumbers:true">
 				        <thead>
 				            <tr>
 				            	<th field="chatTime" align="center" width="15%" data-options="formatter:formatCellTooltip">互动时间</th>
@@ -233,7 +233,7 @@
 			        	</div>
 		                <div style="text-align:center;margin-top:20px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="addChat()">新增</a>
-		                	 <a href="#" class="easyui-linkbutton" onclick="$('#addChat').window('close')" style="text-align:center;width:20%;margin-left:20px;">取消</a>
+		                	 <a href="#" class="easyui-linkbutton" onclick="$('#addChat').window('close')" style="text-align:center;width:20%;margin-left:20px;">返回</a>
 		                </div>
 				    </div>
 				    <div id="updateChat" class="easyui-window" title="更新互动信息" data-options="closed:true,iconCls:'icon-save'" style="width:450px;height:460px;padding:5px;">
@@ -260,7 +260,7 @@
 			        	</div>
 		                <div style="text-align:center;margin-top:20px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="updateChat()">更新</a>
-		                	 <a href="#" class="easyui-linkbutton" onclick="$('#updateChat').window('close')" style="text-align:center;width:20%;margin-left:20px;">取消</a>
+		                	 <a href="#" class="easyui-linkbutton" onclick="$('#updateChat').window('close')" style="text-align:center;width:20%;margin-left:20px;">返回</a>
 		                </div>
 				    </div>
 		        </div>
@@ -268,23 +268,56 @@
 		            合作信息
 		        </div>
 		        <div title="经营信息" style="padding:10px">
-		            <table id="holder" style="width:50%;heighct:80%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationHolder'">
+		            <table id="holder" style="width:40%;height:50%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationHolder',rownumbers:true">
 				        <thead>
 				            <tr>
-				            	<th field="holderName" align="center" width="15%">股东名称</th>
-				                <th field="holderAmount" align="center" width="15%">出资额</th>
-				                <th field="holderPercent" align="center" width="15%">出资比例</th>
+				            	<th field="holderName" align="center" width="30%">股东名称</th>
+				                <th field="holderAmount" align="center" width="30%">出资额</th>
+				                <th field="holderPercent" align="center" width="30%">出资比例</th>
 				            </tr>
 				        </thead>
 				    </table>
 			        <div id="operationHolder" style="padding:2px 5px;">
-				        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="$('#addProject').window('open')" plain="true"></a>
-				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="modifyUserOperationByAdmin()"></a>
-				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteUserByAdmin()"></a>
+				        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="$('#addHolder').window('open')" plain="true"></a>
+				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="updateHolderClick()"></a>
+				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteHolder()"></a>
+				    </div>
+				    <div id="addHolder" class="easyui-window" title="新增股东信息" data-options="closed:true,iconCls:'icon-save'" style="width:340px;height:240px;padding:5px;">
+			        	<div style="text-align:center;margin-top:10px;">
+			        		<input id="holderName" class="easyui-textbox" label="股东名称：" labelPosition="before" style="width:260px">
+			        	</div>
+		                <div style="text-align:center;margin-top:10px;">
+		                	<input id="holderAmount" class="easyui-textbox" label="出资额：" labelPosition="before"  style="width:260px">
+		                </div>
+		                <div style="text-align:center;margin-top:10px;">
+			        		<input id="holderPercent" class="easyui-textbox" label="出资比例：" labelPosition="before" style="width:260px">
+			        	</div>	    
+		                <div style="text-align:center;margin-top:20px;">
+		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="addHolder()">新增</a>
+		                	 <a href="#" class="easyui-linkbutton" onclick="$('#addHolder').window('close')" style="text-align:center;width:20%;margin-left:20px;">返回</a>
+		                </div>
+				    </div>
+				    <div id="updateHolder" class="easyui-window" title="更新股东信息" data-options="closed:true,iconCls:'icon-save'" style="width:340px;height:270px;padding:5px;">
+				    	<div style="text-align:center;margin-top:10px;">
+			        		<input id="holderId" class="easyui-textbox" label="股东ID：" labelPosition="before" disabled="true" style="width:260px">
+			        	</div>
+			        	<div style="text-align:center;margin-top:10px;">
+			        		<input id="holderNameUpdate" class="easyui-textbox" label="股东名称：" labelPosition="before" style="width:260px">
+			        	</div>
+		                <div style="text-align:center;margin-top:10px;">
+		                	<input id="holderAmountUpdate" class="easyui-textbox" label="出资额：" labelPosition="before"  style="width:260px">
+		                </div>
+		                <div style="text-align:center;margin-top:10px;">
+			        		<input id="holderPercentUpdate" class="easyui-textbox" label="出资比例：" labelPosition="before" style="width:260px">
+			        	</div>	
+		                <div style="text-align:center;margin-top:20px;">
+		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="updateHolder()">更新</a>
+		                	 <a href="#" class="easyui-linkbutton" onclick="$('#updateHolder').window('close')" style="text-align:center;width:20%;margin-left:20px;">返回</a>
+		                </div>
 				    </div>
 		        </div>
 		        <div title="开票信息" style="padding:10px">
-		            <table id="invoice" style="width:100%;heighct:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationInvoice'">
+		            <table id="invoice" style="width:100%;heighct:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationInvoice',rownumbers:true">
 				        <thead>
 				            <tr>
 				            	<th field="invoiceName" align="center" width="15%">单位名称</th>
