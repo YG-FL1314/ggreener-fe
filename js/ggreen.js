@@ -719,7 +719,7 @@ window.onload = function () {
                 var opts = $('#companys').datagrid('options');
                 var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
                 var limit = start + parseInt(opts.pageSize); 
-                $('#companys').datagrid('loadData': searchCompanies(start, limit)) 
+                $('#companys').datagrid('loadData', searchCompanies(start, limit)) 
             } else if (title == "用户管理") {
                 $('#users').datagrid({'data': getListUsers()})
             } else if (title == "标签管理") {
