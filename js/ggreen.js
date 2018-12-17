@@ -1,4 +1,5 @@
 $.messager.defaults.ok = "确认"
+$.messager.defaults.cancel = "取消"
 
 //检查session是否过期
 isLogin()
@@ -62,13 +63,14 @@ function modifyUser() {
         async: false, //同步调用
         success: function(data){
             if (data.status == 0) {
+                $.messager.alert('用户', '密码修改成功！','info');
                 $('#modifyUser').window('close');
             } else {
-                $.messager.alert('失败', '原密码错误！','error');              
+                $.messager.alert('用户', '原密码错误！','error');              
             }
         },
         error: function(){
-            $.messager.alert('失败', '修改密码错误！','error');
+            $.messager.alert('用户', '修改密码错误！','error');
         }
     });
 }
@@ -435,41 +437,46 @@ function updateCompany() {
 
 function deleteCompany() {
     var row = $('#companys').datagrid('getSelected');
-    if (!row) {
+     if (!row) {
         $.messager.alert('企业','请先选择一个企业!','info'); 
     } else { 
-        $.ajax({
-            url: "/company/delete?companyId=" + row.id,
-            xhrFields:{
-                withCredentials:true
-            }, 
-            type: 'delete',
-            crossDomain: true,
-            credentials: 'include', 
-            contentType: 'application/json;charset=UTF-8',
-            async: false,
-            success: function(data){
-                if (data.status == 0) {
-                    $.messager.alert('企业','删除企业成功!','info');
-                    var opts = $('#companys').datagrid('options');
-                    var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
-                    var limit = start + parseInt(opts.pageSize); 
-                    $('#companys').datagrid('loadData', searchCompanies(start, limit))
-                } else if (data.status == 2) {
-                    window.location.href = data.message;
-                } else {
-                    $.messager.alert('企业', data.message,'error');
-                }
-            },
-            error: function(){
-                $.messager.alert('企业','删除企业失败!','error');
+        var message = "确认删除 " + row.name + " ?"
+        $.messager.confirm('企业', message, function(r) {
+            if (r) {
+                $.ajax({
+                    url: "/company/delete?companyId=" + row.id,
+                    xhrFields:{
+                        withCredentials:true
+                    }, 
+                    type: 'delete',
+                    crossDomain: true,
+                    credentials: 'include', 
+                    contentType: 'application/json;charset=UTF-8',
+                    async: false,
+                    success: function(data){
+                        if (data.status == 0) {
+                            $.messager.alert('企业','删除企业成功!','info');
+                            var opts = $('#companys').datagrid('options');
+                            var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
+                            var limit = start + parseInt(opts.pageSize); 
+                            $('#companys').datagrid('loadData', searchCompanies(start, limit))
+                        } else if (data.status == 2) {
+                            window.location.href = data.message;
+                        } else {
+                            $.messager.alert('企业', data.message,'error');
+                        }
+                    },
+                    error: function(){
+                        $.messager.alert('企业','删除企业失败!','error');
+                    }
+                });
             }
-        });
+        })
     }
 } 
 
 $(function() {
-        //会员级别
+    //会员级别
     $('#member').combobox({
         valueField: 'id', 
         textField: 'name',

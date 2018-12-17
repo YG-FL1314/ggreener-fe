@@ -131,7 +131,6 @@ function addCompany() {
             $.messager.alert('公司','添加公司失败!','error');
         }
     });
-
 }
 
 function addMember() {
@@ -184,7 +183,7 @@ function addContact() {
         $.messager.alert('公司','请先添加公司！','info');
     } else {
         var name = $('#contactNameInput').textbox('getValue').trim()
-        var duty = $('#contactDutyInput').combobox('getValue').trim()
+        var duty = $('#contactDutyInput').textbox('getValue').trim()
         var phone1 = $('#contactPhone1Input').textbox('getValue').trim()
         var phone2 = $('#contactPhone2Input').textbox('getValue').trim()
         var tel = $('#contactTelInput').textbox('getValue').trim()
@@ -204,7 +203,7 @@ function addContact() {
             data: JSON.stringify({
               "companyId": COMPANY_ID,
               "name": name,
-              "dutyId": duty,
+              "duty": duty,
               "mail": mail,
               "weixin": weixin,
               "remark": remark,
@@ -288,6 +287,109 @@ function listContacts(companyId) {
     }
     return result
 }
+
+function updateContractWindow() {
+    var row = $('#contact').datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('联系人','请先选择一个联系人!','info'); 
+    } else {
+        $('#contactId').textbox('setValue', row.id)
+        $('#contactNameUpdate').textbox('setValue', row.contactName)
+        $('#contactDutyUpdate').textbox('setValue', row.duty)
+        $('#contactPhone1Update').textbox('setValue', row.phone1)
+        $('#contactPhone2Update').textbox('setValue', row.phone2)
+        $('#contactTelUpdate').textbox('setValue', row.telephone)
+        $('#mailUpdate').textbox('setValue', row.mail)
+        $('#weixinUpdate').textbox('setValue', row.weixin)
+        $('#qqUpdate').textbox('setValue', row.qq)
+        $('#remarkUpdate').textbox('setValue', row.remark)
+        $('#updateContact').window('open') 
+    }
+}
+
+function updateContact() {
+    var id = $('#contactId').textbox('getValue').trim()
+    var name = $('#contactNameUpdate').textbox('getValue').trim()
+    var duty = $('#contactDutyUpdate').textbox('getValue').trim()
+    var phone1 = $('#contactPhone1Update').textbox('getValue').trim()
+    var phone2 = $('#contactPhone2Update').textbox('getValue').trim()
+    var tel = $('#contactTelUpdate').textbox('getValue').trim()
+    var mail = $('#mailUpdate').textbox('getValue').trim()
+    var weixin = $('#weixinUpdate').textbox('getValue').trim()
+    var qq = $('#qqUpdate').textbox('getValue').trim()
+    var remark = $('#remarkUpdate').textbox('getValue').trim()
+    $.ajax({
+        type:'put',
+        url: "/contact/update",
+        xhrFields:{
+            withCredentials:true
+        }, 
+        crossDomain: true,
+        credentials: 'include',  
+        async: false, //同步调用
+        data: JSON.stringify({
+            "id": id,
+            "name": name,
+            "duty": duty,
+            "mail": mail,
+            "weixin": weixin,
+            "remark": remark,
+            "qq": qq,
+            "telephone": phone1 + "," + phone2,
+            "phone":tel
+        }),
+        dataType:'json', 
+        contentType: 'application/json;charset=UTF-8',
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } else if (data.status == 0){
+                $.messager.alert('企业','更新联系人成功!','info');
+                $('#updateContact').window('close')
+                $('#contact').datagrid({'data': listContacts(COMPANY_ID)})
+            } else {
+                $.messager.alert('企业',data.message,'error');
+            }
+            
+        },
+        error: function(){
+            $.messager.alert('企业','更新联系人失败!','error');
+        }
+    });
+}
+
+function deleteContact() {
+    var row = $('#contact').datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('企业','请先选择一条联系人信息!','info'); 
+    } else {
+        $.ajax({
+            type:'delete',
+            url: "/contact/delete?id="+row.id,
+            xhrFields:{
+                withCredentials:true
+            }, 
+            crossDomain: true,
+            credentials: 'include',  
+            async: false, //同步调用
+            contentType: 'application/json;charset=UTF-8',
+            success: function(data){
+                if (data.status == 2) {
+                    window.location.href = data.message
+                } else if (data.status == 0){
+                    $.messager.alert('企业','删除联系人信息成功!','info');
+                    $('#contact').datagrid({'data': listContacts(COMPANY_ID)})
+                } else {
+                    $.messager.alert('企业',data.message,'error');
+                }
+            },
+            error: function(){
+                $.messager.alert('企业','删除联系人信息失败!','error');
+            }
+        });
+    }
+}
+
 
 function addChatClick() {
     if (COMPANY_ID == '') {
@@ -1086,12 +1188,5 @@ window.onload = function () {
         panelHeight:'auto', 
         limitToList: false,
         data: getTags(MEMBER_FLAG)
-    });
-    $('#contactDutyInput').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        data: getTags(DUTY_FLAG)
     });
 }
