@@ -329,6 +329,7 @@ function showUserTabs() {
 }
 
 function searchClick() {
+    $('#companys').datagrid('gotoPage', 1);
     var opts = $('#companys').datagrid('options');
     var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
     var limit = start + parseInt(opts.pageSize); 
