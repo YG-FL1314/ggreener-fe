@@ -43,6 +43,44 @@ function getTags(parentId) {
     return result;
 }
 
+function getSyncTags(id, parentId) {
+    if (!parentId && parentId != 0) { 
+        url = "/tag/list" 
+    } else {
+        url = "/tag/list?parentId=" + parentId
+    }
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        xhrFields:{
+            withCredentials:true
+        }, 
+        crossDomain: true,
+        credentials: 'include',  
+        async: true, //同步调用
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } 
+            var items = []
+            $.each(data.obj,function(idx,item){ 
+                var parent = convertIdToName(item.parentId)
+                items[idx] = {
+                    id: item.id,
+                    name: item.name,
+                    parent: parent,
+                    order: item.order
+                }
+            })
+            $('#' + id).combobox('loadData', items)
+        },
+        error: function(){
+            //window.location.href="./login.html";
+        }
+    });
+}
+
+
 function modifyUser() {
     var srcPwd = document.getElementById("srcPwd").value;
     var destPwd = document.getElementById("destPwd").value;
@@ -478,69 +516,61 @@ function deleteCompany() {
 
 $(function() {
     //会员级别
-    $('#member').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto',
-        limitToList: false,
-        data: getTags(MEMBER_FLAG)
-    });
+    // $('#member').combobox({
+    //     valueField: 'id', 
+    //     textField: 'name',
+    //     panelHeight:'auto',
+    //     limitToList: false
+    // });
     //关注等级
-    $('#attention').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        data: getTags(ATTENTION_FLAG)
-    });
+    // $('#attention').combobox({
+    //     valueField: 'id', 
+    //     textField: 'name',
+    //     panelHeight:'auto', 
+    //     limitToList: false
+    // });
     //地区
-    $('#region').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        //panelHeight:'auto', 
-        limitToList: true,
-        data: getTags(REGION_FLAG)
-    });
+    // $('#region').combobox({
+    //     valueField: 'id', 
+    //     textField: 'name',
+    //     //panelHeight:'auto', 
+    //     limitToList: true
+    // });
     //中关村
-    $('#zol').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        //panelHeight:'auto', 
-        limitToList: false,
-        data: getTags(ZOL_FLAG)
-    });
+    // $('#zol').combobox({
+    //     valueField: 'id', 
+    //     textField: 'name',
+    //     //panelHeight:'auto', 
+    //     limitToList: false
+    // });
     //单位性质
-    $('#unitProperties').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        data: getTags(UNIT_PROPERTIES_FLAG)
-    });
+    // $('#unitProperties').combobox({
+    //     valueField: 'id', 
+    //     textField: 'name',
+    //     panelHeight:'auto', 
+    //     limitToList: false
+    // });
     //出资方式
-    $('#equity').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        data: getTags(EQUITY_PARTICIPATION_FLAG)
-    });
+    // $('#equity').combobox({
+    //     valueField: 'id', 
+    //     textField: 'name',
+    //     panelHeight:'auto', 
+    //     limitToList: false
+    // });
     //单位类型
-    $('#companyType').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        data: getTags(COMPANY_TYPE_FLAG)
-    });
+    // $('#companyType').combobox({
+    //     valueField: 'id', 
+    //     textField: 'name',
+    //     panelHeight:'auto', 
+    //     limitToList: false
+    // });
     //所属行业
     $('#industry').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        multiple: true,
-        data: getTags(INDUSTRIES_FLAG),
+        // valueField: 'id', 
+        // textField: 'name',
+        // panelHeight:'auto', 
+        // limitToList: false,
+        // multiple: true,
         formatter: function (row) {
             var opts = $(this).combobox('options');
             return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
@@ -558,21 +588,19 @@ $(function() {
         }
     });
     //上市公司
-    $('#companyMarker').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        data: getTags(COMPANY_MARKET_FLAG)
-    });
+    // $('#companyMarker').combobox({
+    //     valueField: 'id', 
+    //     textField: 'name',
+    //     panelHeight:'auto', 
+    //     limitToList: false
+    // });
     //主营业务
     $('#business').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        multiple: true,
-        data: getTags(BUSINESS_FLAG),
+        // valueField: 'id', 
+        // textField: 'name',
+        // panelHeight:'auto', 
+        // limitToList: false,
+        // multiple: true,
         formatter: function (row) {
             var opts = $(this).combobox('options');
             return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
@@ -591,12 +619,11 @@ $(function() {
     });
     //高薪技术
     $('#highTech').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        multiple: true,
-        data: getTags(HIGH_TECHNOLOGY_FLAG),
+        // valueField: 'id', 
+        // textField: 'name',
+        // panelHeight:'auto', 
+        // limitToList: false,
+        // multiple: true,
         formatter: function (row) {
             var opts = $(this).combobox('options');
             return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
@@ -615,12 +642,11 @@ $(function() {
     });
     //业务领域
     $('#businessArea').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        multiple: true,
-        limitToList: false,
-        data: getTags(BUSINESS_AREA_FLAG),
+        // valueField: 'id', 
+        // textField: 'name',
+        // panelHeight:'auto', 
+        // multiple: true,
+        // limitToList: false,
         formatter: function (row) {
             var opts = $(this).combobox('options');
             return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
@@ -639,12 +665,11 @@ $(function() {
     });
     //细分市场
     $('#segmentMarket').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        //panelHeight:'auto', 
-        multiple: true,
-        limitToList: false,
-        data: getTags(SEGMENT_MARKET_FLAG),
+        // valueField: 'id', 
+        // textField: 'name',
+        // //panelHeight:'auto', 
+        // multiple: true,
+        // limitToList: false,
         formatter: function (row) {
             var opts = $(this).combobox('options');
             return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
@@ -663,12 +688,11 @@ $(function() {
     });
     //单位优势
     $('#advantages').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        multiple: true,
-        data: getTags(ADVANTAGES_FLAG),
+        // valueField: 'id', 
+        // textField: 'name',
+        // panelHeight:'auto', 
+        // limitToList: false,
+        // multiple: true,
         formatter: function (row) {
             var opts = $(this).combobox('options');
             return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
@@ -685,6 +709,31 @@ $(function() {
             el.find('input.combobox-checkbox')._propAttr('checked', false);
         }
     });
+})
+
+/*页面加载*/ 
+window.onload = function () { 
+    $('#user').linkbutton({text: USER_NAME});
+    if (USER_ROLE == 1) {
+        showUserTabs()
+    } else {
+        hideUserTabs()
+    }
+    getSyncTags('attention', ATTENTION_FLAG)
+    getSyncTags('member', MEMBER_FLAG)
+    getSyncTags('region', REGION_FLAG)
+    getSyncTags('zol', ZOL_FLAG)
+    getSyncTags('unitProperties', UNIT_PROPERTIES_FLAG)
+    getSyncTags('equity', EQUITY_PARTICIPATION_FLAG)
+    getSyncTags('companyType', COMPANY_TYPE_FLAG)
+    getSyncTags('industry', INDUSTRIES_FLAG)
+    getSyncTags('companyMarker', COMPANY_MARKET_FLAG)
+    getSyncTags('business', BUSINESS_FLAG)
+    getSyncTags('highTech', HIGH_TECHNOLOGY_FLAG)
+    getSyncTags('businessArea', BUSINESS_AREA_FLAG)
+    getSyncTags('segmentMarket', SEGMENT_MARKET_FLAG)
+    getSyncTags('advantages', ADVANTAGES_FLAG)
+
     var opts = $('#companys').datagrid('options');
     var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
     var limit = start + parseInt(opts.pageSize);  
@@ -701,16 +750,7 @@ $(function() {
             $('#companys').datagrid('loadData', searchCompanies((pageNum - 1) * pageSize, pageSize))
         }
     });
-})
 
-/*页面加载*/ 
-window.onload = function () { 
-    $('#user').linkbutton({text: USER_NAME});
-    if (USER_ROLE == 1) {
-        showUserTabs()
-    } else {
-        hideUserTabs()
-    }
     $('#tt').tabs({
         onSelect: function(title,index) {
             if (title == "项目管理") {
@@ -721,7 +761,7 @@ window.onload = function () {
                 var limit = start + parseInt(opts.pageSize); 
                 $('#companys').datagrid('loadData', searchCompanies(start, limit)) 
             } else if (title == "用户管理") {
-                $('#users').datagrid({'data': getListUsers()})
+                $('#users').datagrid('load', getListUsers())
             } else if (title == "标签管理") {
                 $('#tagParents').combobox({
                     valueField: 'id', 
@@ -737,10 +777,10 @@ window.onload = function () {
                     limitToList: false,
                     data: getTags(PARENT_FLAG),
                     onChange:function(){  
-                        $('#tags').datagrid({'data': getTags(($('#parents').combobox('getValue')))});  
+                        $('#tags').datagrid('load', getTags(($('#parents').combobox('getValue'))));  
                     } 
                 });
-                $('#tags').datagrid({'data': getTags()})
+                $('#tags').datagrid('load', getTags())
             }
         }
     });
