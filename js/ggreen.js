@@ -558,7 +558,7 @@ $(function() {
         }
     });
     //上市公司
-    $('#companyMarker').combobox({
+    $('#companyMarket').combobox({
         valueField: 'id', 
         textField: 'name',
         panelHeight:'auto', 
