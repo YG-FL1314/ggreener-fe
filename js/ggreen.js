@@ -727,7 +727,7 @@ window.onload = function () {
     getSyncTags('equity', EQUITY_PARTICIPATION_FLAG)
     getSyncTags('companyType', COMPANY_TYPE_FLAG)
     getSyncTags('industry', INDUSTRIES_FLAG)
-    getSyncTags('companyMarker', COMPANY_MARKET_FLAG)
+    getSyncTags('companyMarket', COMPANY_MARKET_FLAG)
     getSyncTags('business', BUSINESS_FLAG)
     getSyncTags('highTech', HIGH_TECHNOLOGY_FLAG)
     getSyncTags('businessArea', BUSINESS_AREA_FLAG)
@@ -761,7 +761,7 @@ window.onload = function () {
                 var limit = start + parseInt(opts.pageSize); 
                 $('#companys').datagrid('loadData', searchCompanies(start, limit)) 
             } else if (title == "用户管理") {
-                $('#users').datagrid('load', getListUsers())
+                $('#users').datagrid('loadData', getListUsers())
             } else if (title == "标签管理") {
                 $('#tagParents').combobox({
                     valueField: 'id', 
@@ -777,10 +777,10 @@ window.onload = function () {
                     limitToList: false,
                     data: getTags(PARENT_FLAG),
                     onChange:function(){  
-                        $('#tags').datagrid('load', getTags(($('#parents').combobox('getValue'))));  
+                        $('#tags').datagrid('loadData', getTags(($('#parents').combobox('getValue'))));  
                     } 
                 });
-                $('#tags').datagrid('load', getTags())
+                $('#tags').datagrid('loadData', getTags())
             }
         }
     });
