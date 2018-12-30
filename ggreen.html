@@ -9,12 +9,9 @@
 	<script type="text/javascript" src="./jquery-easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="./js/util.js"></script>
 	<script type="text/javascript" src="./js/ggreen.js"></script>
-	<style> 
-		html,body{height:95%} 
-	</style> 
 </head>
 <body>
-	<div id="top" style="text-align:right;margin-bottom:5px;height:auto">
+	<div id="top" style="text-align:right;margin-bottom:5px;height:25px">
 		<a id="user" href="#" class="easyui-linkbutton" onclick="$('#modifyUser').window('open')" data-options="plain:true" style="text-align:center;width:8%;height:25px;"></a>
 		<a href="#" class="easyui-linkbutton" onclick="logout()" data-options="plain:true" style="text-align:center;width:5%;height:25px;">退出</a>
 		<div id="modifyUser" class="easyui-window" title="修改密码" data-options="closed:true,iconCls:'icon-save'" style="width:300px;height:200px;padding:5px;">
@@ -30,17 +27,17 @@
             </div>
 	    </div>
     </div>
-    <div class="easyui-layout" border="false" style="width:100%;height:100%">
-        <div data-options="region:'north'" style="height:12%;text-align:center">
+    <div id="layout" class="easyui-layout" border="true" style="height:2015px">
+        <div data-options="region:'north'" style="height:65px;text-align:center">
         	<h2>绿色低碳企业信息管理平台</h2>
         </div>
-        <div data-options="region:'center'" style="width:100%;height:90%;text-align:center">
-        	<div id="tt" class="easyui-tabs" style="width:100%;height:100%" data-options="tabPosition:'left'">
-		        <div title="企业管理" style="padding:20px;height:100%">
-	        		<input id = "name" class="easyui-textbox" label="单位名称：" labelPosition="before" data-options="prompt:'请输入单位名称...'" style="width:40%;height:6%">
-            		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="searchClick()" style="width:26%;margin-left:20px;height:6%">搜索</a>
-            		<a id="addCompany" href="#" class="easyui-linkbutton" onclick="createCompany()" data-options="iconCls:'icon-add'" style="width:26%;margin-left:20px;height:6%">新增企业</a>
-            		<div style="margin-top:1%;height:6%">
+        <div id="center" data-options="region:'center'" style="width:100%;height:1950px;text-align:center">
+        	<div id="tt" class="easyui-tabs" style="width:100%;height:1950px" data-options="tabPosition:'left'">
+		        <div title="企业管理" style="padding:20px;">
+	        		<input id = "name" class="easyui-textbox" label="单位名称：" labelPosition="before" data-options="prompt:'请输入单位名称...'" style="width:40%;">
+            		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="searchClick()" style="width:26%;margin-left:20px;">搜索</a>
+            		<a id="addCompany" href="#" class="easyui-linkbutton" onclick="createCompany()" data-options="iconCls:'icon-add'" style="width:26%;margin-left:20px;">新增企业</a>
+            		<div style="margin-top:20px">
 						<select id="member" class="easyui-combobox" label="会员级别：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false">	
 						</select>					
 						<select id="attention" class="easyui-combobox" label="关注等级：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false">	
@@ -52,7 +49,7 @@
 						<select id="unitProperties" class="easyui-combobox" label="单位性质：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false"> 
 						</select>								
 					</div>
-            		<div style="margin-top:1%;height:6%"> 
+            		<div style="margin-top:20px"> 
 						<select id="equity" class="easyui-combobox" label="出资方式：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false">
 						</select>				
 						<select id="companyType" class="easyui-combobox" label="单位类型：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false">
@@ -64,7 +61,7 @@
 						<select id="business" class="easyui-combobox" label="主营业务：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true">
 						</select>
 					</div>
-					<div style="margin-top:1%;height:6%">
+					<div style="margin-top:20px">
 						<select id="highTech" class="easyui-combobox" label="高新技术：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true">
 						</select>
 						<select id="businessArea" class="easyui-combobox" label="业务领域：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true">
@@ -74,28 +71,25 @@
 						<select id="advantages" class="easyui-textbox" label="单位优势：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true">
 						</select>
 					</div>
-					<div style="margin-top:1%;height:65%">
-			            <table id="companys" class="easyui-datagrid" style="width:100%;height:100%" data-options="rownumbers:true,singleSelect:true,pagination:true,toolbar:'#operationCompany',scrollbarSize:0">
+					<div style="margin-top:20px">
+			            <table id="companys" class="easyui-datagrid" data-options="singleSelect:true,pagination:true,pagePosition:'top',toolbar:'#operationCompany',scrollbarSize:0,pageSize:50,fitColumns:true">
         					<thead>
 					            <tr>
-					                <th field="memberCode" align="center" width="8%" data-options="formatter:formatCellTooltip">会员编号</th>
-					                <th field="memberName" align="center" width="8%" data-options="formatter:formatCellTooltip">会员等级</th>
-					                <th field="attention" align="center" width="6%" data-options="formatter:formatCellTooltip">关注等级</th>
-					                <th field="name" align="center" width="12%" data-options="formatter:formatCellTooltip">单位名称</th>
-					                <th field="region" align="center" width="6%" data-options="formatter:formatCellTooltip">所在地区</th>
-					                <th field="createTime" align="center" width="8%" data-options="formatter:formatCellTooltip">成立时间</th>
-					                <th field="registeredCapital" align="center" width="10%" data-options="formatter:formatCellTooltip">注册资金(万元)</th>
-					                <th field="companyType" align="center" width="8%" data-options="formatter:formatCellTooltip">单位类型</th>
-					                <th field="industry" align="center" width="8%" data-options="formatter:formatCellTooltip">所属行业</th>
-					                <th field="business" align="center" width="8%" data-options="formatter:formatCellTooltip">主营业务</th>
-					                <th field="businessArea" align="center" width="8%" data-options="formatter:formatCellTooltip">业务领域</th>
-					                <th field="advantages" align="center" width="8%" data-options="formatter:formatCellTooltip">单位优势</th>
+					                <th field="memberCode" align="center" width="8%" height="20px" data-options="formatter:formatCellTooltip">会员编号</th>
+					                <th field="memberName" align="center" width="8%" height="20px" data-options="formatter:formatCellTooltip">会员等级</th>
+					                <th field="attention" align="center" width="8%" height="20px" data-options="formatter:formatCellTooltip">关注等级</th>
+					                <th field="name" align="center" width="30%" height="20px" data-options="formatter:formatCellTooltip">单位名称</th>
+					                <th field="region" align="center" width="8%" height="20px" data-options="formatter:formatCellTooltip">所在地区</th>
+					                <th field="createTime" align="center" width="10%" height="20px" data-options="formatter:formatCellTooltip">成立时间</th>
+					                <th field="registeredCapital" align="center" width="12%" height="20px" data-options="formatter:formatCellTooltip">注册资金(万元)</th>
+					                <th field="industry" align="center" width="16%" height="20px" data-options="formatter:formatCellTooltip">所属行业</th>
 					            </tr>
 					        </thead>
 					    </table>
 					    <div id="operationCompany" style="padding:2px 5px;">
 					        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="createCompany()" plain="true">增加</a>
 					        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="updateCompany()">修改</a>
+					        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteCompany()">删除</a>
 					        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteCompany()">删除</a>
 					    </div>
 		        	</div>

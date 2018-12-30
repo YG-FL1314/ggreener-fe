@@ -430,20 +430,21 @@ function searchCompanies(start, limit) {
                 $.each(data.obj.list, function(idx,item){ 
                     items[idx] = {
                         id: item.companyId,    
-                        memberCode: item.memberCode,
-                        memberName: item.member,
-                        attention: item.attention,
-                        name: item.name,
-                        region: item.region,
+                        memberCode: item.memberCode == null ? "" : item.memberCode,
+                        memberName: item.member == null ? "" : item.member,
+                        attention: item.attention == null ? "" : item.attention,
+                        name: item.name == null ? "" : item.name,
+                        region: item.region == null ? "" : item.region,
                         createTime: item.createTime.substring(0,10),
-                        registeredCapital: item.register,
-                        companyType: item.companyType,
-                        industry: item.industry,
-                        business: item.business,
-                        businessArea: item.businessArea,
-                        advantages: item.advantage
+                        registeredCapital: item.register == null ? "" : item.register,
+                        companyType: item.companyType == null ? "" : item.companyType,
+                        industry: item.industry == null ? "" : item.industry,
+                        business: item.business == null ? "" : item.business,
+                        businessArea: item.businessArea == null ? "" : item.businessArea,
+                        advantages: item.advantage == null ? "" : item.advantage 
                     }
                 })
+                var height = 20 * items.length + 1015
                 result['rows'] = items
                 result['total'] = data.obj.count
             } else if (data.status == 2) {
@@ -709,6 +710,26 @@ $(function() {
             el.find('input.combobox-checkbox')._propAttr('checked', false);
         }
     });
+    $('#companys').datagrid({
+        onDblClickRow: function(rowIndex, rowData) {  
+            window.open("./detail.html?companyId=" + rowData.id)
+        },
+        rowStyler: function(index,row){
+            if (index % 2 == 0){
+                return 'background-color:#E6E6FA;color:#000;';
+            }
+        }
+    })
+
+    $('#companys').datagrid('getPager').pagination({
+        'displayMsg': '共计{total}家企业',
+        'showPageList': false,
+        'showPageInfo': true,
+        onSelectPage: function(pageNum, pageSize) {
+            $('#companys').datagrid('loadData', searchCompanies((pageNum - 1) * pageSize, pageSize))
+        }
+    });
+
 })
 
 /*页面加载*/ 
@@ -733,23 +754,6 @@ window.onload = function () {
     getSyncTags('businessArea', BUSINESS_AREA_FLAG)
     getSyncTags('segmentMarket', SEGMENT_MARKET_FLAG)
     getSyncTags('advantages', ADVANTAGES_FLAG)
-
-    var opts = $('#companys').datagrid('options');
-    var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
-    var limit = start + parseInt(opts.pageSize);  
-    $('#companys').datagrid({
-        'data': searchCompanies(start, limit),
-        'pageList': [10, 20, 50],
-        onDblClickRow: function(rowIndex, rowData) {  
-            window.open("./detail.html?companyId=" + rowData.id)
-        }
-    })
-    $('#companys').datagrid('getPager').pagination({
-        'displayMsg': '共计{total}家企业',
-        onSelectPage: function(pageNum, pageSize) {
-            $('#companys').datagrid('loadData', searchCompanies((pageNum - 1) * pageSize, pageSize))
-        }
-    });
 
     $('#tt').tabs({
         onSelect: function(title,index) {
@@ -784,4 +788,8 @@ window.onload = function () {
             }
         }
     });
+    var opts = $('#companys').datagrid('options');
+    var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
+    var limit = start + parseInt(opts.pageSize);  
+    $('#companys').datagrid('loadData', searchCompanies(start, limit))
 }
