@@ -21,6 +21,15 @@ const TECHNOLOGY_PRODUCT_FLAG = 15
 const ADVANTAGES_FLAG = 16
 const DUTY_FLAG = 144
 const CHAT_TYPE_FLAG = 151
+const REQUIRE_BRAND_FLAG = 161
+const REQUIRE_RESOURCE_FLAG = 162
+const REQUIRE_FINANCE_FLAG = 163
+const REQUIRE_ABILITY_FLAG = 164
+const REQUIRE_INTERNATION_FLAG = 165
+const REQUIRE_STANDARD_FLAG = 166
+const REQUIRE_INDENTIFACTION_FLAG = 167
+const REQUIRE_CONSULT_FLAG = 168
+const REQUIRE_OTHER_FLAG = 169
 
 const PARENT_NAME = '一级标签'
 const MEMBER_NAME = '会员等级'
@@ -41,6 +50,18 @@ const TECHNOLOGY_PRODUCT_NAME = '技术产品'
 const ADVANTAGES_NAME = '单位优势'
 const DUTY_NAME = '职务'
 const CHAT_TYPE_NAME = '互动方式'
+const REQUIRE_BRAND_NAME = '品牌宣传'
+const REQUIRE_RESOURCE_NAME = '资源整合'
+const REQUIRE_FINANCE_NAME = '融资需求'
+const REQUIRE_ABILITY_NAME = '能力建设'
+const REQUIRE_INTERNATION_NAME = '国际交流'
+const REQUIRE_STANDARD_NAME = '标准制定'
+const REQUIRE_INDENTIFACTION_NAME = '认证需求'
+const REQUIRE_CONSULT_NAME = '咨询服务'
+const REQUIRE_OTHER_NAME = '其他需求'
+
+$.messager.defaults.ok = "确认"
+$.messager.defaults.cancel = "取消"
 
 function convertIdToName(parentId) {
     var name = ""
@@ -102,6 +123,33 @@ function convertIdToName(parentId) {
       break;
     case 151:
       name = CHAT_TYPE_NAME
+      break;
+    case 161:
+      name = REQUIRE_BRAND_NAME
+      break;
+    case 162:
+      name = REQUIRE_RESOURCE_NAME
+      break;
+    case 163:
+      name = REQUIRE_FINANCE_NAME
+      break;
+    case 164:
+      name = REQUIRE_ABILITY_NAME
+      break;
+    case 165:
+      name = REQUIRE_INTERNATION_NAME
+      break;
+    case 166:
+      name = REQUIRE_STANDARD_NAME
+      break;
+    case 167:
+      name = REQUIRE_INDENTIFACTION_NAME
+      break;
+    case 168:
+      name = REQUIRE_CONSULT_NAME
+      break;
+    case 169:
+      name = REQUIRE_OTHER_NAME
       break;
     default:
       name = ""

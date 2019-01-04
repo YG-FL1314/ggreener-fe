@@ -80,7 +80,6 @@ function getSyncTags(id, parentId) {
     });
 }
 
-
 function modifyUser() {
     var srcPwd = document.getElementById("srcPwd").value;
     var destPwd = document.getElementById("destPwd").value;
@@ -136,7 +135,7 @@ function addTag() {
         success: function(data){
             if (data.status == 0) {
                 $.messager.alert('标签','添加标签成功!');
-                $('#tags').datagrid({'data': getTags('')})
+                $('#tags').datagrid('loadData', getTags($('#parents').combobox('getValue')))
                 $('#addTags').window('close')
             } else {
                 $.messager.alert('标签','添加标签失败!','error');
@@ -229,28 +228,33 @@ function updateUserByAdmin() {
 
 function deleteUserByAdmin() {
     var row = $('#users').datagrid('getSelected');
-    $.ajax({
-        url: "/user/update/status?status=0&id=" + row.id,
-        xhrFields:{
-            withCredentials:true
-        }, 
-        type: 'delete',
-        crossDomain: true,
-        credentials: 'include', 
-        contentType: 'application/json;charset=UTF-8',
-        async: false,
-        success: function(data){
-            if (data.status == 0) {
-                $.messager.alert('用户','删除用户成功!');
-                $('#users').datagrid({'data': getListUsers()})
-            } else {
-                $.messager.alert('用户','删除用户失败!','error');
-            }
-        },
-        error: function(){
-            $.messager.alert('用户','删除用户失败!','error');
+    var message = "确认删除 " + row.name + " 用户?"
+    $.messager.confirm('用户', message, function(r) {
+        if (r) {
+            $.ajax({
+                url: "/user/update/status?status=0&id=" + row.id,
+                xhrFields:{
+                    withCredentials:true
+                }, 
+                type: 'delete',
+                crossDomain: true,
+                credentials: 'include', 
+                contentType: 'application/json;charset=UTF-8',
+                async: false,
+                success: function(data){
+                    if (data.status == 0) {
+                        $.messager.alert('用户','删除用户成功!');
+                        $('#users').datagrid({'data': getListUsers()})
+                    } else {
+                        $.messager.alert('用户','删除用户失败!','error');
+                    }
+                },
+                error: function(){
+                    $.messager.alert('用户','删除用户失败!','error');
+                }
+            });
         }
-    });
+    })
 }
 
 function modifyTagOperationByAdmin() {
@@ -312,28 +316,33 @@ function updateTagByAdmin() {
 
 function deleteTagByAdmin() {
     var row = $('#tags').datagrid('getSelected');
-    $.ajax({
-        url: "/tag/delete?status=0&id=" + row.id,
-        xhrFields:{
-            withCredentials:true
-        }, 
-        type: 'delete',
-        crossDomain: true,
-        credentials: 'include',
-        contentType: 'application/json;charset=UTF-8', 
-        async: false,
-        success: function(data){
-            if (data.status == 0) {
-                $.messager.alert('标签','删除标签成功!');
-                $('#users').datagrid({'data': getListUsers()})
-            } else {
-                $.messager.alert('标签','删除标签失败!','error');
-            }
-        },
-        error: function(){
-            $.messager.alert('标签','删除标签失败!','error');
+    var message = "确认删除 " + row.name + " 标签?"
+    $.messager.confirm('标签', message, function(r) {
+        if (r) {
+            $.ajax({
+                url: "/tag/delete?status=0&id=" + row.id,
+                xhrFields:{
+                    withCredentials:true
+                }, 
+                type: 'delete',
+                crossDomain: true,
+                credentials: 'include',
+                contentType: 'application/json;charset=UTF-8', 
+                async: false,
+                success: function(data){
+                    if (data.status == 0) {
+                        $.messager.alert('标签','删除标签成功!');
+                        $('#users').datagrid({'data': getListUsers()})
+                    } else {
+                        $.messager.alert('标签','删除标签失败!','error');
+                    }
+                },
+                error: function(){
+                    $.messager.alert('标签','删除标签失败!','error');
+                }
+            });
         }
-    });
+    })
 }
 
 function logout() {
@@ -444,7 +453,6 @@ function searchCompanies(start, limit) {
                         advantages: item.advantage == null ? "" : item.advantage 
                     }
                 })
-                var height = 20 * items.length + 1015
                 result['rows'] = items
                 result['total'] = data.obj.count
             } else if (data.status == 2) {
@@ -477,7 +485,7 @@ function updateCompany() {
 
 function deleteCompany() {
     var row = $('#companys').datagrid('getSelected');
-     if (!row) {
+    if (!row) {
         $.messager.alert('企业','请先选择一个企业!','info'); 
     } else { 
         var message = "确认删除 " + row.name + " ?"
@@ -729,7 +737,7 @@ $(function() {
             $('#companys').datagrid('loadData', searchCompanies((pageNum - 1) * pageSize, pageSize))
         }
     });
-
+    $('#companys').datagrid('getPanel').removeClass('panel-body').addClass('ggreen-body');
 })
 
 /*页面加载*/ 

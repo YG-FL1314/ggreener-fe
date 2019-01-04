@@ -104,7 +104,33 @@
 					</div>
 		        </div>
 		        <div title="需求信息" style="padding:10px">
-		        	需求信息
+		        	<div style="margin-top:20px">
+						<select id="requireBrand" class="easyui-combobox" label="品牌宣传：" labelPosition="left" style="width:23%;">
+						</select>	
+						<select id="requireResource" class="easyui-combobox" label="资源整合：" labelPosition="left" style="width:23%;">
+						</select>
+						<select id="requireFinance" class="easyui-combobox" label="融资需求：" labelPosition="left" style="width:23%;">
+						</select>
+						<select id="requireAbility" class="easyui-combobox" label="能力建设：" labelPosition="left" style="width:23%;">
+						</select>
+					</div>
+					<div style="margin-top:20px">
+						<select id="requireInternation" class="easyui-combobox" label="国际交流：" labelPosition="left" style="width:23%;">
+						</select>	
+						<select id="requireStandard" class="easyui-combobox" label="标准制定：" labelPosition="left" style="width:23%;">
+						</select>
+						<select id="requireIdentify" class="easyui-combobox" label="认证需求：" labelPosition="left" style="width:23%;">
+						</select>
+						<select id="requireConsult" class="easyui-combobox" label="咨询服务：" labelPosition="left" style="width:23%;">
+						</select>
+					</div>
+					<div style="margin-top:20px">
+						<select id="requireOther" class="easyui-combobox" label="其他需求：" labelPosition="left" style="width:23%;">
+						</select>	
+					</div>
+					<div style="margin-top:20px;text-align:center"> 
+						<a href="#" class="easyui-linkbutton" onclick="updateRequires()" data-options="iconCls:'icon-add'" style="width:15%;">更新</a>
+					</div>
 		        </div>
 		        <div title="联系信息" style="padding:10px">
 		            <table id="contact" style="width:100%;heighct:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationContact',rownumbers:true,scrollbarSize:0">

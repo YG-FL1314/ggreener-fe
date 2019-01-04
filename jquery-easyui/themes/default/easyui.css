@@ -9,7 +9,7 @@
 }
 .panel-header,
 .panel-body {
-  border-width: 0px;
+  border-width: 1px;
   border-style: solid;
 }
 .panel-header {

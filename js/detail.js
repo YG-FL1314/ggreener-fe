@@ -43,6 +43,260 @@ function getTags(parentId) {
     return result;
 }
 
+function getSyncTags(id, parentId) {
+    if (!parentId && parentId != 0) { 
+        url = "/tag/list" 
+    } else {
+        url = "/tag/list?parentId=" + parentId
+    }
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        xhrFields:{
+            withCredentials:true
+        }, 
+        crossDomain: true,
+        credentials: 'include',  
+        async: true, //同步调用
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } 
+            var items = []
+            $.each(data.obj,function(idx,item){ 
+                var parent = convertIdToName(item.parentId)
+                items[idx] = {
+                    id: item.id,
+                    name: item.name,
+                    parent: parent,
+                    order: item.order
+                }
+            })
+            $('#' + id).combobox('loadData', items)
+        },
+        error: function(){
+            //window.location.href="./login.html";
+        }
+    });
+}
+
+function cancel() {
+    window.location.href = './ggreen.html'
+}
+
+function updateCompany() {
+    var name = $('#name').textbox('getValue').trim()
+    var attention = $('#attention').combobox('getValue').trim()
+    var region = $('#region').combobox('getValue').trim()
+    var zol = $('#zol').combobox('getValue').trim()
+    var unitProperties = $('#unitProperties').combobox('getValue').trim()
+    var createTime = $('#createTime').datebox('getValue').trim()
+    var register = $('#register').textbox('getValue').trim()
+    var equity = $('#equity').combobox('getValue').trim()
+    var highTech = $('#highTech').combobox('getValues')
+    var companyMarket = $('#companyMarket').combobox('getValue').trim()
+    var sharesCode = $('#sharesCode').textbox('getValue').trim()
+    var companyTypes = $('#companyTypes').combobox('getValue').trim()
+    var industries = $('#industries').combobox('getValues')
+    var business = $('#business').combobox('getValues')
+    var businessArea = $('#businessArea').combobox('getValues')
+    var segmentMarket = $('#segmentMarket').combobox('getValues')
+    var techProduct = $('#techProduct').combobox('getValue').trim()
+    var patents = $('#patents').textbox('getValue').trim()
+    var utilityPatents = $('#utilityPatents').textbox('getValue').trim()
+    var softwares = $('#softwares').textbox('getValue').trim()
+    var advantages = $('#advantages').combobox('getValues')
+    var staffNumber = $('#staffNumber').textbox('getValue').trim()
+    var technicians = $('#technicians').textbox('getValue').trim()
+    var officeArea = $('#officeArea').textbox('getValue').trim()
+    var products = $('#products').textbox('getValue').trim()
+    var telephone = $('#companyPhone').textbox('getValue').trim()
+    var fax = $('#companyFax').textbox('getValue').trim()
+    var website = $('#companyWebsite').textbox('getValue').trim()
+    var address = $('#companyAddress').textbox('getValue').trim()
+    $.ajax({
+        type:'put',
+        url: "/company/update",
+        xhrFields:{
+            withCredentials:true
+        }, 
+        crossDomain: true,
+        credentials: 'include',  
+        async: false, //同步调用
+        data: JSON.stringify({
+            "id": COMPANY_ID,
+            "name": name,
+            "attention": attention,
+            "region": region,
+            "zol": zol,
+            "unitProperty": unitProperties,
+            "establishedTime": createTime,
+            "registeredCapital": register,
+            "equity": equity,
+            "highTechs": highTech,
+            "companyMarket": companyMarket,
+            "sharesCode": sharesCode,
+            "companyType": companyTypes,
+            "industries": industries,
+            "business": business,
+            "businessArea": businessArea,
+            "segmentMarket": segmentMarket,
+            "techProduct": techProduct,
+            "patents": patents,
+            "utilityPatents": utilityPatents,
+            "softwares": softwares,
+            "advantages": advantages,
+            "staffNumber": staffNumber,
+            "technicians": technicians,
+            "officeArea": officeArea,
+            "products": products,
+            "telephone": telephone,
+            "fax": fax,
+            "website": website,
+            "address": address 
+        }),
+        dataType:'json', 
+        contentType: 'application/json;charset=UTF-8',
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } else if (data.status == 0){
+                COMPANY_ID = data.obj.id
+                $.messager.alert('企业','更新企业成功!','info');
+            } else {
+                $.messager.alert('企业',data.message,'error');
+            }
+            
+        },
+        error: function(){
+            $.messager.alert('企业','更新企业失败!','error');
+        }
+    });
+}
+
+function getMember(companyId) {
+    $.ajax({
+        type:'get',
+        url: "/member/get?companyId=" + companyId,
+        xhrFields:{
+            withCredentials:true
+        }, 
+        crossDomain: true,
+        credentials: 'include',  
+        async: false, //同步调用
+        contentType: 'application/json;charset=UTF-8',
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } else if (data.status == 0) {
+                $('#memberCode').textbox('setValue', data.obj.memberCode)
+                $('#member').combobox('setValue', data.obj.tagId)
+                $('#joiningTime').datebox('setValue', data.obj.joiningTime.substring(0,10))
+                $('#validityTime').datebox('setValue', data.obj.validityTime.substring(0,10))
+            } else {
+                $.messager.alert('企业',data.message,'error');
+            }
+            
+        },
+        error: function(){
+            $.messager.alert('企业','获取会员信息失败!','error');
+        }
+    }); 
+}
+
+function updateMember() {
+    var memberCode = $('#memberCode').textbox('getValue').trim()
+    var member = $('#member').combobox('getValue').trim()
+    var joiningTime = $('#joiningTime').combobox('getValue').substring(0,10)
+    var validityTime = $('#validityTime').combobox('getValue').substring(0,10)
+    $.ajax({
+        type:'put',
+        url: "/member/update",
+        xhrFields:{
+            withCredentials:true
+        }, 
+        crossDomain: true,
+        credentials: 'include',  
+        async: false, //同步调用
+        data: JSON.stringify({
+            "companyId": COMPANY_ID,
+            "tagId": member,
+            "memberCode": memberCode,
+            "joiningTime": joiningTime,
+            "validityTime": validityTime
+        }),
+        dataType:'json', 
+        contentType: 'application/json;charset=UTF-8',
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } else if (data.status == 0){
+                $.messager.alert('企业','更新会员信息成功!','info');
+            } else {
+                $.messager.alert('企业',data.message,'error');
+            }
+            
+        },
+        error: function(){
+            $.messager.alert('企业','更新会员信息失败!','error');
+        }
+    });
+}
+
+function addContact() {
+    if (COMPANY_ID == '') {
+        $.messager.alert('企业','请先添加企业！','info');
+    } else {
+        var name = $('#contactNameInput').textbox('getValue').trim()
+        var duty = $('#contactDutyInput').textbox('getValue').trim()
+        var phone1 = $('#contactPhone1Input').textbox('getValue').trim()
+        var phone2 = $('#contactPhone2Input').textbox('getValue').trim()
+        var tel = $('#contactTelInput').textbox('getValue').trim()
+        var mail = $('#mailInput').textbox('getValue').trim()
+        var weixin = $('#weixinInput').textbox('getValue').trim()
+        var qq = $('#qqInput').textbox('getValue').trim()
+        var remark = $('#remarkInput').textbox('getValue').trim()
+        $.ajax({
+            type:'post',
+            url: "/contact/add",
+            xhrFields:{
+                withCredentials:true
+            }, 
+            crossDomain: true,
+            credentials: 'include',  
+            async: false, //同步调用
+            data: JSON.stringify({
+              "companyId": COMPANY_ID,
+              "name": name,
+              "duty": duty,
+              "mail": mail,
+              "weixin": weixin,
+              "remark": remark,
+              "qq": qq,
+              "telephone": phone1 + "," + phone2,
+              "phone":tel
+            }),
+            dataType:'json', 
+            contentType: 'application/json;charset=UTF-8',
+            success: function(data){
+                if (data.status == 2) {
+                    window.location.href = data.message
+                } else if (data.status == 0){
+                    $.messager.alert('企业','添加联系人成功!','info');
+                    $('#addContact').window('close')
+                    $('#contact').datagrid({'data': listContacts(COMPANY_ID)})
+                } else {
+                    $.messager.alert('企业',data.message,'error');
+                }
+                
+            },
+            error: function(){
+                $.messager.alert('企业','添加联系人失败!','error');
+            }
+        });
+    }
+}
+
 function listContacts(companyId) {
     var result = []
     if (COMPANY_ID == '') {
@@ -97,6 +351,113 @@ function listContacts(companyId) {
         });
     }
     return result
+}
+
+function updateContractWindow() {
+    var row = $('#contact').datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('联系人','请先选择一个联系人!','info'); 
+    } else {
+        $('#contactId').textbox('setValue', row.id)
+        $('#contactNameUpdate').textbox('setValue', row.contactName)
+        $('#contactDutyUpdate').textbox('setValue', row.duty)
+        $('#contactPhone1Update').textbox('setValue', row.phone1)
+        $('#contactPhone2Update').textbox('setValue', row.phone2)
+        $('#contactTelUpdate').textbox('setValue', row.telephone)
+        $('#mailUpdate').textbox('setValue', row.mail)
+        $('#weixinUpdate').textbox('setValue', row.weixin)
+        $('#qqUpdate').textbox('setValue', row.qq)
+        $('#remarkUpdate').textbox('setValue', row.remark)
+        $('#updateContact').window('open') 
+    }
+}
+
+function updateContact() {
+    var id = $('#contactId').textbox('getValue').trim()
+    var name = $('#contactNameUpdate').textbox('getValue').trim()
+    var duty = $('#contactDutyUpdate').textbox('getValue').trim()
+    var phone1 = $('#contactPhone1Update').textbox('getValue').trim()
+    var phone2 = $('#contactPhone2Update').textbox('getValue').trim()
+    var tel = $('#contactTelUpdate').textbox('getValue').trim()
+    var mail = $('#mailUpdate').textbox('getValue').trim()
+    var weixin = $('#weixinUpdate').textbox('getValue').trim()
+    var qq = $('#qqUpdate').textbox('getValue').trim()
+    var remark = $('#remarkUpdate').textbox('getValue').trim()
+    $.ajax({
+        type:'put',
+        url: "/contact/update",
+        xhrFields:{
+            withCredentials:true
+        }, 
+        crossDomain: true,
+        credentials: 'include',  
+        async: false, //同步调用
+        data: JSON.stringify({
+            "id": id,
+            "name": name,
+            "duty": duty,
+            "mail": mail,
+            "weixin": weixin,
+            "remark": remark,
+            "qq": qq,
+            "telephone": phone1 + "," + phone2,
+            "phone":tel
+        }),
+        dataType:'json', 
+        contentType: 'application/json;charset=UTF-8',
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } else if (data.status == 0){
+                $.messager.alert('企业','更新联系人成功!','info');
+                $('#updateContact').window('close')
+                $('#contact').datagrid({'data': listContacts(COMPANY_ID)})
+            } else {
+                $.messager.alert('企业',data.message,'error');
+            }
+            
+        },
+        error: function(){
+            $.messager.alert('企业','更新联系人失败!','error');
+        }
+    });
+}
+
+function deleteContact() {
+    var row = $('#contact').datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('企业','请先选择一条联系人信息!','info'); 
+    } else {
+        var message = "确认删除 " + row.contactName + " 联系人?"
+        $.messager.confirm('联系人', message, function(r) {
+            if (r) {
+                $.ajax({
+                    type:'delete',
+                    url: "/contact/delete?id="+row.id,
+                    xhrFields:{
+                        withCredentials:true
+                    }, 
+                    crossDomain: true,
+                    credentials: 'include',  
+                    async: false, //同步调用
+                    contentType: 'application/json;charset=UTF-8',
+                    success: function(data){
+                        if (data.status == 2) {
+                            window.location.href = data.message
+                        } else if (data.status == 0){
+                            $.messager.alert('企业','删除联系人信息成功!','info');
+                            $('#contact').datagrid({'data': listContacts(COMPANY_ID)})
+                        } else {
+                            $.messager.alert('企业',data.message,'error');
+                        }
+                    },
+                    error: function(){
+                        $.messager.alert('企业','删除联系人信息失败!','error');
+                    }
+                });
+            }
+        })
+    }
 }
 
 function getCompanyDetail(companyId) {
@@ -154,34 +515,207 @@ function getCompanyDetail(companyId) {
     });
 }
 
-function getMember(companyId) {
+function addChat() {
+    if (COMPANY_ID == '') {
+        $.messager.alert('企业','请先添加企业！','info');
+    } else {
+        var chatTime = $('#chatTime').datetimebox('getValue').trim()
+        var chatType = $('#chatType').combobox('getValue').trim()
+        var chatAddress = $('#chatAddress').textbox('getValue').trim()
+        var chatOthers = $('#chatOthers').combobox('getText')
+        var chatOwners = $('#chatOwners').combobox('getText')
+        var chatContent = $('#chatContent').textbox('getValue')
+        $.ajax({
+            type:'post',
+            url: "/chat/add",
+            xhrFields:{
+                withCredentials:true
+            }, 
+            crossDomain: true,
+            credentials: 'include',  
+            async: false, //同步调用
+            data: JSON.stringify({
+                "companyId": COMPANY_ID,
+                "chatTime": chatTime,
+                "chatType": chatType,
+                "chatAddress": chatAddress,
+                "customers": chatOthers,
+                "owners": chatOwners,
+                "content": chatContent
+            }),
+            dataType:'json', 
+            contentType: 'application/json;charset=UTF-8',
+            success: function(data){
+                if (data.status == 2) {
+                    window.location.href = data.message
+                } else if (data.status == 0){
+                    $.messager.alert('企业','添加互动信息成功!','info');
+                    $('#addChat').window('close')
+                    $('#chat').datagrid({'data': listChats(COMPANY_ID)})
+                } else {
+                    $.messager.alert('企业',data.message,'error');
+                }
+                
+            },
+            error: function(){
+                $.messager.alert('企业','添加联系人失败!','error');
+            }
+        });
+    }
+}
+
+function updateChatClick() {
+    var row = $('#chat').datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('互动信息','请先选择一条互动信息!','info'); 
+    } else {
+        $('#chatTypeUpdate').combobox({
+            valueField: 'id', 
+            textField: 'name',
+            panelHeight:'auto', 
+            limitToList: true,
+            data: getTags(CHAT_TYPE_FLAG)
+        });
+
+        $('#chatOwnersUpdate').combobox({
+            valueField: 'id', 
+            textField: 'name',
+            panelHeight:'auto', 
+            limitToList: true,
+            multiple: true,
+            data: getListUsers(),
+            formatter: function (row) {
+                var opts = $(this).combobox('options');
+                return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+            },
+            onSelect: function (row) {
+                //console.log(row);
+                var opts = $(this).combobox('options');
+                var el = opts.finder.getEl(this, row[opts.valueField]);
+                el.find('input.combobox-checkbox')._propAttr('checked', true);
+            },
+            onUnselect: function (row) {
+                var opts = $(this).combobox('options');
+                var el = opts.finder.getEl(this, row[opts.valueField]);
+                el.find('input.combobox-checkbox')._propAttr('checked', false);
+            }
+        });
+
+        $('#chatOthersUpdate').combobox({
+            valueField: 'id', 
+            textField: 'contactName',
+            panelHeight:'auto', 
+            limitToList: true,
+            multiple: true,
+            data: listContacts(COMPANY_ID),
+            formatter: function (row) {
+                var opts = $(this).combobox('options');
+                return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+            },
+            onSelect: function (row) {
+                //console.log(row);
+                var opts = $(this).combobox('options');
+                var el = opts.finder.getEl(this, row[opts.valueField]);
+                el.find('input.combobox-checkbox')._propAttr('checked', true);
+            },
+            onUnselect: function (row) {
+                var opts = $(this).combobox('options');
+                var el = opts.finder.getEl(this, row[opts.valueField]);
+                el.find('input.combobox-checkbox')._propAttr('checked', false);
+            }
+        });
+        $('#chatId').textbox('setValue', row.id)
+        $('#chatTimeUpdate').datetimebox('setValue', row.chatTime)
+        $('#chatTypeUpdate').combobox('setText', row.chatType)
+        $('#chatAddressUpdate').textbox('setValue', row.chatAddress)
+        $('#chatOthersUpdate').combobox('setText', row.others)
+        $('#chatOwnersUpdate').combobox('setText', row.owners)
+        $('#chatContentUpdate').textbox('setValue', row.content)
+        $('#updateChat').window('open') 
+    }
+}
+
+function updateChat() {
+    var chatId = $('#chatId').textbox('getValue')
+    var chatTime = $('#chatTimeUpdate').datetimebox('getValue').trim()
+    var chatType = $('#chatTypeUpdate').combobox('getValue').trim()
+    var chatAddress = $('#chatAddressUpdate').textbox('getValue').trim()
+    var chatOthers = $('#chatOthersUpdate').combobox('getText').trim()
+    var chatOwners = $('#chatOwnersUpdate').combobox('getText').trim()
+    var chatContent = $('#chatContentUpdate').textbox('getValue').trim()
     $.ajax({
-        type:'get',
-        url: "/member/get?companyId=" + companyId,
+        type:'put',
+        url: "/chat/update",
         xhrFields:{
             withCredentials:true
         }, 
         crossDomain: true,
         credentials: 'include',  
         async: false, //同步调用
+        data: JSON.stringify({
+            "id": chatId,
+            "chatTime": chatTime,
+            "chatType": chatType,
+            "chatAddress": chatAddress,
+            "customers": chatOthers,
+            "owners": chatOwners,
+            "content": chatContent
+        }),
+        dataType:'json', 
         contentType: 'application/json;charset=UTF-8',
         success: function(data){
             if (data.status == 2) {
                 window.location.href = data.message
-            } else if (data.status == 0) {
-                $('#memberCode').textbox('setValue', data.obj.memberCode)
-                $('#member').combobox('setValue', data.obj.tagId)
-                $('#joiningTime').datebox('setValue', data.obj.joiningTime.substring(0,10))
-                $('#validityTime').datebox('setValue', data.obj.validityTime.substring(0,10))
+            } else if (data.status == 0){
+                $.messager.alert('企业','更新互动信息成功!','info');
+                $('#updateChat').window('close')
+                $('#chat').datagrid({'data': listChats(COMPANY_ID)})
             } else {
                 $.messager.alert('企业',data.message,'error');
             }
             
         },
         error: function(){
-            $.messager.alert('企业','获取会员信息失败!','error');
+            $.messager.alert('企业','更新互动信息失败!','error');
         }
-    }); 
+    });
+}
+
+function deleteChat() {
+    var row = $('#chat').datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('互动信息','请先选择一条互动信息!','info'); 
+    } else {
+        var message = "确认删除该条互动信息?"
+        $.messager.confirm('互动信息', message, function(r) {
+            if (r) {
+                $.ajax({
+                    type:'delete',
+                    url: "/chat/delete?id="+row.id,
+                    xhrFields:{
+                        withCredentials:true
+                    }, 
+                    crossDomain: true,
+                    credentials: 'include',  
+                    async: false, //同步调用
+                    contentType: 'application/json;charset=UTF-8',
+                    success: function(data){
+                        if (data.status == 2) {
+                            window.location.href = data.message
+                        } else if (data.status == 0){
+                            $.messager.alert('企业','删除互动信息成功!','info');
+                            $('#chat').datagrid({'data': listChats(COMPANY_ID)})
+                        } else {
+                            $.messager.alert('企业',data.message,'error');
+                        }
+                    },
+                    error: function(){
+                        $.messager.alert('企业','删除互动信息失败!','error');
+                    }
+                });
+            }
+        })
+    }
 }
 
 function listChats(companyId) {
@@ -226,6 +760,55 @@ function listChats(companyId) {
     return result
 }
 
+function addInvoice() {
+    if (COMPANY_ID == '') {
+        $.messager.alert('企业','请先添加企业！','info');
+    } else {
+        var invoiceName = $('#invoiceName').textbox('getValue').trim()
+        var invoiceNumber = $('#invoiceNumber').textbox('getValue').trim()
+        var invoiceAddress = $('#invoiceAddress').textbox('getValue').trim()
+        var invoicePhone = $('#invoicePhone').textbox('getValue').trim()
+        var invoiceBank = $('#invoiceBank').textbox('getValue').trim()
+        var invoiceAccount = $('#invoiceAccount').textbox('getValue').trim()
+        $.ajax({
+            type:'post',
+            url: "/invoice/add",
+            xhrFields:{
+                withCredentials:true
+            }, 
+            crossDomain: true,
+            credentials: 'include',  
+            async: false, //同步调用
+            data: JSON.stringify({
+                "companyId": COMPANY_ID,
+                "name": invoiceName,
+                "payNumber": invoiceNumber,
+                "address": invoiceAddress,
+                "telephone": invoicePhone,
+                "bankName": invoiceBank,
+                "accountNumber": invoiceAccount
+            }),
+            dataType:'json', 
+            contentType: 'application/json;charset=UTF-8',
+            success: function(data){
+                if (data.status == 2) {
+                    window.location.href = data.message
+                } else if (data.status == 0){
+                    $.messager.alert('企业','添加开票信息成功!','info');
+                    $('#addInvoice').window('close')
+                    $('#invoice').datagrid({'data': listInvoices(COMPANY_ID)})
+                } else {
+                    $.messager.alert('企业',data.message,'error');
+                }
+                
+            },
+            error: function(){
+                $.messager.alert('企业','添加开票信息失败!','error');
+            }
+        });
+    }
+}
+
 function listInvoices(companyId) {
     var result = []
     $.ajax({
@@ -267,6 +850,148 @@ function listInvoices(companyId) {
     return result
 }
 
+function updateInvoiceClick() {
+    var row = $('#invoice').datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('开票信息','请先选择一条开票信息!','info'); 
+    } else {
+        $('#invoiceId').textbox('setValue', row.id)
+        $('#invoiceNameUpdate').textbox('setValue', row.invoiceName)
+        $('#invoiceNumberUpdate').textbox('setValue', row.invoiceNumber)
+        $('#invoiceAddressUpdate').textbox('setValue', row.invoiceAddress)
+        $('#invoicePhoneUpdate').textbox('setValue', row.invoicePhone)
+        $('#invoiceBankUpdate').textbox('setValue', row.invoiceBank)
+        $('#invoiceAccountUpdate').textbox('setValue', row.invoiceAccount)
+        $('#updateInvoice').window('open') 
+    }
+}
+
+function updateInvoice() {
+    var invoiceId = $('#invoiceId').textbox('getValue')
+    var invoiceName = $('#invoiceNameUpdate').textbox('getValue').trim()
+    var invoiceNumber = $('#invoiceNumberUpdate').textbox('getValue').trim()
+    var invoiceAddress = $('#invoiceAddressUpdate').textbox('getValue').trim()
+    var invoicePhone = $('#invoicePhoneUpdate').textbox('getValue').trim()
+    var invoiceBank = $('#invoiceBankUpdate').textbox('getValue').trim()
+    var invoiceAccount = $('#invoiceAccountUpdate').textbox('getValue').trim()
+    $.ajax({
+        type:'put',
+        url: "/invoice/update",
+        xhrFields:{
+            withCredentials:true
+        }, 
+        crossDomain: true,
+        credentials: 'include',  
+        async: false, //同步调用
+        data: JSON.stringify({
+            "id": invoiceId,
+            "name": invoiceName,
+            "payNumber": invoiceNumber,
+            "address": invoiceAddress,
+            "telephone": invoicePhone,
+            "bankName": invoiceBank,
+            "accountNumber": invoiceAccount
+        }),
+        dataType:'json', 
+        contentType: 'application/json;charset=UTF-8',
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } else if (data.status == 0){
+                $.messager.alert('企业','更新互动信息成功!','info');
+                $('#updateInvoice').window('close')
+                $('#invoice').datagrid({'data': listInvoices(COMPANY_ID)})
+            } else {
+                $.messager.alert('企业',data.message,'error');
+            }
+            
+        },
+        error: function(){
+            $.messager.alert('企业','更新互动信息失败!','error');
+        }
+    });
+}
+
+function deleteInvoice() {
+    var row = $('#invoice').datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('开票信息','请先选择一条开票信息!','info'); 
+    } else {
+        var message = "确认删除 " + row.invoiceName + " 开票信息?"
+        $.messager.confirm('互动信息', message, function(r) {
+            if (r) {
+                $.ajax({
+                    type:'delete',
+                    url: "/invoice/delete?id="+row.id,
+                    xhrFields:{
+                        withCredentials:true
+                    }, 
+                    crossDomain: true,
+                    credentials: 'include',  
+                    async: false, //同步调用
+                    contentType: 'application/json;charset=UTF-8',
+                    success: function(data){
+                        if (data.status == 2) {
+                            window.location.href = data.message
+                        } else if (data.status == 0){
+                            $.messager.alert('企业','删除开票信息成功!','info');
+                            $('#invoice').datagrid({'data': listInvoices(COMPANY_ID)})
+                        } else {
+                            $.messager.alert('企业',data.message,'error');
+                        }
+                    },
+                    error: function(){
+                        $.messager.alert('企业','删除开票信息失败!','error');
+                    }
+                });
+            }
+        })
+    }
+}
+
+function addHolder() {
+    if (COMPANY_ID == '') {
+        $.messager.alert('企业','请先添加企业！','info');
+    } else {
+        var holderName = $('#holderName').textbox('getValue').trim()
+        var holderAmount = $('#holderAmount').textbox('getValue').trim()
+        var holderPercent = $('#holderPercent').textbox('getValue').trim()
+        $.ajax({
+            type:'post',
+            url: "/holder/add",
+            xhrFields:{
+                withCredentials:true
+            }, 
+            crossDomain: true,
+            credentials: 'include',  
+            async: false, //同步调用
+            data: JSON.stringify({
+                "companyId": COMPANY_ID,
+                "name": holderName,
+                "amount": holderAmount,
+                "percent": holderPercent
+            }),
+            dataType:'json', 
+            contentType: 'application/json;charset=UTF-8',
+            success: function(data){
+                if (data.status == 2) {
+                    window.location.href = data.message
+                } else if (data.status == 0){
+                    $.messager.alert('企业','添加股东信息成功!','info');
+                    $('#addHolder').window('close')
+                    $('#holder').datagrid({'data': listHolders(COMPANY_ID)})
+                } else {
+                    $.messager.alert('企业',data.message,'error');
+                }
+                
+            },
+            error: function(){
+                $.messager.alert('企业','添加股东信息失败!','error');
+            }
+        });
+    }
+}
+
 function listHolders(companyId) {
     var result = []
     $.ajax({
@@ -303,6 +1028,186 @@ function listHolders(companyId) {
         }
     });
     return result
+}
+
+function deleteHolder() {
+    var row = $('#holder').datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('股东信息','请先选择一条股东信息!','info'); 
+    } else {
+        $.ajax({
+            type:'delete',
+            url: "/holder/delete?id="+row.id,
+            xhrFields:{
+                withCredentials:true
+            }, 
+            crossDomain: true,
+            credentials: 'include',  
+            async: false, //同步调用
+            contentType: 'application/json;charset=UTF-8',
+            success: function(data){
+                if (data.status == 2) {
+                    window.location.href = data.message
+                } else if (data.status == 0){
+                    $.messager.alert('企业','删除股东信息成功!','info');
+                    $('#holder').datagrid({'data': listHolders(COMPANY_ID)})
+                } else {
+                    $.messager.alert('企业',data.message,'error');
+                }
+            },
+            error: function(){
+                $.messager.alert('企业','删除股东信息失败!','error');
+            }
+        });
+    }
+}
+
+function updateHolderClick() {
+    var row = $('#holder').datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('股东信息','请先选择一条股东信息!','info'); 
+    } else {
+        $('#holderId').textbox('setValue', row.id)
+        $('#holderNameUpdate').textbox('setValue', row.holderName)
+        $('#holderAmountUpdate').textbox('setValue', row.holderAmount)
+        $('#holderPercentUpdate').textbox('setValue', row.holderPercent)
+        $('#updateHolder').window('open') 
+    }
+}
+
+function updateHolder() {
+    var holderId = $('#holderId').textbox('getValue')
+    var holderName = $('#holderNameUpdate').textbox('getValue').trim()
+    var holderAmount = $('#holderAmountUpdate').textbox('getValue').trim()
+    var holderPercent = $('#holderPercentUpdate').textbox('getValue').trim()
+    $.ajax({
+        type:'put',
+        url: "/holder/update",
+        xhrFields:{
+            withCredentials:true
+        }, 
+        crossDomain: true,
+        credentials: 'include',  
+        async: false, //同步调用
+        data: JSON.stringify({
+            "id": holderId,
+            "name": holderName,
+            "amount": holderAmount,
+            "percent": holderPercent
+        }),
+        dataType:'json', 
+        contentType: 'application/json;charset=UTF-8',
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } else if (data.status == 0){
+                $.messager.alert('企业','更新股东信息成功!','info');
+                $('#updateHolder').window('close')
+                $('#holder').datagrid({'data': listHolders(COMPANY_ID)})
+            } else {
+                $.messager.alert('企业',data.message,'error');
+            }
+            
+        },
+        error: function(){
+            $.messager.alert('企业','更新股东信息失败!','error');
+        }
+    });
+}
+
+function updateRequires() {
+    if (COMPANY_ID == '') {
+        $.messager.alert('企业','请先添加企业！','info');
+    } else {
+        var tags = []
+        var brands = $('#requireBrand').combobox('getValues')
+        var resources = $('#requireResource').combobox('getValues')
+        var finances = $('#requireFinance').combobox('getValues')
+        var ability = $('#requireAbility').combobox('getValues')
+        var internations = $('#requireInternation').combobox('getValues')
+        var standards = $('#requireStandard').combobox('getValues')
+        var identify = $('#requireIdentify').combobox('getValues')
+        var consults = $('#requireConsult').combobox('getValues')
+        var others = $('#requireOther').combobox('getValues')
+        if (!isEmpty(brands)) tags = tags.concat(brands) 
+        if (!isEmpty(resources)) tags = tags.concat(resources) 
+        if (!isEmpty(finances)) tags = tags.concat(finances) 
+        if (!isEmpty(ability)) tags = tags.concat(ability) 
+        if (!isEmpty(internations)) tags = tags.concat(internations) 
+        if (!isEmpty(standards)) tags = tags.concat(standards) 
+        if (!isEmpty(identify)) tags = tags.concat(identify) 
+        if (!isEmpty(consults)) tags = tags.concat(consults) 
+        if (!isEmpty(others)) tags = tags.concat(others) 
+        $.ajax({
+            type:'put',
+            url: "/require/update",
+            xhrFields:{
+                withCredentials:true
+            }, 
+            crossDomain: true,
+            credentials: 'include',  
+            async: false, //同步调用
+            data: JSON.stringify({
+                "companyId": COMPANY_ID,
+                "tags": tags
+            }),
+            dataType:'json', 
+            contentType: 'application/json;charset=UTF-8',
+            success: function(data) {
+                if (data.status == 2) {
+                    window.location.href = data.message
+                } else if (data.status == 0){
+                    $.messager.alert('企业','更新需求信息成功!','info');
+                } else {
+                    $.messager.alert('企业',data.message,'error');
+                }
+                
+            },
+            error: function(){
+                $.messager.alert('企业','更新需求信息失败!','error');
+            }
+        });
+    }
+}
+
+function getRequires(companyId) {
+    if (COMPANY_ID == '') {
+        $.messager.alert('企业','请先添加企业！','info');
+    } else {
+        $.ajax({
+            type:'get',
+            url: "/require/get?companyId=" + companyId ,
+            xhrFields:{
+                withCredentials:true
+            }, 
+            crossDomain: true,
+            credentials: 'include',  
+            async: false, //同步调用
+            dataType:'json', 
+            contentType: 'application/json;charset=UTF-8',
+            success: function(data) {
+                if (data.status == 2) {
+                    window.location.href = data.message
+                } else if (data.status == 0){
+                    $('#requireBrand').combobox('setValues', data.obj.brand == null ? [] : data.obj.brand)
+                    $('#requireResource').combobox('setValues', data.obj.resources == null ? [] : data.obj.resources)
+                    $('#requireFinance').combobox('setValues', data.obj.finances == null ? [] : data.obj.finances)
+                    $('#requireAbility').combobox('setValues', data.obj.ability == null ? [] : data.obj.ability)
+                    $('#requireInternation').combobox('setValues', data.obj.internations == null ? [] : data.obj.internations)
+                    $('#requireStandard').combobox('setValues', data.obj.standards == null ? [] : data.obj.standards)
+                    $('#requireIdentify').combobox('setValues', data.obj.identify == null ? [] : data.obj.identify)
+                    $('#requireConsult').combobox('setValues', data.obj.consult == null ? [] : data.obj.consult)
+                    $('#requireOther').combobox('setValues', data.obj.others == null ? [] : data.obj.others)
+                } else {
+                    $.messager.alert('企业',data.message,'error');
+                }
+                
+            },
+            error: function(){
+                $.messager.alert('企业','查询需求信息失败!','error');
+            }
+        });
+    }
 }
 
 function initCompanyInfo() {
@@ -516,23 +1421,7 @@ function initMemberInfo() {
 }
 
 function initContactInfo() {
-    var data = getTags(DUTY_FLAG)
-    $('#contactDutyInput').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        data: data
-    });
-
     $('#contact').datagrid({'data': listContacts(COMPANY_ID)});
-    $('#contactDutyUpdate').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        data: data
-    });
 }
 
 function initChatInfo() {
@@ -594,6 +1483,218 @@ function initChatInfo() {
     });
 }
 
+function initRequireInfo() {
+    $('#requireBrand').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: true,
+        multiple: true,
+        data: getTags(REQUIRE_BRAND_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    $('#requireResource').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: true,
+        multiple: true,
+        data: getTags(REQUIRE_RESOURCE_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    $('#requireFinance').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: true,
+        multiple: true,
+        data: getTags(REQUIRE_FINANCE_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    $('#requireAbility').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: true,
+        multiple: true,
+        data: getTags(REQUIRE_ABILITY_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    $('#requireInternation').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: true,
+        multiple: true,
+        data: getTags(REQUIRE_INTERNATION_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    $('#requireStandard').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: true,
+        multiple: true,
+        data: getTags(REQUIRE_STANDARD_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    $('#requireIdentify').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: true,
+        multiple: true,
+        data: getTags(REQUIRE_INDENTIFACTION_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    $('#requireConsult').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: true,
+        multiple: true,
+        data: getTags(REQUIRE_CONSULT_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    $('#requireOther').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: true,
+        multiple: true,
+        data: getTags(REQUIRE_OTHER_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    getRequires(COMPANY_ID)
+
+}
+
 /*页面加载*/ 
 window.onload = function () {
     initCompanyInfo()
@@ -604,7 +1705,7 @@ window.onload = function () {
             } else if (title == "会员信息") {
                 initMemberInfo()
             } else if (title == "需求信息") {
-                
+                initRequireInfo()
             } else if (title == "联系信息") {
                 initContactInfo()
             } else if (title == "互动信息") {

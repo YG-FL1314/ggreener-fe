@@ -43,6 +43,43 @@ function getTags(parentId) {
     return result;
 }
 
+function getSyncTags(id, parentId) {
+    if (!parentId && parentId != 0) { 
+        url = "/tag/list" 
+    } else {
+        url = "/tag/list?parentId=" + parentId
+    }
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        xhrFields:{
+            withCredentials:true
+        }, 
+        crossDomain: true,
+        credentials: 'include',  
+        async: true, //同步调用
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } 
+            var items = []
+            $.each(data.obj,function(idx,item){ 
+                var parent = convertIdToName(item.parentId)
+                items[idx] = {
+                    id: item.id,
+                    name: item.name,
+                    parent: parent,
+                    order: item.order
+                }
+            })
+            $('#' + id).combobox('loadData', items)
+        },
+        error: function(){
+            //window.location.href="./login.html";
+        }
+    });
+}
+
 function cancel() {
     window.location.href = './ggreen.html'
 }
@@ -391,30 +428,35 @@ function deleteContact() {
     if (!row) {
         $.messager.alert('企业','请先选择一条联系人信息!','info'); 
     } else {
-        $.ajax({
-            type:'delete',
-            url: "/contact/delete?id="+row.id,
-            xhrFields:{
-                withCredentials:true
-            }, 
-            crossDomain: true,
-            credentials: 'include',  
-            async: false, //同步调用
-            contentType: 'application/json;charset=UTF-8',
-            success: function(data){
-                if (data.status == 2) {
-                    window.location.href = data.message
-                } else if (data.status == 0){
-                    $.messager.alert('企业','删除联系人信息成功!','info');
-                    $('#contact').datagrid({'data': listContacts(COMPANY_ID)})
-                } else {
-                    $.messager.alert('企业',data.message,'error');
-                }
-            },
-            error: function(){
-                $.messager.alert('企业','删除联系人信息失败!','error');
+        var message = "确认删除 " + row.contactName + " 联系人?"
+        $.messager.confirm('联系人', message, function(r) {
+            if (r) {
+                $.ajax({
+                    type:'delete',
+                    url: "/contact/delete?id="+row.id,
+                    xhrFields:{
+                        withCredentials:true
+                    }, 
+                    crossDomain: true,
+                    credentials: 'include',  
+                    async: false, //同步调用
+                    contentType: 'application/json;charset=UTF-8',
+                    success: function(data){
+                        if (data.status == 2) {
+                            window.location.href = data.message
+                        } else if (data.status == 0){
+                            $.messager.alert('企业','删除联系人信息成功!','info');
+                            $('#contact').datagrid({'data': listContacts(COMPANY_ID)})
+                        } else {
+                            $.messager.alert('企业',data.message,'error');
+                        }
+                    },
+                    error: function(){
+                        $.messager.alert('企业','删除联系人信息失败!','error');
+                    }
+                });
             }
-        });
+        })
     }
 }
 
@@ -644,30 +686,35 @@ function deleteChat() {
     if (!row) {
         $.messager.alert('互动信息','请先选择一条互动信息!','info'); 
     } else {
-        $.ajax({
-        type:'delete',
-        url: "/chat/delete?id="+row.id,
-        xhrFields:{
-            withCredentials:true
-        }, 
-        crossDomain: true,
-        credentials: 'include',  
-        async: false, //同步调用
-        contentType: 'application/json;charset=UTF-8',
-        success: function(data){
-            if (data.status == 2) {
-                window.location.href = data.message
-            } else if (data.status == 0){
-                $.messager.alert('企业','删除互动信息成功!','info');
-                $('#chat').datagrid({'data': listChats(COMPANY_ID)})
-            } else {
-                $.messager.alert('企业',data.message,'error');
+        var message = "确认删除该条互动信息?"
+        $.messager.confirm('互动信息', message, function(r) {
+            if (r) {
+                $.ajax({
+                    type:'delete',
+                    url: "/chat/delete?id="+row.id,
+                    xhrFields:{
+                        withCredentials:true
+                    }, 
+                    crossDomain: true,
+                    credentials: 'include',  
+                    async: false, //同步调用
+                    contentType: 'application/json;charset=UTF-8',
+                    success: function(data){
+                        if (data.status == 2) {
+                            window.location.href = data.message
+                        } else if (data.status == 0){
+                            $.messager.alert('企业','删除互动信息成功!','info');
+                            $('#chat').datagrid({'data': listChats(COMPANY_ID)})
+                        } else {
+                            $.messager.alert('企业',data.message,'error');
+                        }
+                    },
+                    error: function(){
+                        $.messager.alert('企业','删除互动信息失败!','error');
+                    }
+                });
             }
-        },
-        error: function(){
-            $.messager.alert('企业','删除互动信息失败!','error');
-        }
-    });
+        })
     }
 }
 
@@ -870,30 +917,35 @@ function deleteInvoice() {
     if (!row) {
         $.messager.alert('开票信息','请先选择一条开票信息!','info'); 
     } else {
-        $.ajax({
-            type:'delete',
-            url: "/invoice/delete?id="+row.id,
-            xhrFields:{
-                withCredentials:true
-            }, 
-            crossDomain: true,
-            credentials: 'include',  
-            async: false, //同步调用
-            contentType: 'application/json;charset=UTF-8',
-            success: function(data){
-                if (data.status == 2) {
-                    window.location.href = data.message
-                } else if (data.status == 0){
-                    $.messager.alert('企业','删除开票信息成功!','info');
-                    $('#invoice').datagrid({'data': listInvoices(COMPANY_ID)})
-                } else {
-                    $.messager.alert('企业',data.message,'error');
-                }
-            },
-            error: function(){
-                $.messager.alert('企业','删除开票信息失败!','error');
+        var message = "确认删除 " + row.invoiceName + " 开票信息?"
+        $.messager.confirm('互动信息', message, function(r) {
+            if (r) {
+                $.ajax({
+                    type:'delete',
+                    url: "/invoice/delete?id="+row.id,
+                    xhrFields:{
+                        withCredentials:true
+                    }, 
+                    crossDomain: true,
+                    credentials: 'include',  
+                    async: false, //同步调用
+                    contentType: 'application/json;charset=UTF-8',
+                    success: function(data){
+                        if (data.status == 2) {
+                            window.location.href = data.message
+                        } else if (data.status == 0){
+                            $.messager.alert('企业','删除开票信息成功!','info');
+                            $('#invoice').datagrid({'data': listInvoices(COMPANY_ID)})
+                        } else {
+                            $.messager.alert('企业',data.message,'error');
+                        }
+                    },
+                    error: function(){
+                        $.messager.alert('企业','删除开票信息失败!','error');
+                    }
+                });
             }
-        });
+        })
     }
 }
 
@@ -983,30 +1035,35 @@ function deleteHolder() {
     if (!row) {
         $.messager.alert('股东信息','请先选择一条股东信息!','info'); 
     } else {
-        $.ajax({
-            type:'delete',
-            url: "/holder/delete?id="+row.id,
-            xhrFields:{
-                withCredentials:true
-            }, 
-            crossDomain: true,
-            credentials: 'include',  
-            async: false, //同步调用
-            contentType: 'application/json;charset=UTF-8',
-            success: function(data){
-                if (data.status == 2) {
-                    window.location.href = data.message
-                } else if (data.status == 0){
-                    $.messager.alert('企业','删除股东信息成功!','info');
-                    $('#holder').datagrid({'data': listHolders(COMPANY_ID)})
-                } else {
-                    $.messager.alert('企业',data.message,'error');
-                }
-            },
-            error: function(){
-                $.messager.alert('企业','删除股东信息失败!','error');
+        var message = "确认删除 " + row.holderName + " 股东信息?"
+        $.messager.confirm('股东信息', message, function(r) {
+            if (r) {
+                $.ajax({
+                    type:'delete',
+                    url: "/holder/delete?id="+row.id,
+                    xhrFields:{
+                        withCredentials:true
+                    }, 
+                    crossDomain: true,
+                    credentials: 'include',  
+                    async: false, //同步调用
+                    contentType: 'application/json;charset=UTF-8',
+                    success: function(data){
+                        if (data.status == 2) {
+                            window.location.href = data.message
+                        } else if (data.status == 0){
+                            $.messager.alert('企业','删除股东信息成功!','info');
+                            $('#holder').datagrid({'data': listHolders(COMPANY_ID)})
+                        } else {
+                            $.messager.alert('企业',data.message,'error');
+                        }
+                    },
+                    error: function(){
+                        $.messager.alert('企业','删除股东信息失败!','error');
+                    }
+                });
             }
-        });
+        })
     }
 }
 
@@ -1061,6 +1118,101 @@ function updateHolder() {
             $.messager.alert('企业','更新股东信息失败!','error');
         }
     });
+}
+
+function updateRequires() {
+    if (COMPANY_ID == '') {
+        $.messager.alert('企业','请先添加企业！','info');
+    } else {
+        var tags = []
+        var brands = $('#requireBrand').combobox('getValues')
+        var resources = $('#requireResource').combobox('getValues')
+        var finances = $('#requireFinance').combobox('getValues')
+        var ability = $('#requireAbility').combobox('getValues')
+        var internations = $('#requireInternation').combobox('getValues')
+        var standards = $('#requireStandard').combobox('getValues')
+        var identify = $('#requireIdentify').combobox('getValues')
+        var consults = $('#requireConsult').combobox('getValues')
+        var others = $('#requireOther').combobox('getValues')
+        if (!isEmpty(brands)) tags = tags.concat(brands) 
+        if (!isEmpty(resources)) tags = tags.concat(resources) 
+        if (!isEmpty(finances)) tags = tags.concat(finances) 
+        if (!isEmpty(ability)) tags = tags.concat(ability) 
+        if (!isEmpty(internations)) tags = tags.concat(internations) 
+        if (!isEmpty(standards)) tags = tags.concat(standards) 
+        if (!isEmpty(identify)) tags = tags.concat(identify) 
+        if (!isEmpty(consults)) tags = tags.concat(consults) 
+        if (!isEmpty(others)) tags = tags.concat(others) 
+        $.ajax({
+            type:'put',
+            url: "/require/update",
+            xhrFields:{
+                withCredentials:true
+            }, 
+            crossDomain: true,
+            credentials: 'include',  
+            async: false, //同步调用
+            data: JSON.stringify({
+                "companyId": COMPANY_ID,
+                "tags": tags
+            }),
+            dataType:'json', 
+            contentType: 'application/json;charset=UTF-8',
+            success: function(data) {
+                if (data.status == 2) {
+                    window.location.href = data.message
+                } else if (data.status == 0){
+                    $.messager.alert('企业','更新需求信息成功!','info');
+                } else {
+                    $.messager.alert('企业',data.message,'error');
+                }
+                
+            },
+            error: function(){
+                $.messager.alert('企业','更新需求信息失败!','error');
+            }
+        });
+    }
+}
+
+function getRequires(companyId) {
+    if (COMPANY_ID == '') {
+        $.messager.alert('企业','请先添加企业！','info');
+    } else {
+        $.ajax({
+            type:'get',
+            url: "/require/get?companyId=" + companyId ,
+            xhrFields:{
+                withCredentials:true
+            }, 
+            crossDomain: true,
+            credentials: 'include',  
+            async: false, //同步调用
+            dataType:'json', 
+            contentType: 'application/json;charset=UTF-8',
+            success: function(data) {
+                if (data.status == 2) {
+                    window.location.href = data.message
+                } else if (data.status == 0){
+                    $('#requireBrand').combobox('setValues', data.obj.brand == null ? [] : data.obj.brand)
+                    $('#requireResource').combobox('setValues', data.obj.resources == null ? [] : data.obj.resources)
+                    $('#requireFinance').combobox('setValues', data.obj.finances == null ? [] : data.obj.finances)
+                    $('#requireAbility').combobox('setValues', data.obj.ability == null ? [] : data.obj.ability)
+                    $('#requireInternation').combobox('setValues', data.obj.internations == null ? [] : data.obj.internations)
+                    $('#requireStandard').combobox('setValues', data.obj.standards == null ? [] : data.obj.standards)
+                    $('#requireIdentify').combobox('setValues', data.obj.identify == null ? [] : data.obj.identify)
+                    $('#requireConsult').combobox('setValues', data.obj.consult == null ? [] : data.obj.consult)
+                    $('#requireOther').combobox('setValues', data.obj.others == null ? [] : data.obj.others)
+                } else {
+                    $.messager.alert('企业',data.message,'error');
+                }
+                
+            },
+            error: function(){
+                $.messager.alert('企业','查询需求信息失败!','error');
+            }
+        });
+    }
 }
 
 function initCompanyInfo() {
@@ -1336,6 +1488,218 @@ function initChatInfo() {
     });
 }
 
+function initRequireInfo() {
+    $('#requireBrand').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: true,
+        multiple: true,
+        data: getTags(REQUIRE_BRAND_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    $('#requireResource').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: true,
+        multiple: true,
+        data: getTags(REQUIRE_RESOURCE_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    $('#requireFinance').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: true,
+        multiple: true,
+        data: getTags(REQUIRE_FINANCE_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    $('#requireAbility').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: true,
+        multiple: true,
+        data: getTags(REQUIRE_ABILITY_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    $('#requireInternation').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: true,
+        multiple: true,
+        data: getTags(REQUIRE_INTERNATION_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    $('#requireStandard').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: true,
+        multiple: true,
+        data: getTags(REQUIRE_STANDARD_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    $('#requireIdentify').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: true,
+        multiple: true,
+        data: getTags(REQUIRE_INDENTIFACTION_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    $('#requireConsult').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: true,
+        multiple: true,
+        data: getTags(REQUIRE_CONSULT_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    $('#requireOther').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: true,
+        multiple: true,
+        data: getTags(REQUIRE_OTHER_FLAG),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    getRequires(COMPANY_ID)
+
+}
+
 /*页面加载*/ 
 window.onload = function () {
     initCompanyInfo()
@@ -1346,7 +1710,7 @@ window.onload = function () {
             } else if (title == "会员信息") {
                 initMemberInfo()
             } else if (title == "需求信息") {
-                
+                initRequireInfo()
             } else if (title == "联系信息") {
                 initContactInfo()
             } else if (title == "互动信息") {
