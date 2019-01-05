@@ -521,7 +521,194 @@ function deleteCompany() {
             }
         })
     }
+}
+
+function addProject() {
+    var name = $('#projectName').textbox('getValue').trim()
+    var type = $('#projectType').combobox('getValue').trim()
+    var address = $('#projectAddress').textbox('getValue').trim()
+    var startDate = $('#startDate').datebox('getValue').trim()
+    var endDate = $('#endDate').datebox('getValue').trim()
+    var remark = $('#projectRemark').textbox('getValue').trim()
+    var amount = $('#projectAmount').textbox('getValue').trim()
+    $.ajax({
+        url: "/project/add",
+        xhrFields:{
+            withCredentials:true
+        }, 
+        type: 'post',
+        crossDomain: true,
+        credentials: 'include', 
+        data: JSON.stringify({
+          "name": name,
+          "type": type,
+          "address": address,
+          "startDate": startDate,
+          "endDate": endDate,
+          "remark": remark,
+          "amount": amount
+        }),
+        dataType:'json', 
+        contentType: 'application/json;charset=UTF-8',
+        async: false,
+        success: function(data){
+            if (data.status == 0) {
+                $.messager.alert('项目','添加项目成功!');
+                $('#addProject').window('close')
+                $('#projects').datagrid('loadData', getProjects())
+            } else {
+                $.messager.alert('项目','添加项目失败!','error');
+            }
+        },
+        error: function(){
+            $.messager.alert('项目','添加项目失败!','error');
+        }
+    });
 } 
+
+function getProjects() {
+    var result
+    $.ajax({
+        url: "/project/list",
+        xhrFields:{
+            withCredentials:true
+        }, 
+        type: 'get',
+        crossDomain: true,
+        credentials: 'include', 
+        contentType: 'application/json;charset=UTF-8',
+        async: false,
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } 
+            var items = []
+            $.each(data.obj,function(idx,item){ 
+                items[idx] = {
+                    id: item.id,
+                    projectName: item.name,
+                    projectType: item.type,
+                    projectAddress: item.address,
+                    startDate: item.startDate,
+                    endDate: item.endDate,
+                    projectRemark: item.remark,
+                    amount: item.amount                
+                }
+            })
+            result = items
+        },
+        error: function(){
+            window.location.href="./login.html";
+        }
+    });
+    return result
+}
+
+function updateProjectClick() {
+    var row = $('#projects').datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('项目','请先选择一个项目!','warn'); 
+    } else {
+        $('#projectTypeUpdate').combobox({
+            valueField: 'id', 
+            textField: 'name',
+            panelHeight:'auto', 
+            limitToList: false,
+            data: getTags(PROJECT_TYPE_FLAG)
+        });
+        $('#projectId').textbox('setValue', row.id)
+        $('#projectNameUpdate').textbox('setValue', row.projectName)
+        $('#projectTypeUpdate').combobox('setText', row.projectType)
+        $('#projectAddressUpdate').textbox('setValue', row.projectAddress)
+        $('#startDateUpdate').datebox('setValue', row.startDate)
+        $('#endDateUpdate').datebox('setValue', row.endDate)
+        $('#projectRemarkUpdate').textbox('setValue', row.projectRemark)
+        $('#projectAmountUpdate').textbox('setValue', row.amount)
+        $('#updateProject').window('open')
+    }
+}
+
+function updateProject() {
+    var id = $('#projectId').textbox('getValue').trim()
+    var name = $('#projectNameUpdate').textbox('getValue').trim()
+    var type = $('#projectTypeUpdate').combobox('getValue').trim()
+    var address = $('#projectAddressUpdate').textbox('getValue').trim()
+    var startDate = $('#startDateUpdate').datebox('getValue').trim()
+    var endDate = $('#endDateUpdate').datebox('getValue').trim()
+    var remark = $('#projectRemarkUpdate').textbox('getValue').trim()
+    var amount = $('#projectAmountUpdate').textbox('getValue').trim()
+    $.ajax({
+        url: "/project/update",
+        xhrFields:{
+            withCredentials:true
+        }, 
+        type: 'put',
+        crossDomain: true,
+        credentials: 'include', 
+        data: JSON.stringify({
+            "id": id,
+            "name": name,
+            "type": type,
+            "address": address,
+            "startDate": startDate,
+            "endDate": endDate,
+            "remark": remark,
+            "amount": amount
+        }),
+        dataType:'json', 
+        contentType: 'application/json;charset=UTF-8',
+        async: false,
+        success: function(data){
+            if (data.status == 0) {
+                $.messager.alert('项目','更新项目成功!');
+                $('#updateProject').window('close')
+                $('#projects').datagrid('loadData', getProjects())
+            } else {
+                $.messager.alert('项目','更新项目失败!','error');
+            }
+        },
+        error: function(){
+            $.messager.alert('项目','更新项目失败!','error');
+        }
+    });
+}
+
+function deleteProject() {
+    var row = $('#projects').datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('项目','请先选择一个项目!','warn'); 
+    } else {
+       var message = "确认删除 " + row.projectName + " 项目?"
+        $.messager.confirm('企业', message, function(r) {
+            if (r) {
+                $.ajax({
+                    url: "/project/delete?id=" + row.id,
+                    xhrFields:{
+                        withCredentials:true
+                    }, 
+                    type: 'delete',
+                    crossDomain: true,
+                    credentials: 'include', 
+                    contentType: 'application/json;charset=UTF-8',
+                    async: false,
+                    success: function(data){
+                        if (data.status == 0) {
+                            $.messager.alert('项目','删除项目成功!','info');
+                            $('#projects').datagrid('loadData', getProjects())
+                        } else if (data.status == 2) {
+                            window.location.href = data.message;
+                        } else {
+                            $.messager.alert('项目', data.message,'error');
+                        }
+                    },
+                    error: function(){
+                        $.messager.alert('项目','删除项目失败!','error');
+                    }
+                });
+            }
+        })
+    }
+}
 
 $(function() {
     //会员级别
@@ -766,6 +953,24 @@ window.onload = function () {
     $('#tt').tabs({
         onSelect: function(title,index) {
             if (title == "项目管理") {
+                $('#projectType').combobox({
+                    valueField: 'id', 
+                    textField: 'name',
+                    panelHeight:'auto', 
+                    limitToList: false,
+                    data: getTags(PROJECT_TYPE_FLAG)
+                });
+                $('#projects').datagrid({
+                    onDblClickRow: function(rowIndex, rowData) {  
+                        window.open("./project.html?projectId=" + rowData.id)
+                    },
+                    rowStyler: function(index,row){
+                        if (index % 2 == 0){
+                            return 'background-color:#E6E6FA;color:#000;';
+                        }
+                    }
+                })
+                $('#projects').datagrid('loadData', getProjects())
 
             } else if (title == "企业管理") {
                 var opts = $('#companys').datagrid('options');

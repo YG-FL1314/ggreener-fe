@@ -1697,7 +1697,443 @@ function initRequireInfo() {
         }
     });
     getRequires(COMPANY_ID)
+}
 
+function getProjects(companyId) {
+    var result
+    $.ajax({
+        url: "/projectcompany/list?companyId=" + companyId,
+        xhrFields:{
+            withCredentials:true
+        }, 
+        type: 'get',
+        crossDomain: true,
+        credentials: 'include', 
+        contentType: 'application/json;charset=UTF-8',
+        async: false,
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } 
+            var items = []
+            $.each(data.obj,function(idx,item){ 
+                items[idx] = {
+                    id: item.id,
+                    projectName: item.projectName,
+                    projectType: item.projectType,
+                    startDate: item.startDate,
+                    endDate: item.endDate,
+                    projectOthers: item.others,   
+                    projectPeople: item.people,  
+                    projectOwners: item.owners,
+                    projectAmount: item.amount           
+                }
+            })
+            result = items
+        },
+        error: function(){
+            window.location.href="./login.html";
+        }
+    });
+    return result
+}
+
+function getProjectDetail(projectId) {
+    var result
+    $.ajax({
+        url: "/project/get?projectId=" + projectId,
+        xhrFields:{
+            withCredentials:true
+        }, 
+        type: 'get',
+        crossDomain: true,
+        credentials: 'include', 
+        contentType: 'application/json;charset=UTF-8',
+        async: false,
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } 
+            result = data.obj
+        },
+        error: function(){
+            window.location.href="./login.html";
+        }
+    });
+    return result
+}
+
+function getAllProjects() {
+    var result
+    $.ajax({
+        url: "/project/list",
+        xhrFields:{
+            withCredentials:true
+        }, 
+        type: 'get',
+        crossDomain: true,
+        credentials: 'include', 
+        contentType: 'application/json;charset=UTF-8',
+        async: false,
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } 
+            var items = []
+            $.each(data.obj,function(idx,item){ 
+                items[idx] = {
+                    id: item.id,
+                    name: item.name               
+                }
+            })
+            result = items
+        },
+        error: function(){
+            window.location.href="./login.html";
+        }
+    });
+    return result
+}
+
+function initProjectInfo() {
+    $('#projects').datagrid('loadData', getProjects(COMPANY_ID))
+    $('#projectType').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: false,
+        data: getTags(PROJECT_TYPE_FLAG)
+    });
+    $('#projectName').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: true,
+        data: getAllProjects(),
+        onSelect: function (row) {
+            var data = getProjectDetail(row.id)
+            $('#projectType').combobox('setText', data.type)
+            $('#startDate').datebox('setValue', data.startDate)
+            $('#endDate').datebox('setValue', data.endDate)
+        }
+    });
+    $('#projectOwners').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: true,
+        multiple: true,
+        data: getListUsers(),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    var others = listContacts(COMPANY_ID)
+    $('#projectPeople').combobox({
+        valueField: 'id', 
+        textField: 'contactName',
+        panelHeight:'auto', 
+        limitToList: true,
+        multiple: true,
+        data: others,
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+
+    $('#projectOthers').combobox({
+        valueField: 'id', 
+        textField: 'contactName',
+        panelHeight:'auto', 
+        limitToList: true,
+        multiple: true,
+        data: others,
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+}
+
+function addProject() {
+    if (COMPANY_ID == '') {
+        $.messager.alert('企业','请先添加企业！','info');
+    } else {
+        var projectId = $('#projectName').combobox('getValue').trim()
+        var projectOthers = $('#projectOthers').combobox('getText').trim()
+        var projectPeople = $('#projectPeople').combobox('getText').trim()
+        var projectOwners = $('#projectOwners').combobox('getText').trim()
+        var projectAmount = $('#projectAmount').textbox('getText').trim()
+        $.ajax({
+            type:'post',
+            url: "/projectcompany/add",
+            xhrFields:{
+                withCredentials:true
+            }, 
+            crossDomain: true,
+            credentials: 'include',  
+            async: false, //同步调用
+            data: JSON.stringify({
+                "companyId": COMPANY_ID,
+                "projectId": projectId,
+                "people": projectPeople,
+                "others": projectOthers,
+                "owners": projectOwners,
+                "amount": projectAmount
+            }),
+            dataType:'json', 
+            contentType: 'application/json;charset=UTF-8',
+            success: function(data){
+                if (data.status == 2) {
+                    window.location.href = data.message
+                } else if (data.status == 0){
+                    $.messager.alert('企业','添加合作信息成功!','info');
+                    $('#addProject').window('close')
+                    $('#projects').datagrid('loadData', getProjects(COMPANY_ID))
+                } else {
+                    $.messager.alert('企业',data.message,'error');
+                }
+                
+            },
+            error: function(){
+                $.messager.alert('企业','添加合作信息成功!','error');
+            }
+        });
+    }
+}
+
+function updateProjectClick() {
+    var row = $('#projects').datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('项目信息','请先选择一条项目信息!','info'); 
+    } else {
+        $('#projectTypeUpdate').combobox({
+            valueField: 'id', 
+            textField: 'name',
+            panelHeight:'auto', 
+            limitToList: false,
+            data: getTags(PROJECT_TYPE_FLAG)
+        });
+        var allProject = getAllProjects()
+        $('#projectNameUpdate').combobox({
+            valueField: 'id', 
+            textField: 'name',
+            panelHeight:'auto', 
+            limitToList: true,
+            data: allProject,
+            onSelect: function (row) {
+                var data = getProjectDetail(row.id)
+                $('#projectTypeUpdate').combobox('setText', data.type)
+                $('#startDateUpdate').datebox('setValue', data.startDate)
+                $('#endDateUpdate').datebox('setValue', data.endDate)
+            }
+        });
+        $('#projectOwnersUpdate').combobox({
+            valueField: 'id', 
+            textField: 'name',
+            panelHeight:'auto', 
+            limitToList: true,
+            multiple: true,
+            data: getListUsers(),
+            formatter: function (row) {
+                var opts = $(this).combobox('options');
+                return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+            },
+            onSelect: function (row) {
+                //console.log(row);
+                var opts = $(this).combobox('options');
+                var el = opts.finder.getEl(this, row[opts.valueField]);
+                el.find('input.combobox-checkbox')._propAttr('checked', true);
+            },
+            onUnselect: function (row) {
+                var opts = $(this).combobox('options');
+                var el = opts.finder.getEl(this, row[opts.valueField]);
+                el.find('input.combobox-checkbox')._propAttr('checked', false);
+            }
+        });
+        var others = listContacts(COMPANY_ID)
+        $('#projectPeopleUpdate').combobox({
+            valueField: 'id', 
+            textField: 'contactName',
+            panelHeight:'auto', 
+            limitToList: true,
+            multiple: true,
+            data: others,
+            formatter: function (row) {
+                var opts = $(this).combobox('options');
+                return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+            },
+            onSelect: function (row) {
+                //console.log(row);
+                var opts = $(this).combobox('options');
+                var el = opts.finder.getEl(this, row[opts.valueField]);
+                el.find('input.combobox-checkbox')._propAttr('checked', true);
+            },
+            onUnselect: function (row) {
+                var opts = $(this).combobox('options');
+                var el = opts.finder.getEl(this, row[opts.valueField]);
+                el.find('input.combobox-checkbox')._propAttr('checked', false);
+            }
+        });
+
+        $('#projectOthersUpdate').combobox({
+            valueField: 'id', 
+            textField: 'contactName',
+            panelHeight:'auto', 
+            limitToList: true,
+            multiple: true,
+            data: others,
+            formatter: function (row) {
+                var opts = $(this).combobox('options');
+                return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+            },
+            onSelect: function (row) {
+                //console.log(row);
+                var opts = $(this).combobox('options');
+                var el = opts.finder.getEl(this, row[opts.valueField]);
+                el.find('input.combobox-checkbox')._propAttr('checked', true);
+            },
+            onUnselect: function (row) {
+                var opts = $(this).combobox('options');
+                var el = opts.finder.getEl(this, row[opts.valueField]);
+                el.find('input.combobox-checkbox')._propAttr('checked', false);
+            }
+        });
+        $('#projectCompanyId').textbox('setValue', row.id)
+        $.each(allProject, function(idx,item){ 
+            if (item.name == row.projectName) {
+                $('#projectNameUpdate').combobox('setValue', item.id)
+            }  
+        })
+        $('#projectTypeUpdate').combobox('setText', row.projectType)
+        $('#startDateUpdate').datebox('setValue', row.startDate)
+        $('#endDateUpdate').datebox('setValue', row.endDate)
+        $('#projectOthersUpdate').textbox('setValue', row.projectOthers)
+        $('#projectPeopleUpdate').textbox('setValue', row.projectPeople)
+        $('#projectOwnersUpdate').textbox('setValue', row.projectOwners)
+        $('#projectAmountUpdate').textbox('setValue', row.projectAmount)
+        $('#updateProject').window('open') 
+    }
+}
+
+function updateProject() {
+    if (COMPANY_ID == '') {
+        $.messager.alert('企业','请先添加企业！','info');
+    } else {
+        var projectCompanyId = $('#projectCompanyId').textbox('getValue').trim()
+        var projectId = $('#projectNameUpdate').combobox('getValue').trim()
+        var projectOthers = $('#projectOthersUpdate').combobox('getText').trim()
+        var projectPeople = $('#projectPeopleUpdate').combobox('getText').trim()
+        var projectOwners = $('#projectOwnersUpdate').combobox('getText').trim()
+        var projectAmount = $('#projectAmountUpdate').textbox('getText').trim()
+        $.ajax({
+            type:'put',
+            url: "/projectcompany/update",
+            xhrFields:{
+                withCredentials:true
+            }, 
+            crossDomain: true,
+            credentials: 'include',  
+            async: false, //同步调用
+            data: JSON.stringify({
+                "id": projectCompanyId,
+                "projectId": projectId,
+                "people": projectPeople,
+                "others": projectOthers,
+                "owners": projectOwners,
+                "amount": projectAmount
+            }),
+            dataType:'json', 
+            contentType: 'application/json;charset=UTF-8',
+            success: function(data){
+                if (data.status == 2) {
+                    window.location.href = data.message
+                } else if (data.status == 0){
+                    $.messager.alert('项目','更新合作信息成功!','info');
+                    $('#updateProject').window('close')
+                    $('#projects').datagrid('loadData', getProjects(COMPANY_ID))
+                } else {
+                    $.messager.alert('项目',data.message,'error');
+                }
+                
+            },
+            error: function(){
+                $.messager.alert('企业','更新合作信息失败!','error');
+            }
+        });
+    }
+}
+
+function deleteProject() {
+    var row = $('#projects').datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('合作信息','请先选择一条合作信息!','info'); 
+    } else {
+        var message = "确认删除 " + row.projectName + " 项目信息?"
+        $.messager.confirm('合作信息', message, function(r) {
+            if (r) {
+                $.ajax({
+                    type:'delete',
+                    url: "/projectcompany/delete?id="+row.id,
+                    xhrFields:{
+                        withCredentials:true
+                    }, 
+                    crossDomain: true,
+                    credentials: 'include',  
+                    async: false, //同步调用
+                    contentType: 'application/json;charset=UTF-8',
+                    success: function(data){
+                        if (data.status == 2) {
+                            window.location.href = data.message
+                        } else if (data.status == 0){
+                            $.messager.alert('合作信息','删除合作信息成功!','info');
+                            $('#projects').datagrid('loadData', getProjects(COMPANY_ID))
+                        } else {
+                            $.messager.alert('合作信息',data.message,'error');
+                        }
+                    },
+                    error: function(){
+                        $.messager.alert('合作信息','删除合作信息失败!','error');
+                    }
+                });
+            }
+        })
+    }
 }
 
 /*页面加载*/ 
@@ -1716,11 +2152,11 @@ window.onload = function () {
             } else if (title == "互动信息") {
                 initChatInfo()
             } else if (title == "合作信息") {
-                
+                initProjectInfo() 
             } else if (title == "经营信息") {
-                $('#holder').datagrid({'data': listHolders(COMPANY_ID)})
+                $('#holder').datagrid('loadData', listHolders(COMPANY_ID))
             } else if (title == "开票信息") {
-                $('#invoice').datagrid({'data': listInvoices(COMPANY_ID)})
+                $('#invoice').datagrid('loadData', listInvoices(COMPANY_ID))
             }
         }
     });

@@ -95,25 +95,81 @@
 		        	</div>
 		        </div>
 		        <div title="项目管理" style="padding:20px">
-		            <table id="projects" style="width:100%;height:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationProject'">
-				        <thead>
+		            <table id="projects" style="width:100%;height:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationProject',rownumbers:true">
+		            	<thead>
 				            <tr>
-				            	<th field="projectId" align="center" width="10%">项目ID</th>
-				                <th field="projectName" align="center" width="10%">项目名称</th>
+				                <th field="projectName" align="center" width="20%">项目名称</th>
 				                <th field="projectType" align="center" width="10%">项目类型</th>
-				                <th field="startTime" align="center" width="10%">开始时间</th>
-				                <th field="createTime" align="center" width="10%">结束时间</th>
-				                <th field="others" align="center" width="10%">对接人</th>
-				                <th field="customers" align="center" width="10%">该方参与人</th>
-				                <th field="owners" align="center" width="10%">我方负责人</th>
-				                <th field="amount" align="center" width="10%">项目金额（万元）</th>
+				                <th field="projectAddress" align="center" width="20%">项目执行地点</th>
+				                <th field="startDate" align="center" width="10%">开始时间</th>
+				                <th field="endDate" align="center" width="10%">结束时间</th>
+				                <th field="projectRemark" align="center" width="15%">备注</th>
+				                <th field="amount" align="center" width="15%">项目金额（万元）</th>
 				            </tr>
 				        </thead>
 				    </table>
 			        <div id="operationProject" style="padding:2px 5px;">
 				        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="$('#addProject').window('open')" plain="true">增加</a>
-				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="modifyUserOperationByAdmin()">修改</a>
-				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteUserByAdmin()">删除</a>
+				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="updateProjectClick()">修改</a>
+				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteProject()">删除</a>
+				    </div>
+				     <div id="addProject" class="easyui-window" title="新增项目" data-options="closed:true,iconCls:'icon-save'" style="width:420px;height:46s0px;padding:5px;">
+			        	<div style="text-align:center;margin-top:10px;">
+			        		<input id="projectName" class="easyui-textbox" label="项目名称：" labelPosition="before" style="width:300px;">
+			        	</div>
+		                <div style="text-align:center;margin-top:10px;">
+		                	<input id="projectType" class="easyui-combobox" label="项目类型：" labelPosition="before"  style="width:300px;">
+		                </div>
+		                <div style="text-align:center;margin-top:10px;">
+			        		<input id="projectAddress" class="easyui-textbox" label="项目地点：" labelPosition="before" style="width:300px;">
+			        	</div>
+		                <div style="text-align:center;margin-top:10px;">
+		                	<input id="startDate" class="easyui-datebox" label="开始时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:300px;">
+		                </div>
+		                <div style="text-align:center;margin-top:10px;">
+		                	<input id="endDate" class="easyui-datebox" label="结束时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:300px;">
+		                </div>
+		                <div style="text-align:center;margin-top:10px;">
+			        		<input id="projectAmount" class="easyui-textbox" label="项目金额：" labelPosition="before" style="width:300px;">
+			        	</div>
+		                <div style="text-align:center;margin-top:10px;">
+			        		<input id="projectRemark" class="easyui-textbox" label="备注：" labelPosition="before" multiline="true" style="width:300px;height:100px">
+			        	</div>
+		                <div style="text-align:center;margin-top:10px;">
+		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="addProject()">新增</a>
+		                	 <a href="#" class="easyui-linkbutton" onclick="$('#addProject').window('close')" style="text-align:center;width:20%;margin-left:20px;">取消</a>
+		                </div>
+				    </div>
+				    <div id="updateProject" class="easyui-window" title="修改项目" data-options="closed:true,iconCls:'icon-save'" style="width:420px;height:480px;padding:5px;">
+				    	<div style="text-align:center;margin-top:10px;">
+			        		<input id="projectId" class="easyui-textbox" label="项目ID：" labelPosition="before" style="width:300px;" disabled="true">
+			        	</div>
+				     	<div style="text-align:center;margin-top:10px;">
+			        		<input id="projectNameUpdate" class="easyui-textbox" label="项目名称：" labelPosition="before" style="width:300px;">
+			        	</div>
+		                <div style="text-align:center;margin-top:10px;">
+		                	<input id="projectTypeUpdate" class="easyui-combobox" label="项目类型：" labelPosition="before"  style="width:300px;">
+		                </div>
+		                <div style="text-align:center;margin-top:10px;">
+			        		<input id="projectAddressUpdate" class="easyui-textbox" label="项目地点：" labelPosition="before" style="width:300px;">
+			        	</div>
+		                <div style="text-align:center;margin-top:10px;">
+		                	<input id="startDateUpdate" class="easyui-datebox" label="开始时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:300px;">
+		                </div>
+		                <div style="text-align:center;margin-top:10px;">
+		                	<input id="endDateUpdate" class="easyui-datebox" label="结束时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:300px;">
+		                </div>
+		                <div style="text-align:center;margin-top:10px;">
+			        		<input id="projectAmountUpdate" class="easyui-textbox" label="项目金额：" labelPosition="before" style="width:300px;">
+			        	</div>
+		                <div style="text-align:center;margin-top:10px;">
+			        		<input id="projectRemarkUpdate" class="easyui-textbox" label="备注" labelPosition="before" multiline="true" style="width:300px;height:100px">
+			        	</div>
+
+		                <div style="text-align:center;margin-top:10px;">
+		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="updateProject()">更新</a>
+		                	 <a href="#" class="easyui-linkbutton" onclick="$('#updateProject').window('close')" style="text-align:center;width:20%;margin-left:20px;">取消</a>
+		                </div>
 				    </div>
 		        </div>
 		        <div title="用户管理" style="padding:20px">
