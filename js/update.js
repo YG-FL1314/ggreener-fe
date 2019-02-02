@@ -423,6 +423,46 @@ function updateContact() {
     });
 }
 
+function updateBaseContact() {
+    var telephone = $('#companyPhone').textbox('getValue').trim()
+    var fax = $('#companyFax').textbox('getValue').trim()
+    var website = $('#companyWebsite').textbox('getValue').trim()
+    var address = $('#companyAddress').textbox('getValue').trim()
+    $.ajax({
+        type:'put',
+        url: "/company/update",
+        xhrFields:{
+            withCredentials:true
+        }, 
+        crossDomain: true,
+        credentials: 'include',  
+        async: false, //同步调用
+        data: JSON.stringify({
+            "id": COMPANY_ID,
+            "telephone": telephone,
+            "fax": fax,
+            "website": website,
+            "address": address 
+        }),
+        dataType:'json', 
+        contentType: 'application/json;charset=UTF-8',
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } else if (data.status == 0){
+                COMPANY_ID = data.obj.id
+                $.messager.alert('企业','更新企业联系信息成功!','info');
+            } else {
+                $.messager.alert('企业',data.message,'error');
+            }
+            
+        },
+        error: function(){
+            $.messager.alert('企业','更新企业联系信息失败!','error');
+        }
+    });
+}
+
 function deleteContact() {
     var row = $('#contact').datagrid('getSelected');
     if (!row) {
@@ -1080,14 +1120,75 @@ function updateHolderClick() {
     }
 }
 
-function updateHolder() {
-    var holderId = $('#holderId').textbox('getValue')
-    var holderName = $('#holderNameUpdate').textbox('getValue').trim()
-    var holderAmount = $('#holderAmountUpdate').textbox('getValue').trim()
-    var holderPercent = $('#holderPercentUpdate').textbox('getValue').trim()
+function addBusinessData() {
+    if (COMPANY_ID == '') {
+        $.messager.alert('企业','请先添加企业！','info');
+    } else {
+        var year = $('#businessYear').textbox('getValue').trim()
+        var totalAssets = $('#businessTotalAssets').textbox('getValue').trim()
+        var netAssets = $('#businessNetAssets').textbox('getValue').trim()
+        var revenue = $('#businessRevenue').textbox('getValue').trim()
+        var profit = $('#businessProfit').textbox('getValue').trim()
+        var debtRatio = $('#businessDebtRatio').textbox('getValue').trim()
+        var contractAmount = $('#businessContractAmount').textbox('getValue').trim()
+        var investedAmount = $('#businessInvestedAmount').textbox('getValue').trim()
+        var businessNumber = $('#businessNumber').textbox('getValue').trim()
+        $.ajax({
+            type:'post',
+            url: "/business/add",
+            xhrFields:{
+                withCredentials:true
+            }, 
+            crossDomain: true,
+            credentials: 'include',  
+            async: false, //同步调用
+            data: JSON.stringify({
+                "year": year,
+                "companyId": COMPANY_ID,
+                "totalAsset": totalAssets,
+                "netAsset": netAssets,
+                "revenue": revenue,
+                "profit": profit,
+                "debtRatio": debtRatio,
+                "contractAmount": contractAmount,
+                "investedAmount": investedAmount,
+                "number": businessNumber
+            }),
+            dataType:'json', 
+            contentType: 'application/json;charset=UTF-8',
+            success: function(data){
+                if (data.status == 2) {
+                    window.location.href = data.message
+                } else if (data.status == 0){
+                    $.messager.alert('企业','添加经营信息成功!','info');
+                    $('#addBusinessData').window('close')
+                    $('#businessData').datagrid({'data': listBusinessDatas(COMPANY_ID)})
+                } else {
+                    $.messager.alert('企业',data.message,'error');
+                }
+                
+            },
+            error: function(){
+                $.messager.alert('企业','添加经营信息失败!','error');
+            }
+        });
+    }
+}
+
+function updateBusinessData() {
+    var businessDataId = $('#businessDataId').textbox('getValue')
+    var businessYearUpdate = $('#businessYearUpdate').textbox('getValue').trim()
+    var businessTotalAssetsUpdate = $('#businessTotalAssetsUpdate').textbox('getValue').trim()
+    var businessNetAssetsUpdate = $('#businessNetAssetsUpdate').textbox('getValue').trim()
+    var businessRevenueUpdate = $('#businessRevenueUpdate').textbox('getValue').trim()
+    var businessProfitUpdate = $('#businessProfitUpdate').textbox('getValue').trim()
+    var businessDebtRatioUpdate = $('#businessDebtRatioUpdate').textbox('getValue').trim()
+    var businessContractAmountUpdate = $('#businessContractAmountUpdate').textbox('getValue').trim()
+    var businessInvestedAmountUpdate = $('#businessInvestedAmountUpdate').textbox('getValue').trim()
+    var businessNumberUpdate = $('#businessNumberUpdate').textbox('getValue').trim()
     $.ajax({
         type:'put',
-        url: "/holder/update",
+        url: "/business/update",
         xhrFields:{
             withCredentials:true
         }, 
@@ -1095,10 +1196,16 @@ function updateHolder() {
         credentials: 'include',  
         async: false, //同步调用
         data: JSON.stringify({
-            "id": holderId,
-            "name": holderName,
-            "amount": holderAmount,
-            "percent": holderPercent
+            "id": businessDataId,
+            "year": businessYearUpdate,
+            "totalAsset": businessTotalAssetsUpdate,
+            "netAsset": businessNetAssetsUpdate,
+            "revenue": businessRevenueUpdate,
+            "profit": businessProfitUpdate,
+            "debtRatio": businessDebtRatioUpdate,
+            "contractAmount": businessContractAmountUpdate,
+            "investedAmount": businessInvestedAmountUpdate,
+            "number": businessNumberUpdate
         }),
         dataType:'json', 
         contentType: 'application/json;charset=UTF-8',
@@ -1106,18 +1213,118 @@ function updateHolder() {
             if (data.status == 2) {
                 window.location.href = data.message
             } else if (data.status == 0){
-                $.messager.alert('企业','更新股东信息成功!','info');
-                $('#updateHolder').window('close')
-                $('#holder').datagrid({'data': listHolders(COMPANY_ID)})
+                $.messager.alert('企业','更新经营信息成功!','info');
+                $('#updateBusinessData').window('close')
+                $('#businessData').datagrid({'data': listBusinessDatas(COMPANY_ID)})
+            } else {
+                $.messager.alert('企业', data.message,'error');
+            }
+            
+        },
+        error: function(){
+            $.messager.alert('企业','更新经营信息失败!','error');
+        }
+    });
+}
+
+function updateBusinessDataClick() {
+    var row = $('#businessData').datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('经营信息','请先选择一条经营信息!','info'); 
+    } else {
+        $('#businessDataId').textbox('setValue', row.id)
+        $('#businessYearUpdate').textbox('setValue', row.businessYear)
+        $('#businessTotalAssetsUpdate').textbox('setValue', row.businessTotalAssets)
+        $('#businessNetAssetsUpdate').textbox('setValue', row.businessNetAssets)
+        $('#businessRevenueUpdate').textbox('setValue', row.businessRevenue)
+        $('#businessProfitUpdate').textbox('setValue', row.businessProfit)
+        $('#businessDebtRatioUpdate').textbox('setValue', row.businessDebtRatio)
+        $('#businessContractAmountUpdate').textbox('setValue', row.businessContractAmount)
+        $('#businessInvestedAmountUpdate').textbox('setValue', row.businessInvestedAmount)
+        $('#businessNumberUpdate').textbox('setValue', row.businessNumber)
+        $('#updateBusinessData').window('open') 
+    }
+}
+
+function deleteBusinessData() {
+    var row = $('#businessData').datagrid('getSelected');
+    if (!row) {
+        $.messager.alert('经营信息','请先选择一条经营信息!','info'); 
+    } else {
+        var message = "确认删除 " + row.businessYear + " 年度经营信息?"
+        $.messager.confirm('经营信息', message, function(r) {
+            if (r) {
+                $.ajax({
+                    type:'delete',
+                    url: "/business/delete?id="+row.id,
+                    xhrFields:{
+                        withCredentials:true
+                    }, 
+                    crossDomain: true,
+                    credentials: 'include',  
+                    async: false, //同步调用
+                    contentType: 'application/json;charset=UTF-8',
+                    success: function(data){
+                        if (data.status == 2) {
+                            window.location.href = data.message
+                        } else if (data.status == 0){
+                            $.messager.alert('企业','删除经营信息成功!','info');
+                            $('#businessData').datagrid({'data': listBusinessDatas(COMPANY_ID)})
+                        } else {
+                            $.messager.alert('企业',data.message,'error');
+                        }
+                    },
+                    error: function(){
+                        $.messager.alert('企业','删除经营信息失败!','error');
+                    }
+                });
+            }
+        })
+    }
+}
+
+function listBusinessDatas(companyId) {
+    var result = []
+    $.ajax({
+        type:'get',
+        url: "/business/list?companyId=" + companyId,
+        xhrFields:{
+            withCredentials:true
+        }, 
+        crossDomain: true,
+        credentials: 'include',  
+        async: false, //同步调用
+        contentType: 'application/json;charset=UTF-8',
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } else if (data.status == 0){
+                var items = []
+                $.each(data.obj,function(idx,item){ 
+                    items[idx] = {
+                        id: item.id,
+                        businessYear: item.year,
+                        businessTotalAssets: item.totalAsset,
+                        businessNetAssets: item.netAsset,
+                        businessRevenue: item.revenue,
+                        businessProfit: item.profit,
+                        businessDebtRatio: item.debtRatio,
+                        businessContractAmount: item.contractAmount,
+                        businessInvestedAmount: item.investedAmount,
+                        businessNumber: item.number
+                    }
+                })
+                result = items
             } else {
                 $.messager.alert('企业',data.message,'error');
             }
             
         },
         error: function(){
-            $.messager.alert('企业','更新股东信息失败!','error');
+            $.messager.alert('企业','获取经营信息失败!','error');
         }
     });
+    return result
 }
 
 function updateRequires() {
@@ -2155,6 +2362,7 @@ window.onload = function () {
                 initProjectInfo() 
             } else if (title == "经营信息") {
                 $('#holder').datagrid('loadData', listHolders(COMPANY_ID))
+                $('#businessData').datagrid('loadData', listBusinessDatas(COMPANY_ID))
             } else if (title == "开票信息") {
                 $('#invoice').datagrid('loadData', listInvoices(COMPANY_ID))
             }

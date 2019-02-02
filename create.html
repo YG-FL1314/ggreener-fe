@@ -80,12 +80,6 @@
 					<div style="margin-top:20px">
 						<input id="products" class="easyui-textbox" label="自主研发技术产品：" labelPosition="before" style="width:38.2%;">
 					</div>
-					<div style="margin-top:20px">
-						<input id="companyPhone" class="easyui-textbox" label="单位总机：" labelPosition="before" style="width:19%;">
-						<input id="companyFax" class="easyui-textbox" label="单位传真：" labelPosition="before" style="width:19%;">
-						<input id="companyWebsite" class="easyui-textbox" label="单位网址：" labelPosition="before" style="width:19%;">
-						<input id="companyAddress" class="easyui-textbox" label="单位地址：" labelPosition="before" style="width:19%;">
-					</div>
 					<div style="margin-top:20px;text-align:center">
 						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="addCompany()" style="width:15%;">新增</a>
             			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onClick="cancel()" style="width:15%;margin-left:20px;">返回</a>
@@ -135,6 +129,13 @@
 					</div>
 		        </div>
 		        <div title="联系信息" style="padding:10px">
+		        	<div style="margin-top:20px;margin-bottom:20px">
+						<input id="companyPhone" class="easyui-textbox" label="单位总机：" labelPosition="before" style="width:19%;">
+						<input id="companyFax" class="easyui-textbox" label="单位传真：" labelPosition="before" style="width:19%;">
+						<input id="companyWebsite" class="easyui-textbox" label="单位网址：" labelPosition="before" style="width:19%;">
+						<input id="companyAddress" class="easyui-textbox" label="单位地址：" labelPosition="before" style="width:19%;">
+						<a id="addCompany" href="#" class="easyui-linkbutton" onclick="updateBaseContact()" data-options="iconCls:'icon-edit'" style="width:19%;margin-left:20px;">更新</a>
+					</div>
 		            <table id="contact" style="width:100%;heighct:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationContact',rownumbers:true,scrollbarSize:0">
 				        <thead>
 				            <tr>
@@ -422,6 +423,95 @@
 		                <div style="text-align:center;margin-top:20px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="updateHolder()">更新</a>
 		                	 <a href="#" class="easyui-linkbutton" onclick="$('#updateHolder').window('close')" style="text-align:center;width:20%;margin-left:20px;">返回</a>
+		                </div>
+				    </div>
+				    <table id="businessData" style="width:75%;height:50%;" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationBusinessData',rownumbers:true" title="经营数据">
+				        <thead>
+				            <tr>
+				            	<th field="businessYear" align="center" width="10%">年度</th>
+				                <th field="businessTotalAssets" align="center" width="10%">总资产</th>
+				                <th field="businessNetAssets" align="center" width="10%">净资产</th>
+				                <th field="businessRevenue" align="center" width="10%">营业收入</th>
+				                <th field="businessProfit" align="center" width="10%">利润</th>
+				                <th field="businessDebtRatio" align="center" width="10%">负债率</th>
+				                <th field="businessContractAmount" align="center" width="10%">合同额</th>
+				                <th field="businessInvestedAmount" align="center" width="10%">投资额</th>
+				                <th field="businessNumber" align="center" width="10%">签约项目数</th>
+				            </tr>
+				        </thead>
+				    </table>
+				    <div id="operationBusinessData" style="padding:2px 5px;">
+				        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="$('#addBusinessData').window('open')" plain="true">增加</a>
+				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="updateBusinessDataClick()">修改</a>
+				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteBusinessData()">删除</a>
+				    </div>
+				    <div id="addBusinessData" class="easyui-window" title="新增经营信息" data-options="closed:true,iconCls:'icon-save'" style="width:400px;height:470px;padding:5px;">
+			        	<div style="text-align:center;margin-top:10px;">
+			        		<input id="businessYear" class="easyui-textbox" label="年度：" labelPosition="before" style="width:260px">
+			        	</div>
+		                <div style="text-align:center;margin-top:10px;">
+		                	<input id="businessTotalAssets" class="easyui-textbox" label="总资产：" labelPosition="before"  style="width:260px">
+		                </div>
+		                <div style="text-align:center;margin-top:10px;">
+			        		<input id="businessNetAssets" class="easyui-textbox" label="净资产：" labelPosition="before" style="width:260px">
+			        	</div>	
+			        	<div style="text-align:center;margin-top:10px;">
+			        		<input id="businessRevenue" class="easyui-textbox" label="营业收入：" labelPosition="before" style="width:260px">
+			        	</div>
+		                <div style="text-align:center;margin-top:10px;">
+		                	<input id="businessProfit" class="easyui-textbox" label="利润：" labelPosition="before"  style="width:260px">
+		                </div>
+		                <div style="text-align:center;margin-top:10px;">
+			        		<input id="businessDebtRatio" class="easyui-textbox" label="负债率：" labelPosition="before" style="width:260px">
+			        	</div>	   
+			        	<div style="text-align:center;margin-top:10px;">
+			        		<input id="businessContractAmount" class="easyui-textbox" label="合同额：" labelPosition="before" style="width:260px">
+			        	</div>
+		                <div style="text-align:center;margin-top:10px;">
+		                	<input id="businessInvestedAmount" class="easyui-textbox" label="投资额：" labelPosition="before"  style="width:260px">
+		                </div>
+		                <div style="text-align:center;margin-top:10px;">
+			        		<input id="businessNumber" class="easyui-textbox" label="签约项目数：" labelPosition="before" style="width:260px">
+			        	</div>	       
+		                <div style="text-align:center;margin-top:10px;">
+		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="addBusinessData()">新增</a>
+		                	 <a href="#" class="easyui-linkbutton" onclick="$('#addBusinessData').window('close')" style="text-align:center;width:20%;margin-left:20px;">返回</a>
+		                </div>
+				    </div>
+				    <div id="updateBusinessData" class="easyui-window" title="更新经营信息" data-options="closed:true,iconCls:'icon-save'" style="width:400px;height:500px;padding:5px;">
+				    	<div style="text-align:center;margin-top:10px;">
+			        		<input id="businessDataId" class="easyui-textbox" label="经营ID：" labelPosition="before" disabled="true" style="width:260px">
+			        	</div>
+			        	<div style="text-align:center;margin-top:10px;">
+			        		<input id="businessYearUpdate" class="easyui-textbox" label="年度：" labelPosition="before" style="width:260px">
+			        	</div>
+		                <div style="text-align:center;margin-top:10px;">
+		                	<input id="businessTotalAssetsUpdate" class="easyui-textbox" label="总资产：" labelPosition="before"  style="width:260px">
+		                </div>
+		                <div style="text-align:center;margin-top:10px;">
+			        		<input id="businessNetAssetsUpdate" class="easyui-textbox" label="净资产：" labelPosition="before" style="width:260px">
+			        	</div>	
+			        	<div style="text-align:center;margin-top:10px;">
+			        		<input id="businessRevenueUpdate" class="easyui-textbox" label="营业收入：" labelPosition="before" style="width:260px">
+			        	</div>
+		                <div style="text-align:center;margin-top:10px;">
+		                	<input id="businessProfitUpdate" class="easyui-textbox" label="利润：" labelPosition="before"  style="width:260px">
+		                </div>
+		                <div style="text-align:center;margin-top:10px;">
+			        		<input id="businessDebtRatioUpdate" class="easyui-textbox" label="负债率：" labelPosition="before" style="width:260px">
+			        	</div>	   
+			        	<div style="text-align:center;margin-top:10px;">
+			        		<input id="businessContractAmountUpdate" class="easyui-textbox" label="合同额：" labelPosition="before" style="width:260px">
+			        	</div>
+		                <div style="text-align:center;margin-top:10px;">
+		                	<input id="businessInvestedAmountUpdate" class="easyui-textbox" label="投资额：" labelPosition="before"  style="width:260px">
+		                </div>
+		                <div style="text-align:center;margin-top:10px;">
+			        		<input id="businessNumberUpdate" class="easyui-textbox" label="签约项目数：" labelPosition="before" style="width:260px">
+			        	</div>	
+		                <div style="text-align:center;margin-top:10px;">
+		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="updateBusinessData()">更新</a>
+		                	 <a href="#" class="easyui-linkbutton" onclick="$('#updateBusinessData').window('close')" style="text-align:center;width:20%;margin-left:20px;">返回</a>
 		                </div>
 				    </div>
 		        </div>
