@@ -76,7 +76,7 @@
 						</select>
 					</div>
 					<div style="margin-top:20px">
-						<input id="products" class="easyui-textbox" label="自主研发技术产品：" labelPosition="before" style="width:57.4%;height: 100px" multiline="true" data-options="readonly:true"" labelAlign="right">
+						<input id="products" class="easyui-textbox" label="自主研发技术产品：" labelPosition="before" style="width:57.4%;height: 100px" multiline="true" data-options="readonly:true"" labelAlign="right" labelWidth="135px">
 					</div>
 		        </div>
 		        <div title="会员信息" style="padding:10px">
@@ -125,7 +125,7 @@
 						<input id="companyAddress" class="easyui-textbox" label="单位地址：" labelPosition="before" style="width:75.5%;" labelAlign="right">
 						<a id="addCompany" href="#" class="easyui-linkbutton" onclick="updateBaseContact()" data-options="iconCls:'icon-edit'" style="width:15%;margin-left:20px;">更新</a>
 					</div>
-		            <table id="contact" style="width:100%;heighct:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationContact',rownumbers:true,scrollbarSize:0">
+		            <table id="contact" style="width:100%;height:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationContact',rownumbers:true,scrollbarSize:0">
 				        <thead>
 				            <tr>
 				            	<th field="contactName" align="center" width="10%">姓名</th>
@@ -244,13 +244,13 @@
 			        		<input id="chatAddress" class="easyui-textbox" label="互动地址：" labelPosition="before" style="width:300px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="chatOthers" class="easyui-combobox" label="该方负责人：" labelPosition="left" style="width:300px" labelAlign="right">
+			        		<input id="chatOthers" class="easyui-combobox" label="该方负责人：" labelPosition="left" style="width:330px" labelAlign="right" labelWidth="100px">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="chatOwners" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:300px" labelAlign="right">
+		                	<input id="chatOwners" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:330px" labelAlign="right" labelWidth="100px">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="chatContent" class="easyui-textbox" label="交流内容简述：" labelPosition="left" multiline="true" style="width:300px;height: 100px" labelAlign="right">
+			        		<input id="chatContent" class="easyui-textbox" label="交流内容简述：" labelPosition="left" multiline="true" style="width:350px;height: 100px" labelAlign="right" labelWidth="110px">
 			        	</div>
 		                <div style="text-align:center;margin-top:20px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="addChat()">新增</a>
@@ -271,13 +271,13 @@
 			        		<input id="chatAddressUpdate" class="easyui-textbox" label="互动地址：" labelPosition="before" style="width:300px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="chatOthersUpdate" class="easyui-combobox" label="该方负责人：" labelPosition="left" style="width:300px" labelAlign="right">
+			        		<input id="chatOthersUpdate" class="easyui-combobox" label="该方负责人：" labelPosition="left" style="width:330px" labelAlign="right" labelWidth="100px">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="chatOwnersUpdate" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:300px" labelAlign="right">
+		                	<input id="chatOwnersUpdate" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:330px" labelAlign="right" labelWidth="100px">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="chatContentUpdate" class="easyui-textbox" label="交流内容简述：" labelPosition="left" multiline="true" style="width:300px;height: 100px" labelAlign="right">
+			        		<input id="chatContentUpdate" class="easyui-textbox" label="交流内容简述：" labelPosition="left" multiline="true" style="width:350px;height: 100px" labelAlign="right" labelWidth="110px">
 			        	</div>
 		                <div style="text-align:center;margin-top:20px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="updateChat()">更新</a>
@@ -322,10 +322,10 @@
 		                	<input id="projectOthers" class="easyui-combobox" label="对接人：" labelPosition="left"  style="width:300px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="projectPeople" class="easyui-combobox" label="该方参与人：" labelPosition="left"  style="width:300px" labelAlign="right">
+		                	<input id="projectPeople" class="easyui-combobox" label="该方参与人：" labelPosition="left"  style="width:330px" labelAlign="right" labelWidth="100px">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="projectOwners" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:300px" labelAlign="right">
+		                	<input id="projectOwners" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:330px" labelAlign="right" labelWidth="100px"3>
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
 		                	<input id="projectAmount" class="easyui-textbox" label="合作金额：" labelPosition="left"  style="width:300px" labelAlign="right">
