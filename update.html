@@ -76,7 +76,7 @@
 						</select>
 					</div>
 					<div style="margin-top:20px">
-						<input id="products" class="easyui-textbox" label="自主研发技术产品：" labelPosition="before" style="width:38.2%;">
+						<input id="products" class="easyui-textbox" label="自主研发技术产品：" labelPosition="before" style="width:57.4%;height: 100px" multiline="true">
 					</div>
 					<div style="margin-top:20px;text-align:center">
 						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="updateCompany()" style="width:15%;">更新</a>
@@ -127,12 +127,14 @@
 					</div>
 		        </div>
 		        <div title="联系信息" style="padding:10px">
-		        	<div style="margin-top:20px;margin-bottom:20px">
-						<input id="companyPhone" class="easyui-textbox" label="单位总机：" labelPosition="before" style="width:19%;">
-						<input id="companyFax" class="easyui-textbox" label="单位传真：" labelPosition="before" style="width:19%;">
-						<input id="companyWebsite" class="easyui-textbox" label="单位网址：" labelPosition="before" style="width:19%;">
-						<input id="companyAddress" class="easyui-textbox" label="单位地址：" labelPosition="before" style="width:19%;">
-						<a id="addCompany" href="#" class="easyui-linkbutton" onclick="updateBaseContact()" data-options="iconCls:'icon-edit'" style="width:19%;margin-left:20px;">更新</a>
+		        	<div style="margin-top:20px;margin-bottom:10px">
+						<input id="companyPhone" class="easyui-textbox" label="单位总机：" labelPosition="before" style="width:25%;">
+						<input id="companyFax" class="easyui-textbox" label="单位传真：" labelPosition="before" style="width:25%;">
+						<input id="companyWebsite" class="easyui-textbox" label="单位网址：" labelPosition="before" style="width:25%;">
+					</div>
+					<div style="margin-bottom:20px">
+						<input id="companyAddress" class="easyui-textbox" label="单位地址：" labelPosition="before" style="width:75.5%;">
+						<a id="addCompany" href="#" class="easyui-linkbutton" onclick="updateBaseContact()" data-options="iconCls:'icon-edit'" style="width:15%;margin-left:20px;">更新</a>
 					</div>
 		            <table id="contact" style="width:100%;heighct:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationContact',rownumbers:true,scrollbarSize:0">
 				        <thead>
