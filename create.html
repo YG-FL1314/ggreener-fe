@@ -22,63 +22,63 @@
         	<div id="tt" class="easyui-tabs" style="width:100%;height:100%" data-options="tabPosition: 'top'">
 		        <div title="基本信息" style="padding:20px">
             		<div style="margin-top:20px">
-            			<input id="name" class="easyui-textbox" label="单位名称：" labelPosition="before" data-options="prompt:'请输入单位名称...'" style="width:38.2%;">
-						<select id="attention" class="easyui-combobox" label="关注等级：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false">	
+            			<input id="name" class="easyui-textbox" label="单位名称：" labelPosition="before" data-options="prompt:'请输入单位名称...'" style="width:38.2%;"  labelAlign="right">
+						<select id="attention" class="easyui-combobox" label="关注等级：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false" labelAlign="right">	
 						</select>					
-						<select id="region" class="easyui-combobox" label="所在地区：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',limitToList:false">
+						<select id="region" class="easyui-combobox" label="所在地区：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',limitToList:false" labelAlign="right">
 						</select>
-                        <select id="zol" class="easyui-combobox" label="中关村：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',limitToList:false">
+                        <select id="zol" class="easyui-combobox" label="中关村：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',limitToList:false" labelAlign="right">
 						</select>									
 					</div>
 					<div style="margin-top:20px">
-						<select id="unitProperties" class="easyui-combobox" label="单位性质：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false">
+						<select id="unitProperties" class="easyui-combobox" label="单位性质：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false" labelAlign="right">
 						</select>	
-						<input id="createTime" class="easyui-datebox" label="成立时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:19%;">
-						<select id="register" class="easyui-textbox" label="注册资金：" labelPosition="left" style="width:19%;">
+						<input id="createTime" class="easyui-datebox" label="成立时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:19%;" labelAlign="right">
+						<select id="register" class="easyui-textbox" label="注册资金：" labelPosition="left" style="width:19%;" labelAlign="right">
 						</select>
-						<select id="equity" class="easyui-combobox" label="出资方式：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false">
+						<select id="equity" class="easyui-combobox" label="出资方式：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false" labelAlign="right">
 						</select>
-						<select id="highTech" class="easyui-combobox" label="高新技术：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true">
+						<select id="highTech" class="easyui-combobox" label="高新技术：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true" labelAlign="right">
 						</select>
 					</div>
 					<div style="margin-top:20px">
-						<select id="companyMarket" class="easyui-combobox" label="上市公司：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false">
+						<select id="companyMarket" class="easyui-combobox" label="上市公司：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false" labelAlign="right">
 						</select>	
-						<select id="sharesCode" class="easyui-textbox" label="股票代码：" labelPosition="left" style="width:19%;">
+						<select id="sharesCode" class="easyui-textbox" label="股票代码：" labelPosition="left" style="width:19%;" labelAlign="right">
 						</select>
-						<select id="companyTypes" class="easyui-combobox" label="单位类型：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false">
+						<select id="companyTypes" class="easyui-combobox" label="单位类型：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false" labelAlign="right">
 						</select>
-						<select id="industries" class="easyui-combobox" label="所属行业：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple: true">
+						<select id="industries" class="easyui-combobox" label="所属行业：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple: true" labelAlign="right">
 						</select>
-						<select id="business" class="easyui-combobox" label="主营业务：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple: true">
+						<select id="business" class="easyui-combobox" label="主营业务：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple: true" labelAlign="right">
 						</select>
 					</div>
 					<div style="margin-top:20px">
-						<select id="businessArea" class="easyui-combobox" label="业务领域：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple: true">
+						<select id="businessArea" class="easyui-combobox" label="业务领域：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple: true" labelAlign="right">
 						</select>	
-						<select id="segmentMarket" class="easyui-combobox" label="细分市场：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',limitToList:false,multiple: true">
+						<select id="segmentMarket" class="easyui-combobox" label="细分市场：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',limitToList:false,multiple: true" labelAlign="right">
 						</select>
-						<select id="techProduct" class="easyui-combobox" label="技术产品：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false">
+						<select id="techProduct" class="easyui-combobox" label="技术产品：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false" labelAlign="right">
 						</select>
-						<select id="patents" class="easyui-textbox" label="发明专利：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true">
+						<select id="patents" class="easyui-textbox" label="发明专利：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true" labelAlign="right">
 						</select>
-						<select id="utilityPatents" class="easyui-textbox" label="实用专利：" labelPosition="left" style="width:19%;">
+						<select id="utilityPatents" class="easyui-textbox" label="实用专利：" labelPosition="left" style="width:19%;" labelAlign="right">
 						</select>
 					</div>
 					<div style="margin-top:20px">
-						<select id="softwares" class="easyui-textbox" label="软件著作：" labelPosition="left" style="width:19%;">
+						<select id="softwares" class="easyui-textbox" label="软件著作：" labelPosition="left" style="width:19%;" labelAlign="right">
 						</select>	
-						<select id="advantages" class="easyui-textbox" label="单位优势：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true">
+						<select id="advantages" class="easyui-textbox" label="单位优势：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true" labelAlign="right">
 						</select>
-						<select id="staffNumber" class="easyui-textbox" label="员工人数：" labelPosition="left" style="width:19%;">
+						<select id="staffNumber" class="easyui-textbox" label="员工人数：" labelPosition="left" style="width:19%;" labelAlign="right">
 						</select>
-						<select id="technicians" class="easyui-textbox" label="技术人员：" labelPosition="left" style="width:19%;">
+						<select id="technicians" class="easyui-textbox" label="技术人员：" labelPosition="left" style="width:19%;" labelAlign="right">
 						</select>
-						<select id="officeArea" class="easyui-textbox" label="办公面积：" labelPosition="left" style="width:19%;">
+						<select id="officeArea" class="easyui-textbox" label="办公面积：" labelPosition="left" style="width:19%;" labelAlign="right">
 						</select>
 					</div>
 					<div style="margin-top:20px">
-						<input id="products" class="easyui-textbox" label="自主研发技术产品：" labelPosition="before" style="width:57.4%;height: 100px" multiline="true">
+						<input id="products" class="easyui-textbox" label="自主研发技术产品：" labelPosition="before" style="width:57.4%;height: 100px" multiline="true" labelAlign="right">
 					</div>
 					<div style="margin-top:20px;text-align:center">
 						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="addCompany()" style="width:15%;">新增</a>
@@ -87,12 +87,12 @@
 		        </div>
 		        <div title="会员信息" style="padding:10px">
 		            <div style="margin-top:20px">
-		            	<input id="memberCode" class="easyui-textbox" label="会员编码：" labelPosition="before" style="width:19%;">
-						<select id="member" class="easyui-combobox" label="会员级别：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false">	
+		            	<input id="memberCode" class="easyui-textbox" label="会员编码：" labelPosition="before" style="width:19%;" labelAlign="right">
+						<select id="member" class="easyui-combobox" label="会员级别：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false" labelAlign="right">	
 						</select>					
-						<input id="joiningTime" class="easyui-datebox" label="入会日期：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:19%;">
+						<input id="joiningTime" class="easyui-datebox" label="入会日期：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:19%;" labelAlign="right">
 						</select>
-                        <input id="validityTime" class="easyui-datebox" label="有效期至：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:19%;">
+                        <input id="validityTime" class="easyui-datebox" label="有效期至：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:19%;" labelAlign="right">
 					</div>
 					<div style="margin-top:20px;text-align:center"> 
 						<a href="#" class="easyui-linkbutton" onclick="addMember()" data-options="iconCls:'icon-add'" style="width:15%;">新增</a>
@@ -101,27 +101,27 @@
 		        </div>
 		        <div title="需求信息" style="padding:10px">
 		        	<div style="margin-top:20px">
-						<select id="requireBrand" class="easyui-combobox" label="品牌宣传：" labelPosition="left" style="width:23%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true">
+						<select id="requireBrand" class="easyui-combobox" label="品牌宣传：" labelPosition="left" style="width:23%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true" labelAlign="right">
 						</select>	
-						<select id="requireResource" class="easyui-combobox" label="资源整合：" labelPosition="left" style="width:23%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true">
+						<select id="requireResource" class="easyui-combobox" label="资源整合：" labelPosition="left" style="width:23%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true" labelAlign="right">
 						</select>
-						<select id="requireFinance" class="easyui-combobox" label="融资需求：" labelPosition="left" style="width:23%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true">
+						<select id="requireFinance" class="easyui-combobox" label="融资需求：" labelPosition="left" style="width:23%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true" labelAlign="right">
 						</select>
-						<select id="requireAbility" class="easyui-combobox" label="能力建设：" labelPosition="left" style="width:23%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true">
+						<select id="requireAbility" class="easyui-combobox" label="能力建设：" labelPosition="left" style="width:23%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true" labelAlign="right">
 						</select>
 					</div>
 					<div style="margin-top:20px">
-						<select id="requireInternation" class="easyui-combobox" label="国际交流：" labelPosition="left" style="width:23%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true">
+						<select id="requireInternation" class="easyui-combobox" label="国际交流：" labelPosition="left" style="width:23%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true" labelAlign="right">
 						</select>	
-						<select id="requireStandard" class="easyui-combobox" label="标准制定：" labelPosition="left" style="width:23%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true">
+						<select id="requireStandard" class="easyui-combobox" label="标准制定：" labelPosition="left" style="width:23%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true" labelAlign="right">
 						</select>
-						<select id="requireIdentify" class="easyui-combobox" label="认证需求：" labelPosition="left" style="width:23%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true">
+						<select id="requireIdentify" class="easyui-combobox" label="认证需求：" labelPosition="left" style="width:23%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true" labelAlign="right">
 						</select>
-						<select id="requireConsult" class="easyui-combobox" label="咨询服务：" labelPosition="left" style="width:23%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true">
+						<select id="requireConsult" class="easyui-combobox" label="咨询服务：" labelPosition="left" style="width:23%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true" labelAlign="right">
 						</select>
 					</div>
 					<div style="margin-top:20px">
-						<select id="requireOther" class="easyui-combobox" label="其他需求：" labelPosition="left" style="width:23%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true">
+						<select id="requireOther" class="easyui-combobox" label="其他需求：" labelPosition="left" style="width:23%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true" labelAlign="right">
 						</select>	
 					</div>
 					<div style="margin-top:20px;text-align:center"> 
@@ -129,12 +129,14 @@
 					</div>
 		        </div>
 		        <div title="联系信息" style="padding:10px">
-		        	<div style="margin-top:20px;margin-bottom:20px">
-						<input id="companyPhone" class="easyui-textbox" label="单位总机：" labelPosition="before" style="width:19%;">
-						<input id="companyFax" class="easyui-textbox" label="单位传真：" labelPosition="before" style="width:19%;">
-						<input id="companyWebsite" class="easyui-textbox" label="单位网址：" labelPosition="before" style="width:19%;">
-						<input id="companyAddress" class="easyui-textbox" label="单位地址：" labelPosition="before" style="width:19%;">
-						<a id="addCompany" href="#" class="easyui-linkbutton" onclick="updateBaseContact()" data-options="iconCls:'icon-edit'" style="width:19%;margin-left:20px;">更新</a>
+		        	<div style="margin-top:20px;margin-bottom:10px">
+						<input id="companyPhone" class="easyui-textbox" label="单位总机：" labelPosition="before" style="width:25%;" labelAlign="right">
+						<input id="companyFax" class="easyui-textbox" label="单位传真：" labelPosition="before" style="width:25%;" labelAlign="right">
+						<input id="companyWebsite" class="easyui-textbox" label="单位网址：" labelPosition="before" style="width:25%;" labelAlign="right">
+					</div>
+					<div style="margin-bottom:20px">
+						<input id="companyAddress" class="easyui-textbox" label="单位地址：" labelPosition="before" style="width:75.5%;" labelAlign="right">
+						<a id="addCompany" href="#" class="easyui-linkbutton" onclick="updateBaseContact()" data-options="iconCls:'icon-edit'" style="width:15%;margin-left:20px;">更新</a>
 					</div>
 		            <table id="contact" style="width:100%;heighct:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationContact',rownumbers:true,scrollbarSize:0">
 				        <thead>
@@ -158,31 +160,31 @@
 				    </div>
 				    <div id="addContact" class="easyui-window" title="新增联系人" data-options="closed:true,iconCls:'icon-save'" style="width:450px;height:460px;padding:5px;">
 			        	<div style="text-align:center;margin-top:10px;">
-			        		<input id="contactNameInput" class="easyui-textbox" label="姓名：" labelPosition="before" style="width:70%;">
+			        		<input id="contactNameInput" class="easyui-textbox" label="姓名：" labelPosition="before" style="width:70%;" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="contactDutyInput" class="easyui-textbox" label="职务：" labelPosition="before"  style="width:70%;">
+		                	<input id="contactDutyInput" class="easyui-textbox" label="职务：" labelPosition="before"  style="width:70%;" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="contactPhone1Input" class="easyui-textbox" label="手机号1：" labelPosition="before" style="width:70%;">
+			        		<input id="contactPhone1Input" class="easyui-textbox" label="手机号1：" labelPosition="before" style="width:70%;" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="contactPhone2Input" class="easyui-textbox" label="手机号2：" labelPosition="before"  style="width:70%;">
+		                	<input id="contactPhone2Input" class="easyui-textbox" label="手机号2：" labelPosition="before"  style="width:70%;" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="contactTelInput" class="easyui-textbox" label="座机：" labelPosition="before" style="width:70%;">
+			        		<input id="contactTelInput" class="easyui-textbox" label="座机：" labelPosition="before" style="width:70%;" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="mailInput" class="easyui-textbox" label="邮箱：" labelPosition="before"  style="width:70%;">
+		                	<input id="mailInput" class="easyui-textbox" label="邮箱：" labelPosition="before"  style="width:70%;" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="weixinInput" class="easyui-textbox" label="微信号：" labelPosition="before" style="width:70%;">
+			        		<input id="weixinInput" class="easyui-textbox" label="微信号：" labelPosition="before" style="width:70%;" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="qqInput" class="easyui-textbox" label="QQ号：" labelPosition="before"  style="width:70%;">
+		                	<input id="qqInput" class="easyui-textbox" label="QQ号：" labelPosition="before"  style="width:70%;" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="remarkInput" class="easyui-textbox" label="备注：" labelPosition="before" style="width:70%;">
+			        		<input id="remarkInput" class="easyui-textbox" label="备注：" labelPosition="before" style="width:70%;" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="addContact()">新增</a>
@@ -191,31 +193,31 @@
 				    </div>
 				     <div id="updateContact" class="easyui-window" title="更新联系人" data-options="closed:true,iconCls:'icon-save'" style="width:450px;height:460px;padding:5px;">
 			        	<div style="text-align:center;margin-top:10px;">
-			        		<input id="contactNameUpdate" class="easyui-textbox" label="姓名：" labelPosition="before" style="width:70%;">
+			        		<input id="contactNameUpdate" class="easyui-textbox" label="姓名：" labelPosition="before" style="width:70%;" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="contactDutyUpdate" class="easyui-textbox" label="职务：" labelPosition="before"  style="width:70%;">
+		                	<input id="contactDutyUpdate" class="easyui-textbox" label="职务：" labelPosition="before"  style="width:70%;" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="contactPhone1Update" class="easyui-textbox" label="手机号1：" labelPosition="before" style="width:70%;">
+			        		<input id="contactPhone1Update" class="easyui-textbox" label="手机号1：" labelPosition="before" style="width:70%;" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="contactPhone2Update" class="easyui-textbox" label="手机号2：" labelPosition="before"  style="width:70%;">
+		                	<input id="contactPhone2Update" class="easyui-textbox" label="手机号2：" labelPosition="before"  style="width:70%;" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="contactTelUpdate" class="easyui-textbox" label="座机：" labelPosition="before" style="width:70%;">
+			        		<input id="contactTelUpdate" class="easyui-textbox" label="座机：" labelPosition="before" style="width:70%;" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="mailUpdate" class="easyui-textbox" label="邮箱：" labelPosition="before"  style="width:70%;">
+		                	<input id="mailUpdate" class="easyui-textbox" label="邮箱：" labelPosition="before"  style="width:70%;" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="weixinUpdate" class="easyui-textbox" label="微信号：" labelPosition="before" style="width:70%;">
+			        		<input id="weixinUpdate" class="easyui-textbox" label="微信号：" labelPosition="before" style="width:70%;" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="qqUpdate" class="easyui-textbox" label="QQ号：" labelPosition="before"  style="width:70%;">
+		                	<input id="qqUpdate" class="easyui-textbox" label="QQ号：" labelPosition="before"  style="width:70%;" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="remarkUpdate" class="easyui-textbox" label="备注：" labelPosition="before" style="width:70%;">
+			        		<input id="remarkUpdate" class="easyui-textbox" label="备注：" labelPosition="before" style="width:70%;" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="updateContact()">更新</a>
@@ -243,22 +245,22 @@
 				    </div>
 				    <div id="addChat" class="easyui-window" title="新增互动信息" data-options="closed:true,iconCls:'icon-save'" style="width:450px;height:420px;padding:5px;">
 			        	<div style="text-align:center;margin-top:10px;">
-			        		<input id="chatTime" class="easyui-datetimebox" label="互动时间：" labelPosition="left" style="width:300px" data-options="formatter:dateFormatterHHMM, parser:dateParserHHMM, closeText:'关闭',okText:'确认', currentText:'今天'">
+			        		<input id="chatTime" class="easyui-datetimebox" label="互动时间：" labelPosition="left" style="width:300px" data-options="formatter:dateFormatterHHMM, parser:dateParserHHMM, closeText:'关闭',okText:'确认', currentText:'今天'" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="chatType" class="easyui-combobox" label="互动方式：" labelPosition="left" style="width:300px" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:true">
+		                	<input id="chatType" class="easyui-combobox" label="互动方式：" labelPosition="left" style="width:300px" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:true" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="chatAddress" class="easyui-textbox" label="互动地址：" labelPosition="before" style="width:300px">
+			        		<input id="chatAddress" class="easyui-textbox" label="互动地址：" labelPosition="before" style="width:300px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="chatOthers" class="easyui-combobox" label="该方负责人：" labelPosition="left" style="width:300px">
+			        		<input id="chatOthers" class="easyui-combobox" label="该方负责人：" labelPosition="left" style="width:300px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="chatOwners" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:300px">
+		                	<input id="chatOwners" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:300px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="chatContent" class="easyui-textbox" label="交流内容简述：" labelPosition="left" multiline="true" style="width:300px;height: 100px">
+			        		<input id="chatContent" class="easyui-textbox" label="交流内容简述：" labelPosition="left" multiline="true" style="width:300px;height: 100px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:20px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="addChat()">新增</a>
@@ -267,25 +269,25 @@
 				    </div>
 				    <div id="updateChat" class="easyui-window" title="更新互动信息" data-options="closed:true,iconCls:'icon-save'" style="width:450px;height:460px;padding:5px;">
 				    	<div style="text-align:center;margin-top:10px;">
-			        		<input id="chatId" class="easyui-textbox" label="互动信息ID：" labelPosition="before" disabled="true" style="width:300px">
+			        		<input id="chatId" class="easyui-textbox" label="互动信息ID：" labelPosition="before" disabled="true" style="width:300px" labelAlign="right">
 			        	</div>
 			        	<div style="text-align:center;margin-top:10px;">
-			        		<input id="chatTimeUpdate" class="easyui-datetimebox" label="互动时间：" labelPosition="left" style="width:300px" data-options="formatter:dateFormatterHHMM, parser:dateParserHHMM,closeText:'关闭',okText:'确认',currentText:'今天'">
+			        		<input id="chatTimeUpdate" class="easyui-datetimebox" label="互动时间：" labelPosition="left" style="width:300px" data-options="formatter:dateFormatterHHMM, parser:dateParserHHMM,closeText:'关闭',okText:'确认',currentText:'今天'" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="chatTypeUpdate" class="easyui-combobox" label="互动方式：" labelPosition="left" style="width:300px">
+		                	<input id="chatTypeUpdate" class="easyui-combobox" label="互动方式：" labelPosition="left" style="width:300px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="chatAddressUpdate" class="easyui-textbox" label="互动地址：" labelPosition="before" style="width:300px">
+			        		<input id="chatAddressUpdate" class="easyui-textbox" label="互动地址：" labelPosition="before" style="width:300px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="chatOthersUpdate" class="easyui-combobox" label="该方负责人：" labelPosition="left" style="width:300px">
+			        		<input id="chatOthersUpdate" class="easyui-combobox" label="该方负责人：" labelPosition="left" style="width:300px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="chatOwnersUpdate" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:300px">
+		                	<input id="chatOwnersUpdate" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:300px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="chatContentUpdate" class="easyui-textbox" label="交流内容简述：" labelPosition="left" multiline="true" style="width:300px;height: 100px">
+			        		<input id="chatContentUpdate" class="easyui-textbox" label="交流内容简述：" labelPosition="left" multiline="true" style="width:300px;height: 100px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:20px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="updateChat()">更新</a>
@@ -315,28 +317,28 @@
 				    </div>
 				    <div id="addProject" class="easyui-window" title="新增合作信息" data-options="closed:true,iconCls:'icon-save'" style="width:450px;height:420px;padding:5px;">
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="projectName" class="easyui-combobox" label="项目名称：" labelPosition="left" style="width:300px">
+		                	<input id="projectName" class="easyui-combobox" label="项目名称：" labelPosition="left" style="width:300px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="projectType" class="easyui-combobox" label="项目类型：" labelPosition="before" style="width:300px" data-options="readonly:true">
+			        		<input id="projectType" class="easyui-combobox" label="项目类型：" labelPosition="before" style="width:300px" data-options="readonly:true" labelAlign="right">
 			        	</div>
 			        	<div style="text-align:center;margin-top:10px;">
-		                	<input id="startDate" class="easyui-datebox" label="开始时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天',readonly:true" style="width:300px">
+		                	<input id="startDate" class="easyui-datebox" label="开始时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天',readonly:true" style="width:300px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="endDate" class="easyui-datebox" label="结束时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天',readonly:true" style="width:300px">
+		                	<input id="endDate" class="easyui-datebox" label="结束时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天',readonly:true" style="width:300px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="projectOthers" class="easyui-combobox" label="对接人：" labelPosition="left"  style="width:300px">
+		                	<input id="projectOthers" class="easyui-combobox" label="对接人：" labelPosition="left"  style="width:300px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="projectPeople" class="easyui-combobox" label="该方参与人：" labelPosition="left"  style="width:300px">
+		                	<input id="projectPeople" class="easyui-combobox" label="该方参与人：" labelPosition="left"  style="width:300px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="projectOwners" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:300px">
+		                	<input id="projectOwners" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:300px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="projectAmount" class="easyui-textbox" label="合作金额：" labelPosition="left"  style="width:300px">
+		                	<input id="projectAmount" class="easyui-textbox" label="合作金额：" labelPosition="left"  style="width:300px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
 							<a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="addProject()">新增</a>
@@ -345,31 +347,31 @@
 				    </div>
 				    <div id="updateProject" class="easyui-window" title="更新合作信息" data-options="closed:true,iconCls:'icon-save'" style="width:450px;height:460px;padding:5px;">
 				    	<div style="text-align:center;margin-top:10px;">
-		                	<input id="projectCompanyId" class="easyui-combobox" label="合作ID：" labelPosition="left" style="width:300px" disabled="true">
+		                	<input id="projectCompanyId" class="easyui-combobox" label="合作ID：" labelPosition="left" style="width:300px" disabled="true" labelAlign="right">
 		                </div>
 				    	<div style="text-align:center;margin-top:10px;">
-		                	<input id="projectNameUpdate" class="easyui-combobox" label="项目名称：" labelPosition="left" style="width:300px">
+		                	<input id="projectNameUpdate" class="easyui-combobox" label="项目名称：" labelPosition="left" style="width:300px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="projectTypeUpdate" class="easyui-combobox" label="项目类型：" labelPosition="before" style="width:300px" data-options="readonly:true">
+			        		<input id="projectTypeUpdate" class="easyui-combobox" label="项目类型：" labelPosition="before" style="width:300px" data-options="readonly:true" labelAlign="right">
 			        	</div>
 			        	<div style="text-align:center;margin-top:10px;">
-		                	<input id="startDateUpdate" class="easyui-datebox" label="开始时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天',readonly:true" style="width:300px">
+		                	<input id="startDateUpdate" class="easyui-datebox" label="开始时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天',readonly:true" style="width:300px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="endDateUpdate" class="easyui-datebox" label="结束时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天',readonly:true" style="width:300px">
+		                	<input id="endDateUpdate" class="easyui-datebox" label="结束时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天',readonly:true" style="width:300px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="projectOthersUpdate" class="easyui-combobox" label="对接人：" labelPosition="left"  style="width:300px">
+		                	<input id="projectOthersUpdate" class="easyui-combobox" label="对接人：" labelPosition="left"  style="width:300px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="projectPeopleUpdate" class="easyui-combobox" label="该方参与人：" labelPosition="left"  style="width:300px">
+		                	<input id="projectPeopleUpdate" class="easyui-combobox" label="该方参与人：" labelPosition="left"  style="width:300px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="projectOwnersUpdate" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:300px">
+		                	<input id="projectOwnersUpdate" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:300px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="projectAmountUpdate" class="easyui-textbox" label="合作金额：" labelPosition="left"  style="width:300px">
+		                	<input id="projectAmountUpdate" class="easyui-textbox" label="合作金额：" labelPosition="left"  style="width:300px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
 							<a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="updateProject()">更新</a>
@@ -394,13 +396,13 @@
 				    </div>
 				    <div id="addHolder" class="easyui-window" title="新增股东信息" data-options="closed:true,iconCls:'icon-save'" style="width:340px;height:240px;padding:5px;">
 			        	<div style="text-align:center;margin-top:10px;">
-			        		<input id="holderName" class="easyui-textbox" label="股东名称：" labelPosition="before" style="width:260px">
+			        		<input id="holderName" class="easyui-textbox" label="股东名称：" labelPosition="before" style="width:260px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="holderAmount" class="easyui-textbox" label="出资额：" labelPosition="before"  style="width:260px">
+		                	<input id="holderAmount" class="easyui-textbox" label="出资额：" labelPosition="before"  style="width:260px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="holderPercent" class="easyui-textbox" label="出资比例：" labelPosition="before" style="width:260px">
+			        		<input id="holderPercent" class="easyui-textbox" label="出资比例：" labelPosition="before" style="width:260px" labelAlign="right">
 			        	</div>	    
 		                <div style="text-align:center;margin-top:20px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="addHolder()">新增</a>
@@ -409,16 +411,16 @@
 				    </div>
 				    <div id="updateHolder" class="easyui-window" title="更新股东信息" data-options="closed:true,iconCls:'icon-save'" style="width:340px;height:270px;padding:5px;">
 				    	<div style="text-align:center;margin-top:10px;">
-			        		<input id="holderId" class="easyui-textbox" label="股东ID：" labelPosition="before" disabled="true" style="width:260px">
+			        		<input id="holderId" class="easyui-textbox" label="股东ID：" labelPosition="before" disabled="true" style="width:260px" labelAlign="right">
 			        	</div>
 			        	<div style="text-align:center;margin-top:10px;">
-			        		<input id="holderNameUpdate" class="easyui-textbox" label="股东名称：" labelPosition="before" style="width:260px">
+			        		<input id="holderNameUpdate" class="easyui-textbox" label="股东名称：" labelPosition="before" style="width:260px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="holderAmountUpdate" class="easyui-textbox" label="出资额：" labelPosition="before"  style="width:260px">
+		                	<input id="holderAmountUpdate" class="easyui-textbox" label="出资额：" labelPosition="before"  style="width:260px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="holderPercentUpdate" class="easyui-textbox" label="出资比例：" labelPosition="before" style="width:260px">
+			        		<input id="holderPercentUpdate" class="easyui-textbox" label="出资比例：" labelPosition="before" style="width:260px" labelAlign="right">
 			        	</div>	
 		                <div style="text-align:center;margin-top:20px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="updateHolder()">更新</a>
@@ -447,31 +449,31 @@
 				    </div>
 				    <div id="addBusinessData" class="easyui-window" title="新增经营信息" data-options="closed:true,iconCls:'icon-save'" style="width:400px;height:470px;padding:5px;">
 			        	<div style="text-align:center;margin-top:10px;">
-			        		<input id="businessYear" class="easyui-textbox" label="年度：" labelPosition="before" style="width:260px">
+			        		<input id="businessYear" class="easyui-textbox" label="年度：" labelPosition="before" style="width:260px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="businessTotalAssets" class="easyui-textbox" label="总资产：" labelPosition="before"  style="width:260px">
+		                	<input id="businessTotalAssets" class="easyui-textbox" label="总资产：" labelPosition="before"  style="width:260px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="businessNetAssets" class="easyui-textbox" label="净资产：" labelPosition="before" style="width:260px">
+			        		<input id="businessNetAssets" class="easyui-textbox" label="净资产：" labelPosition="before" style="width:260px" labelAlign="right">
 			        	</div>	
 			        	<div style="text-align:center;margin-top:10px;">
-			        		<input id="businessRevenue" class="easyui-textbox" label="营业收入：" labelPosition="before" style="width:260px">
+			        		<input id="businessRevenue" class="easyui-textbox" label="营业收入：" labelPosition="before" style="width:260px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="businessProfit" class="easyui-textbox" label="利润：" labelPosition="before"  style="width:260px">
+		                	<input id="businessProfit" class="easyui-textbox" label="利润：" labelPosition="before"  style="width:260px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="businessDebtRatio" class="easyui-textbox" label="负债率：" labelPosition="before" style="width:260px">
+			        		<input id="businessDebtRatio" class="easyui-textbox" label="负债率：" labelPosition="before" style="width:260px" labelAlign="right">
 			        	</div>	   
 			        	<div style="text-align:center;margin-top:10px;">
-			        		<input id="businessContractAmount" class="easyui-textbox" label="合同额：" labelPosition="before" style="width:260px">
+			        		<input id="businessContractAmount" class="easyui-textbox" label="合同额：" labelPosition="before" style="width:260px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="businessInvestedAmount" class="easyui-textbox" label="投资额：" labelPosition="before"  style="width:260px">
+		                	<input id="businessInvestedAmount" class="easyui-textbox" label="投资额：" labelPosition="before"  style="width:260px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="businessNumber" class="easyui-textbox" label="签约项目数：" labelPosition="before" style="width:260px">
+			        		<input id="businessNumber" class="easyui-textbox" label="签约项目数：" labelPosition="before" style="width:260px" labelAlign="right">
 			        	</div>	       
 		                <div style="text-align:center;margin-top:10px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="addBusinessData()">新增</a>
@@ -480,34 +482,34 @@
 				    </div>
 				    <div id="updateBusinessData" class="easyui-window" title="更新经营信息" data-options="closed:true,iconCls:'icon-save'" style="width:400px;height:500px;padding:5px;">
 				    	<div style="text-align:center;margin-top:10px;">
-			        		<input id="businessDataId" class="easyui-textbox" label="经营ID：" labelPosition="before" disabled="true" style="width:260px">
+			        		<input id="businessDataId" class="easyui-textbox" label="经营ID：" labelPosition="before" disabled="true" style="width:260px" labelAlign="right">
 			        	</div>
 			        	<div style="text-align:center;margin-top:10px;">
-			        		<input id="businessYearUpdate" class="easyui-textbox" label="年度：" labelPosition="before" style="width:260px">
+			        		<input id="businessYearUpdate" class="easyui-textbox" label="年度：" labelPosition="before" style="width:260px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="businessTotalAssetsUpdate" class="easyui-textbox" label="总资产：" labelPosition="before"  style="width:260px">
+		                	<input id="businessTotalAssetsUpdate" class="easyui-textbox" label="总资产：" labelPosition="before"  style="width:260px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="businessNetAssetsUpdate" class="easyui-textbox" label="净资产：" labelPosition="before" style="width:260px">
+			        		<input id="businessNetAssetsUpdate" class="easyui-textbox" label="净资产：" labelPosition="before" style="width:260px" labelAlign="right">
 			        	</div>	
 			        	<div style="text-align:center;margin-top:10px;">
-			        		<input id="businessRevenueUpdate" class="easyui-textbox" label="营业收入：" labelPosition="before" style="width:260px">
+			        		<input id="businessRevenueUpdate" class="easyui-textbox" label="营业收入：" labelPosition="before" style="width:260px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="businessProfitUpdate" class="easyui-textbox" label="利润：" labelPosition="before"  style="width:260px">
+		                	<input id="businessProfitUpdate" class="easyui-textbox" label="利润：" labelPosition="before"  style="width:260px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="businessDebtRatioUpdate" class="easyui-textbox" label="负债率：" labelPosition="before" style="width:260px">
+			        		<input id="businessDebtRatioUpdate" class="easyui-textbox" label="负债率：" labelPosition="before" style="width:260px" labelAlign="right">
 			        	</div>	   
 			        	<div style="text-align:center;margin-top:10px;">
-			        		<input id="businessContractAmountUpdate" class="easyui-textbox" label="合同额：" labelPosition="before" style="width:260px">
+			        		<input id="businessContractAmountUpdate" class="easyui-textbox" label="合同额：" labelPosition="before" style="width:260px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="businessInvestedAmountUpdate" class="easyui-textbox" label="投资额：" labelPosition="before"  style="width:260px">
+		                	<input id="businessInvestedAmountUpdate" class="easyui-textbox" label="投资额：" labelPosition="before"  style="width:260px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="businessNumberUpdate" class="easyui-textbox" label="签约项目数：" labelPosition="before" style="width:260px">
+			        		<input id="businessNumberUpdate" class="easyui-textbox" label="签约项目数：" labelPosition="before" style="width:260px" labelAlign="right">
 			        	</div>	
 		                <div style="text-align:center;margin-top:10px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="updateBusinessData()">更新</a>
@@ -535,22 +537,22 @@
 				    </div>
 				    <div id="addInvoice" class="easyui-window" title="新增开票信息" data-options="closed:true,iconCls:'icon-save'" style="width:440px;height:360px;padding:5px;">
 			        	<div style="text-align:center;margin-top:10px;">
-			        		<input id="invoiceName" class="easyui-textbox" label="单位名称：" labelPosition="before" style="width:340px">
+			        		<input id="invoiceName" class="easyui-textbox" label="单位名称：" labelPosition="before" style="width:340px" labelAlign="right">
 			        	</div>
-		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="invoiceNumber" class="easyui-textbox" label="纳税人识别号：" labelPosition="before"  style="width:340px">
+		                <div style="text-align:center;margin-top:10px;" labelAlign="right">
+		                	<input id="invoiceNumber" class="easyui-textbox" label="纳税人识别号：" labelPosition="before"  style="width:340px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="invoiceAddress" class="easyui-textbox" label="地址：" labelPosition="before" style="width:340px">
+			        		<input id="invoiceAddress" class="easyui-textbox" label="地址：" labelPosition="before" style="width:340px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="invoicePhone" class="easyui-textbox" label="电话：" labelPosition="before"  style="width:340px">
+		                	<input id="invoicePhone" class="easyui-textbox" label="电话：" labelPosition="before"  style="width:340px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="invoiceBank" class="easyui-textbox" label="开户行：" labelPosition="before" style="width:340px">
+			        		<input id="invoiceBank" class="easyui-textbox" label="开户行：" labelPosition="before" style="width:340px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="invoiceAccount" class="easyui-textbox" label="账号：" labelPosition="before"  style="width:340px">
+		                	<input id="invoiceAccount" class="easyui-textbox" label="账号：" labelPosition="before"  style="width:340px" labelAlign="right">
 		                </div>		    
 		                <div style="text-align:center;margin-top:20px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="addInvoice()">新增</a>
@@ -559,25 +561,25 @@
 				    </div>
 				    <div id="updateInvoice" class="easyui-window" title="更新开票信息" data-options="closed:true,iconCls:'icon-save'" style="width:440px;height:400px;padding:5px;">
 				    	<div style="text-align:center;margin-top:10px;">
-			        		<input id="invoiceId" class="easyui-textbox" label="开票ID：" labelPosition="before" disabled="true" style="width:340px">
+			        		<input id="invoiceId" class="easyui-textbox" label="开票ID：" labelPosition="before" disabled="true" style="width:340px" labelAlign="right">
 			        	</div>
 			        	<div style="text-align:center;margin-top:10px;">
-			        		<input id="invoiceNameUpdate" class="easyui-textbox" label="单位名称：" labelPosition="before" style="width:340px">
+			        		<input id="invoiceNameUpdate" class="easyui-textbox" label="单位名称：" labelPosition="before" style="width:340px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="invoiceNumberUpdate" class="easyui-textbox" label="纳税人识别号" labelPosition="before"  style="width:340px">
+		                	<input id="invoiceNumberUpdate" class="easyui-textbox" label="纳税人识别号" labelPosition="before"  style="width:340px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="invoiceAddressUpdate" class="easyui-textbox" label="地址：" labelPosition="before" style="width:340px">
+			        		<input id="invoiceAddressUpdate" class="easyui-textbox" label="地址：" labelPosition="before" style="width:340px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="invoicePhoneUpdate" class="easyui-textbox" label="电话：" labelPosition="before"  style="width:340px">
+		                	<input id="invoicePhoneUpdate" class="easyui-textbox" label="电话：" labelPosition="before"  style="width:340px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="invoiceBankUpdate" class="easyui-textbox" label="开户行：" labelPosition="before" style="width:340px">
+			        		<input id="invoiceBankUpdate" class="easyui-textbox" label="开户行：" labelPosition="before" style="width:340px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="invoiceAccountUpdate" class="easyui-textbox" label="账号：" labelPosition="before"  style="width:340px">
+		                	<input id="invoiceAccountUpdate" class="easyui-textbox" label="账号：" labelPosition="before"  style="width:340px" labelAlign="right">
 		                </div>		    
 		                <div style="text-align:center;margin-top:20px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="updateInvoice()">更新</a>
