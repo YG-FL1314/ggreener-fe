@@ -513,7 +513,7 @@ function getCompanyDetail(companyId) {
                 $('#zol').combobox('setValue', data.obj.zol)
                 $('#unitProperties').combobox('setValue', data.obj.unitProperty)
                 $('#createTime').datebox('setValue', data.obj.establishedTime.substring(0,10))
-                $('#register').textbox('setValue', data.obj.registeredCapital)
+                $('#register').numberbox('setValue', data.obj.registeredCapital)
                 $('#equity').combobox('setValue', data.obj.equity)
                 $('#highTech').combobox('setValues', data.obj.highTechs == null ? [] : data.obj.highTechs)
                 $('#companyMarket').combobox('setValue', data.obj.companyMarket)
@@ -528,9 +528,9 @@ function getCompanyDetail(companyId) {
                 $('#utilityPatents').textbox('setValue', data.obj.utilityPatents)
                 $('#softwares').textbox('setValue', data.obj.softwares)
                 $('#advantages').combobox('setValues', data.obj.advantages == null ? [] : data.obj.advantages)
-                $('#staffNumber').textbox('setValue', data.obj.staffNumber)
-                $('#technicians').textbox('setValue', data.obj.technicians)
-                $('#officeArea').textbox('setValue', data.obj.officeArea)
+                $('#staffNumber').numberbox('setValue', data.obj.staffNumber)
+                $('#technicians').numberbox('setValue', data.obj.technicians)
+                $('#officeArea').numberbox('setValue', data.obj.officeArea)
                 $('#products').textbox('setValue', data.obj.products)
                 $('#companyPhone').textbox('setValue', data.obj.telephone)
                 $('#companyFax').textbox('setValue', data.obj.fax)
@@ -1101,7 +1101,7 @@ function updateHolderClick() {
     } else {
         $('#holderId').textbox('setValue', row.id)
         $('#holderNameUpdate').textbox('setValue', row.holderName)
-        $('#holderAmountUpdate').textbox('setValue', row.holderAmount)
+        $('#holderAmountUpdate').numberbox('setValue', row.holderAmount)
         $('#holderPercentUpdate').textbox('setValue', row.holderPercent)
         $('#updateHolder').window('open') 
     }
@@ -1261,14 +1261,14 @@ function updateBusinessDataClick() {
     } else {
         $('#businessDataId').textbox('setValue', row.id)
         $('#businessYearUpdate').textbox('setValue', row.businessYear)
-        $('#businessTotalAssetsUpdate').textbox('setValue', row.businessTotalAssets)
-        $('#businessNetAssetsUpdate').textbox('setValue', row.businessNetAssets)
-        $('#businessRevenueUpdate').textbox('setValue', row.businessRevenue)
-        $('#businessProfitUpdate').textbox('setValue', row.businessProfit)
+        $('#businessTotalAssetsUpdate').numberbox('setValue', row.businessTotalAssets)
+        $('#businessNetAssetsUpdate').numberbox('setValue', row.businessNetAssets)
+        $('#businessRevenueUpdate').numberbox('setValue', row.businessRevenue)
+        $('#businessProfitUpdate').numberbox('setValue', row.businessProfit)
         $('#businessDebtRatioUpdate').textbox('setValue', row.businessDebtRatio)
-        $('#businessContractAmountUpdate').textbox('setValue', row.businessContractAmount)
-        $('#businessInvestedAmountUpdate').textbox('setValue', row.businessInvestedAmount)
-        $('#businessNumberUpdate').textbox('setValue', row.businessNumber)
+        $('#businessContractAmountUpdate').numberbox('setValue', row.businessContractAmount)
+        $('#businessInvestedAmountUpdate').numberbox('setValue', row.businessInvestedAmount)
+        $('#businessNumberUpdate').numberbox('setValue', row.businessNumber)
         $('#updateBusinessData').window('open') 
     }
 }
@@ -2280,7 +2280,7 @@ function updateProjectClick() {
         $('#projectOthersUpdate').textbox('setValue', row.projectOthers)
         $('#projectPeopleUpdate').textbox('setValue', row.projectPeople)
         $('#projectOwnersUpdate').textbox('setValue', row.projectOwners)
-        $('#projectAmountUpdate').textbox('setValue', row.projectAmount)
+        $('#projectAmountUpdate').numberbox('setValue', row.projectAmount)
         $('#updateProject').window('open') 
     }
 }

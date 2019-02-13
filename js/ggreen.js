@@ -623,7 +623,7 @@ function updateProjectClick() {
         $('#startDateUpdate').datebox('setValue', row.startDate)
         $('#endDateUpdate').datebox('setValue', row.endDate)
         $('#projectRemarkUpdate').textbox('setValue', row.projectRemark)
-        $('#projectAmountUpdate').textbox('setValue', row.amount)
+        $('#projectAmountUpdate').numberbox('setValue', row.amount)
         $('#updateProject').window('open')
     }
 }

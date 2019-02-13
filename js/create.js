@@ -102,8 +102,8 @@ function addCompany() {
     var softwares = $('#softwares').textbox('getValue').trim()
     var advantages = $('#advantages').combobox('getValues')
     var staffNumber = $('#staffNumber').textbox('getValue').trim()
-    var technicians = $('#technicians').textbox('getValue').trim()
-    var officeArea = $('#officeArea').textbox('getValue').trim()
+    var technicians = $('#technicians').textbox('getValue').trim() 
+    var officeArea = $('#officeArea').textbox('getValue').trim() 
     var products = $('#products').textbox('getValue').trim()
     var telephone = $('#companyPhone').textbox('getValue').trim()
     var fax = $('#companyFax').textbox('getValue').trim()
@@ -1093,7 +1093,7 @@ function updateHolderClick() {
     } else {
         $('#holderId').textbox('setValue', row.id)
         $('#holderNameUpdate').textbox('setValue', row.holderName)
-        $('#holderAmountUpdate').textbox('setValue', row.holderAmount)
+        $('#holderAmountUpdate').numberbox('setValue', row.holderAmount)
         $('#holderPercentUpdate').textbox('setValue', row.holderPercent)
         $('#updateHolder').window('open') 
     }
@@ -1102,7 +1102,7 @@ function updateHolderClick() {
 function updateHolder() {
     var holderId = $('#holderId').textbox('getValue')
     var holderName = $('#holderNameUpdate').textbox('getValue').trim()
-    var holderAmount = $('#holderAmountUpdate').textbox('getValue').trim()
+    var holderAmount = $('#holderAmountUpdate').numberbox('getValue').trim()
     var holderPercent = $('#holderPercentUpdate').textbox('getValue').trim()
     $.ajax({
         type:'put',
@@ -1253,14 +1253,14 @@ function updateBusinessDataClick() {
     } else {
         $('#businessDataId').textbox('setValue', row.id)
         $('#businessYearUpdate').textbox('setValue', row.businessYear)
-        $('#businessTotalAssetsUpdate').textbox('setValue', row.businessTotalAssets)
-        $('#businessNetAssetsUpdate').textbox('setValue', row.businessNetAssets)
-        $('#businessRevenueUpdate').textbox('setValue', row.businessRevenue)
-        $('#businessProfitUpdate').textbox('setValue', row.businessProfit)
+        $('#businessTotalAssetsUpdate').numberbox('setValue', row.businessTotalAssets)
+        $('#businessNetAssetsUpdate').numberbox('setValue', row.businessNetAssets)
+        $('#businessRevenueUpdate').numberbox('setValue', row.businessRevenue)
+        $('#businessProfitUpdate').numberbox('setValue', row.businessProfit)
         $('#businessDebtRatioUpdate').textbox('setValue', row.businessDebtRatio)
-        $('#businessContractAmountUpdate').textbox('setValue', row.businessContractAmount)
-        $('#businessInvestedAmountUpdate').textbox('setValue', row.businessInvestedAmount)
-        $('#businessNumberUpdate').textbox('setValue', row.businessNumber)
+        $('#businessContractAmountUpdate').numberbox('setValue', row.businessContractAmount)
+        $('#businessInvestedAmountUpdate').numberbox('setValue', row.businessInvestedAmount)
+        $('#businessNumberUpdate').numberbox('setValue', row.businessNumber)
         $('#updateBusinessData').window('open') 
     }
 }
@@ -1653,7 +1653,7 @@ function updateProjectClick() {
         $('#projectOthersUpdate').textbox('setValue', row.projectOthers)
         $('#projectPeopleUpdate').textbox('setValue', row.projectPeople)
         $('#projectOwnersUpdate').textbox('setValue', row.projectOwners)
-        $('#projectAmountUpdate').textbox('setValue', row.projectAmount)
+        $('#projectAmountUpdate').numberbox('setValue', row.projectAmount)
         $('#updateProject').window('open') 
     }
 }

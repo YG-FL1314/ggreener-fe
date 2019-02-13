@@ -32,8 +32,7 @@
 						<select id="unitProperties" class="easyui-combobox" label="单位性质：" labelPosition="left" style="width:19%;" data-options="readonly:true" labelAlign="right">
 						</select>	
 						<input id="createTime" class="easyui-datebox" label="成立时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天',readonly:true" style="width:19%;" labelAlign="right">
-						<select id="register" class="easyui-textbox" label="注册资金：" labelPosition="left" style="width:19%;" data-options="readonly:true" labelAlign="right">
-						</select>
+						<input id="register" class="easyui-numberbox" label="注册资金：" labelPosition="left" precision="2" suffix="万元" value="0.00" style="width:19%;" data-options="readonly:true" labelAlign="right">
 						<select id="equity" class="easyui-combobox" label="出资方式：" labelPosition="left" style="width:19%;" data-options="readonly:true" labelAlign="right">
 						</select>
 						<select id="highTech" class="easyui-combobox" label="高新技术：" labelPosition="left" style="width:19%;" data-options="readonly:true" labelAlign="right">
@@ -42,8 +41,7 @@
 					<div style="margin-top:20px">
 						<select id="companyMarket" class="easyui-combobox" label="上市公司：" labelPosition="left" style="width:19%;" data-options="readonly:true" labelAlign="right">
 						</select>	
-						<select id="sharesCode" class="easyui-textbox" label="股票代码：" labelPosition="left" style="width:19%;" data-options="readonly:true" labelAlign="right">
-						</select>
+						<input id="sharesCode" class="easyui-textbox" label="股票代码：" labelPosition="left" style="width:19%;" data-options="readonly:true" labelAlign="right">
 						<select id="companyTypes" class="easyui-combobox" label="单位类型：" labelPosition="left" style="width:19%;" data-options="readonly:true" labelAlign="right">
 						</select>
 						<select id="industries" class="easyui-combobox" label="所属行业：" labelPosition="left" style="width:19%;" data-options="readonly:true" labelAlign="right">
@@ -58,22 +56,16 @@
 						</select>
 						<select id="techProduct" class="easyui-combobox" label="技术产品：" labelPosition="left" style="width:19%;" data-options="readonly:true" labelAlign="right">
 						</select>
-						<select id="patents" class="easyui-textbox" label="发明专利：" labelPosition="left" style="width:19%;" data-options="readonly:true" labelAlign="right">
-						</select>
-						<select id="utilityPatents" class="easyui-textbox" label="实用专利：" labelPosition="left" style="width:19%;" data-options="readonly:true" labelAlign="right">
-						</select>
+						<input id="patents" class="easyui-textbox" label="发明专利：" labelPosition="left" style="width:19%;" data-options="readonly:true" labelAlign="right">
+						<input id="utilityPatents" class="easyui-textbox" label="实用专利：" labelPosition="left" style="width:19%;" data-options="readonly:true" labelAlign="right">
 					</div>
 					<div style="margin-top:20px">
-						<select id="softwares" class="easyui-textbox" label="软件著作：" labelPosition="left" style="width:19%;" data-options="readonly:true" labelAlign="right">
-						</select>	
+						<input id="softwares" class="easyui-textbox" label="软件著作：" labelPosition="left" style="width:19%;" data-options="readonly:true" labelAlign="right">
 						<select id="advantages" class="easyui-textbox" label="单位优势：" labelPosition="left" style="width:19%;" data-options="readonly:true" labelAlign="right">
 						</select>
-						<select id="staffNumber" class="easyui-textbox" label="员工人数：" labelPosition="left" style="width:19%;" data-options="readonly:true" labelAlign="right">
-						</select>
-						<select id="technicians" class="easyui-textbox" label="技术人员：" labelPosition="left" style="width:19%;" data-options="readonly:true" labelAlign="right">
-						</select>
-						<select id="officeArea" class="easyui-textbox" label="办公面积：" labelPosition="left" style="width:19%;" data-options="readonly:true" labelAlign="right">
-						</select>
+						<input id="staffNumber" class="easyui-numberbox" label="员工人数：" labelPosition="left" value="0" style="width:19%;" data-options="readonly:true" labelAlign="right">
+						<input id="technicians" class="easyui-numberbox" label="技术人员：" labelPosition="left" value="0" style="width:19%;" data-options="readonly:true" labelAlign="right">
+						<input id="officeArea" class="easyui-numberbox" label="办公面积：" labelPosition="left" precision="2" suffix="㎡" value="0.00" style="width:19%;" data-options="readonly:true" labelAlign="right">
 					</div>
 					<div style="margin-top:20px">
 						<input id="products" class="easyui-textbox" label="自主研发技术产品：" labelPosition="before" style="width:57.4%;height: 100px" multiline="true" data-options="readonly:true"" labelAlign="right" labelWidth="135px">
@@ -296,7 +288,7 @@
 				                <th field="projectOthers" align="center" width="10%">对接人</th>
 				                <th field="projectPeople" align="center" width="15%">该方参与人</th>
 				                <th field="projectOwners" align="center" width="15%">我方负责人</th>
-				                <th field="projectAmount" align="center" width="10%">合作金额</th>
+				                <th field="projectAmount" align="center" width="10%">合作金额(万元)</th>
 				            </tr>
 				        </thead>
 				    </table>
@@ -328,7 +320,7 @@
 		                	<input id="projectOwners" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:330px" labelAlign="right" labelWidth="100px"3>
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="projectAmount" class="easyui-textbox" label="合作金额：" labelPosition="left"  style="width:300px" labelAlign="right">
+		                	<input id="projectAmount" class="easyui-numberbox" label="合作金额：" labelPosition="left" precision="2" suffix="万元" value="0.00" style="width:300px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
 							<a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="addProject()">新增</a>
@@ -361,7 +353,7 @@
 		                	<input id="projectOwnersUpdate" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:300px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="projectAmountUpdate" class="easyui-textbox" label="合作金额：" labelPosition="left"  style="width:300px" labelAlign="right">
+		                	<input id="projectAmountUpdate" class="easyui-numberbox" label="合作金额：" labelPosition="left" precision="2" suffix="万元" value="0.00" style="width:300px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
 							<a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="updateProject()">更新</a>
@@ -374,7 +366,7 @@
 				        <thead>
 				            <tr>
 				            	<th field="holderName" align="center" width="30%">股东名称</th>
-				                <th field="holderAmount" align="center" width="30%">出资额</th>
+				                <th field="holderAmount" align="center" width="30%">出资额(万元)</th>
 				                <th field="holderPercent" align="center" width="30%">出资比例</th>
 				            </tr>
 				        </thead>
@@ -389,7 +381,7 @@
 			        		<input id="holderName" class="easyui-textbox" label="股东名称：" labelPosition="before" style="width:260px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="holderAmount" class="easyui-textbox" label="出资额：" labelPosition="before"  style="width:260px" labelAlign="right">
+		                	<input id="holderAmount" class="easyui-numberbox" label="出资额：" labelPosition="before" precision="2" suffix="万元" value="0.00" style="width:260px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
 			        		<input id="holderPercent" class="easyui-textbox" label="出资比例：" labelPosition="before" style="width:260px" labelAlign="right">
@@ -407,7 +399,7 @@
 			        		<input id="holderNameUpdate" class="easyui-textbox" label="股东名称：" labelPosition="before" style="width:260px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="holderAmountUpdate" class="easyui-textbox" label="出资额：" labelPosition="before"  style="width:260px" labelAlign="right">
+		                	<input id="holderAmountUpdate" class="easyui-numberbox" label="出资额：" labelPosition="before" precision="2" suffix="万元" value="0.00" style="width:260px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
 			        		<input id="holderPercentUpdate" class="easyui-textbox" label="出资比例：" labelPosition="before" style="width:260px" labelAlign="right">
@@ -421,13 +413,13 @@
 				        <thead>
 				            <tr>
 				            	<th field="businessYear" align="center" width="10%">年度</th>
-				                <th field="businessTotalAssets" align="center" width="10%">总资产</th>
-				                <th field="businessNetAssets" align="center" width="10%">净资产</th>
-				                <th field="businessRevenue" align="center" width="10%">营业收入</th>
-				                <th field="businessProfit" align="center" width="10%">利润</th>
+				                <th field="businessTotalAssets" align="center" width="10%">总资产(万元)</th>
+				                <th field="businessNetAssets" align="center" width="10%">净资产(万元)</th>
+				                <th field="businessRevenue" align="center" width="10%">营业收入(万元)</th>
+				                <th field="businessProfit" align="center" width="10%">利润(万元)</th>
 				                <th field="businessDebtRatio" align="center" width="10%">负债率</th>
-				                <th field="businessContractAmount" align="center" width="10%">合同额</th>
-				                <th field="businessInvestedAmount" align="center" width="10%">投资额</th>
+				                <th field="businessContractAmount" align="center" width="10%">合同额(万元)</th>
+				                <th field="businessInvestedAmount" align="center" width="10%">投资额(万元)</th>
 				                <th field="businessNumber" align="center" width="10%">签约项目数</th>
 				            </tr>
 				        </thead>
@@ -442,28 +434,28 @@
 			        		<input id="businessYear" class="easyui-textbox" label="年度：" labelPosition="before" style="width:260px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="businessTotalAssets" class="easyui-textbox" label="总资产：" labelPosition="before"  style="width:260px" labelAlign="right">
+		                	<input id="businessTotalAssets" class="easyui-numberbox" label="总资产：" labelPosition="before" precision="2" suffix="万元" value="0.00" style="width:260px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="businessNetAssets" class="easyui-textbox" label="净资产：" labelPosition="before" style="width:260px" labelAlign="right">
+			        		<input id="businessNetAssets" class="easyui-numberbox" label="净资产：" labelPosition="before" precision="2" suffix="万元" value="0.00" style="width:260px" labelAlign="right">
 			        	</div>	
 			        	<div style="text-align:center;margin-top:10px;">
-			        		<input id="businessRevenue" class="easyui-textbox" label="营业收入：" labelPosition="before" style="width:260px" labelAlign="right">
+			        		<input id="businessRevenue" class="easyui-numberbox" label="营业收入：" labelPosition="before" precision="2" suffix="万元" value="0.00" style="width:260px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="businessProfit" class="easyui-textbox" label="利润：" labelPosition="before"  style="width:260px" labelAlign="right">
+		                	<input id="businessProfit" class="easyui-numberbox" label="利润：" labelPosition="before" precision="2" suffix="万元" value="0.00" style="width:260px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
 			        		<input id="businessDebtRatio" class="easyui-textbox" label="负债率：" labelPosition="before" style="width:260px" labelAlign="right">
 			        	</div>	   
 			        	<div style="text-align:center;margin-top:10px;">
-			        		<input id="businessContractAmount" class="easyui-textbox" label="合同额：" labelPosition="before" style="width:260px" labelAlign="right">
+			        		<input id="businessContractAmount" class="easyui-numberbox" label="合同额：" labelPosition="before" precision="2" suffix="万元" value="0.00" style="width:260px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="businessInvestedAmount" class="easyui-textbox" label="投资额：" labelPosition="before"  style="width:260px" labelAlign="right">
+		                	<input id="businessInvestedAmount" class="easyui-numberbox" label="投资额：" labelPosition="before" precision="2" suffix="万元" value="0.00" style="width:260px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="businessNumber" class="easyui-textbox" label="签约项目数：" labelPosition="before" style="width:260px" labelAlign="right">
+			        		<input id="businessNumber" class="easyui-numberbox" label="签约项目数：" labelPosition="before" value="0" style="width:260px" labelAlign="right">
 			        	</div>	       
 		                <div style="text-align:center;margin-top:10px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="addBusinessData()">新增</a>
@@ -478,28 +470,28 @@
 			        		<input id="businessYearUpdate" class="easyui-textbox" label="年度：" labelPosition="before" style="width:260px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="businessTotalAssetsUpdate" class="easyui-textbox" label="总资产：" labelPosition="before"  style="width:260px" labelAlign="right">
+		                	<input id="businessTotalAssetsUpdate" class="easyui-numberbox" label="总资产：" labelPosition="before" precision="2" suffix="万元" value="0.00" style="width:260px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="businessNetAssetsUpdate" class="easyui-textbox" label="净资产：" labelPosition="before" style="width:260px" labelAlign="right">
+			        		<input id="businessNetAssetsUpdate" class="easyui-numberbox" label="净资产：" labelPosition="before" precision="2" suffix="万元" value="0.00" style="width:260px" labelAlign="right">
 			        	</div>	
 			        	<div style="text-align:center;margin-top:10px;">
-			        		<input id="businessRevenueUpdate" class="easyui-textbox" label="营业收入：" labelPosition="before" style="width:260px" labelAlign="right">
+			        		<input id="businessRevenueUpdate" class="easyui-numberbox" label="营业收入：" labelPosition="before" precision="2" suffix="万元" value="0.00" style="width:260px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="businessProfitUpdate" class="easyui-textbox" label="利润：" labelPosition="before"  style="width:260px" labelAlign="right">
+		                	<input id="businessProfitUpdate" class="easyui-numberbox" label="利润：" labelPosition="before" precision="2" suffix="万元" value="0.00" style="width:260px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
 			        		<input id="businessDebtRatioUpdate" class="easyui-textbox" label="负债率：" labelPosition="before" style="width:260px" labelAlign="right">
 			        	</div>	   
 			        	<div style="text-align:center;margin-top:10px;">
-			        		<input id="businessContractAmountUpdate" class="easyui-textbox" label="合同额：" labelPosition="before" style="width:260px" labelAlign="right">
+			        		<input id="businessContractAmountUpdate" class="easyui-numberbox" label="合同额：" labelPosition="before" precision="2" suffix="万元" value="0.00" style="width:260px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="businessInvestedAmountUpdate" class="easyui-textbox" label="投资额：" labelPosition="before"  style="width:260px" labelAlign="right">
+		                	<input id="businessInvestedAmountUpdate" class="easyui-numberbox" label="投资额：" labelPosition="before" precision="2" suffix="万元" value="0.00" style="width:260px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="businessNumberUpdate" class="easyui-textbox" label="签约项目数：" labelPosition="before" style="width:260px" labelAlign="right">
+			        		<input id="businessNumberUpdate" class="easyui-numberbox" label="签约项目数：" labelPosition="before" value="0" style="width:260px" labelAlign="right">
 			        	</div>	
 		                <div style="text-align:center;margin-top:10px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="updateBusinessData()">更新</a>
