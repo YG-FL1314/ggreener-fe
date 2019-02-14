@@ -94,7 +94,7 @@ function getSyncTags(id, parentId) {
             if (id == 'companyMarket') {
                 items[itemIndex] = {
                     id: parentId,
-                    name: '所有上市公司',
+                    name: '所有',
                     parent: 0,
                     order: 0 
                 }
