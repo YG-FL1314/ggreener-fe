@@ -63,15 +63,63 @@ function getSyncTags(id, parentId) {
                 window.location.href = data.message
             } 
             var items = []
+            var itemIndex = 0;
+            if (id == 'member') {
+                items[itemIndex] = {
+                    id: parentId,
+                    name: '所有会员',
+                    parent: 0,
+                    order: 0 
+                }
+                itemIndex++;
+            } 
+            if (id == 'attention') {
+                items[itemIndex] = {
+                    id: parentId,
+                    name: '所有关注等级',
+                    parent: 0,
+                    order: 0 
+                }
+                itemIndex++;
+            } 
+            if (id == 'zol') {
+                items[itemIndex] = {
+                    id: parentId,
+                    name: '所有中关村园',
+                    parent: 0,
+                    order: 0 
+                }
+                itemIndex++;
+            } 
+            if (id == 'companyMarket') {
+                items[itemIndex] = {
+                    id: parentId,
+                    name: '所有上市公司',
+                    parent: 0,
+                    order: 0 
+                }
+                itemIndex++;
+            } 
+            if (id == 'highTech') {
+                items[itemIndex] = {
+                    id: parentId,
+                    name: '所有高薪技术',
+                    parent: 0,
+                    order: 0 
+                }
+                itemIndex++;
+            } 
             $.each(data.obj,function(idx,item){ 
                 var parent = convertIdToName(item.parentId)
-                items[idx] = {
+                items[itemIndex] = {
                     id: item.id,
                     name: item.name,
                     parent: parent,
                     order: item.order
                 }
+                itemIndex++;
             })
+
             $('#' + id).combobox('loadData', items)
         },
         error: function(){
@@ -935,17 +983,17 @@ window.onload = function () {
     } else {
         hideUserTabs()
     }
-    getSyncTags('attention', ATTENTION_FLAG)
-    getSyncTags('member', MEMBER_FLAG)
+    getSyncTags('attention', ATTENTION_FLAG)//
+    getSyncTags('member', MEMBER_FLAG)//
     getSyncTags('region', REGION_FLAG)
-    getSyncTags('zol', ZOL_FLAG)
+    getSyncTags('zol', ZOL_FLAG)//
     getSyncTags('unitProperties', UNIT_PROPERTIES_FLAG)
     getSyncTags('equity', EQUITY_PARTICIPATION_FLAG)
     getSyncTags('companyType', COMPANY_TYPE_FLAG)
     getSyncTags('industry', INDUSTRIES_FLAG)
-    getSyncTags('companyMarket', COMPANY_MARKET_FLAG)
+    getSyncTags('companyMarket', COMPANY_MARKET_FLAG)//
     getSyncTags('business', BUSINESS_FLAG)
-    getSyncTags('highTech', HIGH_TECHNOLOGY_FLAG)
+    getSyncTags('highTech', HIGH_TECHNOLOGY_FLAG)//
     getSyncTags('businessArea', BUSINESS_AREA_FLAG)
     getSyncTags('segmentMarket', SEGMENT_MARKET_FLAG)
     getSyncTags('advantages', ADVANTAGES_FLAG)
