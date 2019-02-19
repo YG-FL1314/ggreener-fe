@@ -619,7 +619,7 @@ function updateChatClick() {
 
         $('#chatOwnersUpdate').combobox({
             valueField: 'id', 
-            textField: 'name',
+            textField: 'nickName',
             panelHeight:'auto', 
             limitToList: true,
             multiple: true,

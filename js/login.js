@@ -25,3 +25,9 @@ function submitForm(){
     }  
   }); 
 }
+
+$(document).keypress(function(e) {  
+    if((e.keyCode || e.which)==13) {  
+        submitForm(); 
+    }  
+}); 

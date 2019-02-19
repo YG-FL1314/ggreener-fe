@@ -79,11 +79,11 @@
 					                <th field="memberCode" align="center" width="8%" height="20px" data-options="formatter:formatCellTooltip">会员编号</th>
 					                <th field="memberName" align="center" width="8%" height="20px" data-options="formatter:formatCellTooltip">会员等级</th>
 					                <th field="attention" align="center" width="8%" height="20px" data-options="formatter:formatCellTooltip">关注等级</th>
-					                <th field="name" align="center" width="30%" height="20px" data-options="formatter:formatCellTooltip">单位名称</th>
+					                <th field="name" align="left" halign="center" width="30%" height="20px" data-options="formatter:formatCellTooltip">单位名称</th>
 					                <th field="region" align="center" width="8%" height="20px" data-options="formatter:formatCellTooltip">所在地区</th>
 					                <th field="createTime" align="center" width="10%" height="20px" data-options="formatter:formatCellTooltip">成立时间</th>
 					                <th field="registeredCapital" align="center" width="12%" height="20px" data-options="formatter:formatCellTooltip">注册资金(万元)</th>
-					                <th field="industry" align="center" width="16%" height="20px" data-options="formatter:formatCellTooltip">所属行业</th>
+					                <th field="companyType" align="center" width="16%" height="20px" data-options="formatter:formatCellTooltip">单位类型</th>
 					            </tr>
 					        </thead>
 					    </table>
@@ -177,6 +177,7 @@
 				        <thead>
 				            <tr>
 				                <th field="name" align="center" width="15%">用户名</th>
+				                <th field="nickName" align="center" width="15%">昵称</th>
 				                <th field="status" align="center" width="15%">状态</th>
 				            </tr>
 				        </thead>
@@ -186,9 +187,12 @@
 				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="modifyUserOperationByAdmin()">修改</a>
 				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteUserByAdmin()">删除</a>
 				    </div>
-			        <div id="addUsers" class="easyui-window" title="新增用户" data-options="closed:true,iconCls:'icon-save'" style="width:420px;height:250px;padding:5px;">
+			        <div id="addUsers" class="easyui-window" title="新增用户" data-options="closed:true,iconCls:'icon-save'" style="width:420px;height:270px;padding:5px;">
 			        	<div style="text-align:center;margin-top:20px;">
 			        		<input id="userName" class="easyui-textbox" label="用户名：" labelPosition="before" style="width:70%;" labelAlign="right">
+			        	</div>
+			        	<div style="text-align:center;margin-top:20px;">
+			        		<input id="nickName" class="easyui-textbox" label="昵称：" labelPosition="before" style="width:70%;" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:20px;">
 		                	<input id="userPwd" class="easyui-textbox" label="密码：" labelPosition="before"  style="width:70%;" labelAlign="right">
@@ -198,12 +202,15 @@
 		                	 <a href="#" class="easyui-linkbutton" onclick="$('#addUsers').window('close')" style="text-align:center;width:20%;margin-left:20px;">取消</a>
 		                </div>
 				    </div>
-				    <div id="updateUsers" class="easyui-window" title="修改用户" data-options="closed:true,iconCls:'icon-save'" style="width:420px;height:270px;padding:5px;">
+				    <div id="updateUsers" class="easyui-window" title="修改用户" data-options="closed:true,iconCls:'icon-save'" style="width:420px;height:310px;padding:5px;">
 				     	<div style="text-align:center;margin-top:20px;">
 			        		<input id="userUuidUpdate" class="easyui-textbox" label="用户ID：" disabled="true"  labelPosition="before" style="width:70%;" labelAlign="right">
 			        	</div>
 			        	<div style="text-align:center;margin-top:20px;">
 			        		<input id="userNameUpdate" class="easyui-textbox" label="用户名：" labelPosition="before" style="width:70%;" labelAlign="right">
+			        	</div>
+			        	<div style="text-align:center;margin-top:20px;">
+			        		<input id="nickNameUpdate" class="easyui-textbox" label="昵称：" labelPosition="before" style="width:70%;" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:20px;">
 		                	<input id="userPwdUpdate" class="easyui-textbox" label="密码：" labelPosition="before"  style="width:70%;" labelAlign="right">

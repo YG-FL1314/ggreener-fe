@@ -198,6 +198,7 @@ function addTag() {
 function addUser() {
     var userName = $('#userName').textbox('getValue')
     var userPwd = $('#userPwd').textbox('getValue')
+    var nickName = $('#nickName').textbox('getValue')
     $.ajax({
         url: "/user/add",
         xhrFields:{
@@ -208,7 +209,8 @@ function addUser() {
         credentials: 'include', 
         data: JSON.stringify({
           "name": userName,
-          "password": userPwd
+          "password": userPwd,
+          "nickName": nickName
         }),
         dataType:'json', 
         contentType: 'application/json;charset=UTF-8',
@@ -235,6 +237,7 @@ function modifyUserOperationByAdmin() {
     } else {
         $('#userNameUpdate').textbox('setValue', row.name)
         $('#userUuidUpdate').textbox('setValue', row.id)
+        $('#nickNameUpdate').textbox('setValue', row.nickName)
         $('#updateUsers').window('open') 
     }
 }
@@ -243,6 +246,7 @@ function updateUserByAdmin() {
     var uuid = $('#userUuidUpdate').textbox('getValue')
     var userName = $('#userNameUpdate').textbox('getValue')
     var userPwd = $('#userPwdUpdate').textbox('getValue')
+    var nickName = $('#nickNameUpdate').textbox('getValue')
     $.ajax({
         url: "/user/admin/update",
         xhrFields:{
@@ -254,7 +258,8 @@ function updateUserByAdmin() {
         data: JSON.stringify({
             "uuid": uuid,
             "name": userName,
-            "password": userPwd
+            "password": userPwd,
+            "nickName": nickName
         }),
         dataType:'json', 
         contentType: 'application/json;charset=UTF-8',
@@ -262,7 +267,7 @@ function updateUserByAdmin() {
         success: function(data){
             if (data.status == 0) {
                 $.messager.alert('用户','修改用户成功!');
-                $('#addUsers').window('close')
+                $('#updateUsers').window('close')
                 $('#users').datagrid({'data': getListUsers()})
             } else {
                 $.messager.alert('用户','修改用户失败!','error');
@@ -954,14 +959,15 @@ $(function() {
         }
     });
     $('#companys').datagrid({
+        striped: true,
         onDblClickRow: function(rowIndex, rowData) {  
             window.open("./detail.html?companyId=" + rowData.id)
         },
-        rowStyler: function(index,row){
-            if (index % 2 == 0){
-                return 'background-color:#E6E6FA;color:#000;';
-            }
-        }
+        // rowStyler: function(index,row){
+        //     if (index % 2 == 0){
+        //         return 'background-color:#E6E6FA;color:#000;';
+        //     }
+        // }
     })
 
     $('#companys').datagrid('getPager').pagination({
@@ -1009,14 +1015,15 @@ window.onload = function () {
                     data: getTags(PROJECT_TYPE_FLAG)
                 });
                 $('#projects').datagrid({
+                    striped: true,
                     onDblClickRow: function(rowIndex, rowData) {  
                         window.open("./project.html?projectId=" + rowData.id)
                     },
-                    rowStyler: function(index,row){
-                        if (index % 2 == 0){
-                            return 'background-color:#E6E6FA;color:#000;';
-                        }
-                    }
+                    // rowStyler: function(index,row){
+                    //     if (index % 2 == 0){
+                    //         return 'background-color:#E6E6FA;color:#000;';
+                    //     }
+                    // }
                 })
                 $('#projects').datagrid('loadData', getProjects())
 

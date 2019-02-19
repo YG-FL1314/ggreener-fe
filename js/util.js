@@ -186,7 +186,7 @@ function isLogin() {
             } else if (data.status == 1){
                 window.location.href="./login.html";
             }
-            USER_NAME = data.obj.name
+            USER_NAME = data.obj.nickName
             USER_ROLE = data.obj.role
 
         },
@@ -251,7 +251,7 @@ function getListUsers() {
     $.ajax({
         url: "/user/list",
         xhrFields:{
-            withCredentials:true
+            withCredentials:truegetListUsers
         }, 
         type: 'get',
         crossDomain: true,
@@ -267,6 +267,7 @@ function getListUsers() {
                 items[idx] = {
                     id: item.uuid,
                     name: item.name,
+                    nickName: item.nickName,
                     status: item.status                
                 }
             })
