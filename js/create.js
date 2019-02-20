@@ -109,6 +109,8 @@ function addCompany() {
     var fax = $('#companyFax').textbox('getValue').trim()
     var website = $('#companyWebsite').textbox('getValue').trim()
     var address = $('#companyAddress').textbox('getValue').trim()
+    var honor = $('#honor').textbox('getValue').trim()
+    var brief = $('#brief').textbox('getValue').trim()
     if (!isEmpty(attention)) tags.push(attention)
     if (!isEmpty(region)) tags.push(region)    
     if (!isEmpty(zol)) tags.push(zol) 
@@ -148,7 +150,9 @@ function addCompany() {
           "telephone": telephone,
           "fax": fax,
           "website": website,
-          "address": address
+          "address": address,
+          "honor": honor,
+          "brief": brief
         }),
         dataType:'json', 
         contentType: 'application/json;charset=UTF-8',
@@ -228,6 +232,7 @@ function addContact() {
         var weixin = $('#weixinInput').textbox('getValue').trim()
         var qq = $('#qqInput').textbox('getValue').trim()
         var remark = $('#remarkInput').textbox('getValue').trim()
+        var order = $('#contactOrder').numberbox('getValue')
         $.ajax({
             type:'post',
             url: "/contact/add",
@@ -246,7 +251,8 @@ function addContact() {
               "remark": remark,
               "qq": qq,
               "telephone": phone1 + "," + phone2,
-              "phone":tel
+              "phone":tel,
+              "order": order
             }),
             dataType:'json', 
             contentType: 'application/json;charset=UTF-8',
@@ -309,7 +315,8 @@ function listContacts(companyId) {
                             mail: item.mail,
                             weixin: item.weixin,
                             qq: item.qq,
-                            remark: item.remark
+                            remark: item.remark,
+                            order: item.order
                         }
                     })
                     result = items
@@ -341,6 +348,7 @@ function updateContractWindow() {
         $('#weixinUpdate').textbox('setValue', row.weixin)
         $('#qqUpdate').textbox('setValue', row.qq)
         $('#remarkUpdate').textbox('setValue', row.remark)
+        $('#contactOrderUpdate').numberbox('setValue', row.order)
         $('#updateContact').window('open') 
     }
 }
@@ -356,6 +364,7 @@ function updateContact() {
     var weixin = $('#weixinUpdate').textbox('getValue').trim()
     var qq = $('#qqUpdate').textbox('getValue').trim()
     var remark = $('#remarkUpdate').textbox('getValue').trim()
+    var order = $('#contactOrderUpdate').numberbox('getValue').trim()
     $.ajax({
         type:'put',
         url: "/contact/update",
@@ -374,7 +383,8 @@ function updateContact() {
             "remark": remark,
             "qq": qq,
             "telephone": phone1 + "," + phone2,
-            "phone":tel
+            "phone":tel,
+            "order": order
         }),
         dataType:'json', 
         contentType: 'application/json;charset=UTF-8',
@@ -489,7 +499,7 @@ function addChatClick() {
 
         $('#chatOwners').combobox({
             valueField: 'id', 
-            textField: 'name',
+            textField: 'nickName',
             panelHeight:'auto', 
             limitToList: true,
             multiple: true,
@@ -539,7 +549,7 @@ function addChatClick() {
 }
 
 function addChat() {
-    var chatTime = $('#chatTime').datetimebox('getValue').trim()
+    var chatTime = $('#chatTime').datebox('getValue').trim()
     var chatType = $('#chatType').combobox('getValue').trim()
     var chatAddress = $('#chatAddress').textbox('getValue').trim()
     var chatOthers = $('#chatOthers').combobox('getText')
@@ -644,7 +654,7 @@ function updateChatClick() {
             }
         });
         $('#chatId').textbox('setValue', row.id)
-        $('#chatTimeUpdate').datetimebox('setValue', row.chatTime)
+        $('#chatTimeUpdate').datebox('setValue', row.chatTime.substring(0,10))
         $('#chatTypeUpdate').combobox('setText', row.chatType)
         $('#chatAddressUpdate').textbox('setValue', row.chatAddress)
         $('#chatOthersUpdate').combobox('setText', row.others)
@@ -656,7 +666,7 @@ function updateChatClick() {
 
 function updateChat() {
     var chatId = $('#chatId').textbox('getValue')
-    var chatTime = $('#chatTimeUpdate').datetimebox('getValue').trim()
+    var chatTime = $('#chatTimeUpdate').datebox('getValue').trim()
     var chatType = $('#chatTypeUpdate').combobox('getValue').trim()
     var chatAddress = $('#chatAddressUpdate').textbox('getValue').trim()
     var chatOthers = $('#chatOthersUpdate').combobox('getText').trim()
@@ -758,7 +768,7 @@ function listChats(companyId) {
                     items[idx] = {
                         id: item.id,
                         companyId: item.companyId,
-                        chatTime: item.chatTime,
+                        chatTime: item.chatTime.substring(0, 10),
                         chatType: item.chatType,
                         chatAddress: item.chatAddress,
                         others: item.customers,
@@ -1505,7 +1515,7 @@ function addProject() {
         var projectOthers = $('#projectOthers').combobox('getText').trim()
         var projectPeople = $('#projectPeople').combobox('getText').trim()
         var projectOwners = $('#projectOwners').combobox('getText').trim()
-        var projectAmount = $('#projectAmount').textbox('getText').trim()
+        var projectAmount = $('#projectAmount').numberbox('getText').trim()
         $.ajax({
             type:'post',
             url: "/projectcompany/add",
@@ -1572,7 +1582,7 @@ function updateProjectClick() {
         });
         $('#projectOwnersUpdate').combobox({
             valueField: 'id', 
-            textField: 'name',
+            textField: 'nickName',
             panelHeight:'auto', 
             limitToList: true,
             multiple: true,
@@ -1667,7 +1677,7 @@ function updateProject() {
         var projectOthers = $('#projectOthersUpdate').combobox('getText').trim()
         var projectPeople = $('#projectPeopleUpdate').combobox('getText').trim()
         var projectOwners = $('#projectOwnersUpdate').combobox('getText').trim()
-        var projectAmount = $('#projectAmountUpdate').textbox('getText').trim()
+        var projectAmount = $('#projectAmountUpdate').numberbox('getText').trim()
         $.ajax({
             type:'put',
             url: "/projectcompany/update",
@@ -1767,7 +1777,7 @@ function initProjectInfo() {
     });
     $('#projectOwners').combobox({
         valueField: 'id', 
-        textField: 'name',
+        textField: 'nickName',
         panelHeight:'auto', 
         limitToList: true,
         multiple: true,
@@ -1842,7 +1852,7 @@ function initChatInfo() {
     $('#chat').datagrid('loadData', listChats(COMPANY_ID));
     $('#chatOwners').combobox({
         valueField: 'id', 
-        textField: 'name',
+        textField: 'nickName',
         panelHeight:'auto', 
         limitToList: true,
         multiple: true,

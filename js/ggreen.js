@@ -4,6 +4,14 @@ $.messager.defaults.cancel = "取消"
 //检查session是否过期
 isLogin()
 
+//按数字类型排序 自定义排序
+function sort_int(a,b){  
+    if(a.length > b.length) return 1;
+    else if(a.length < b.length) return -1;
+    else if(a > b) return 1;
+    else return -1;
+}  
+
 function getTags(parentId) {
     var result, url;
     if (!parentId && parentId != 0) { 
@@ -763,57 +771,7 @@ function deleteProject() {
     }
 }
 
-$(function() {
-    //会员级别
-    // $('#member').combobox({
-    //     valueField: 'id', 
-    //     textField: 'name',
-    //     panelHeight:'auto',
-    //     limitToList: false
-    // });
-    //关注等级
-    // $('#attention').combobox({
-    //     valueField: 'id', 
-    //     textField: 'name',
-    //     panelHeight:'auto', 
-    //     limitToList: false
-    // });
-    //地区
-    // $('#region').combobox({
-    //     valueField: 'id', 
-    //     textField: 'name',
-    //     //panelHeight:'auto', 
-    //     limitToList: true
-    // });
-    //中关村
-    // $('#zol').combobox({
-    //     valueField: 'id', 
-    //     textField: 'name',
-    //     //panelHeight:'auto', 
-    //     limitToList: false
-    // });
-    //单位性质
-    // $('#unitProperties').combobox({
-    //     valueField: 'id', 
-    //     textField: 'name',
-    //     panelHeight:'auto', 
-    //     limitToList: false
-    // });
-    //出资方式
-    // $('#equity').combobox({
-    //     valueField: 'id', 
-    //     textField: 'name',
-    //     panelHeight:'auto', 
-    //     limitToList: false
-    // });
-    //单位类型
-    // $('#companyType').combobox({
-    //     valueField: 'id', 
-    //     textField: 'name',
-    //     panelHeight:'auto', 
-    //     limitToList: false
-    // });
-    //所属行业
+$(function() { 
     $('#industry').combobox({
         // valueField: 'id', 
         // textField: 'name',

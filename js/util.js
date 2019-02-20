@@ -251,7 +251,7 @@ function getListUsers() {
     $.ajax({
         url: "/user/list",
         xhrFields:{
-            withCredentials:truegetListUsers
+            withCredentials:true
         }, 
         type: 'get',
         crossDomain: true,

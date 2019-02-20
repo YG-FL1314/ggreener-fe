@@ -72,9 +72,12 @@
 					<div style="margin-top:20px">
 						<input id="products" class="easyui-textbox" label="自主研发技术产品：" labelPosition="before" style="width:57.4%;height: 100px" multiline="true" labelAlign="right" labelWidth="135px">
 					</div>
+					<div style="margin-top:20px">
+						<input id="brief" class="easyui-textbox" label="简介：" labelPosition="before" style="width:48%;height: 100px" multiline="true" labelAlign="right">
+						<input id="honor" class="easyui-textbox" label="企业荣誉：" labelPosition="before" style="width:48%;height: 100px" multiline="true" labelAlign="right">
+					</div>
 					<div style="margin-top:20px;text-align:center">
 						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="addCompany()" style="width:15%;">新增</a>
-<!--             			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onClick="cancel()" style="width:15%;margin-left:20px;">返回</a> -->
 					</div>
 		        </div>
 		        <div title="会员信息" style="padding:10px">
@@ -87,7 +90,6 @@
 					</div>
 					<div style="margin-top:20px;text-align:center"> 
 						<a href="#" class="easyui-linkbutton" onclick="addMember()" data-options="iconCls:'icon-add'" style="width:15%;">新增</a>
-<!--             			<a href="#" class="easyui-linkbutton" onclick="cancel()" data-options="iconCls:'icon-cancel'" style="width:15%;margin-left:20px;">返回</a> -->
 					</div>
 		        </div>
 		        <div title="需求信息" style="padding:10px">
@@ -149,7 +151,7 @@
 				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="$('#updateContact').window('open')">修改</a>
 				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteContact()">删除</a>
 				    </div>
-				    <div id="addContact" class="easyui-window" title="新增联系人" data-options="closed:true,iconCls:'icon-save'" style="width:450px;height:460px;padding:5px;">
+				    <div id="addContact" class="easyui-window" title="新增联系人" data-options="closed:true,iconCls:'icon-save'" style="width:450px;height:500px;padding:5px;">
 			        	<div style="text-align:center;margin-top:10px;">
 			        		<input id="contactNameInput" class="easyui-textbox" label="姓名：" labelPosition="before" style="width:70%;" labelAlign="right">
 			        	</div>
@@ -175,6 +177,9 @@
 		                	<input id="qqInput" class="easyui-textbox" label="QQ号：" labelPosition="before"  style="width:70%;" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
+			        		<input id="contactOrder" class="easyui-numberbox" label="顺序：" labelPosition="before" value="1" style="width:300px" labelAlign="right">
+			        	</div>
+		                <div style="text-align:center;margin-top:10px;">
 			        		<input id="remarkInput" class="easyui-textbox" label="备注：" labelPosition="before" style="width:70%;" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
@@ -182,7 +187,7 @@
 		                	 <a href="#" class="easyui-linkbutton" onclick="$('#addContact').window('close')" style="text-align:center;width:20%;margin-left:20px;">返回</a>
 		                </div>
 				    </div>
-				     <div id="updateContact" class="easyui-window" title="更新联系人" data-options="closed:true,iconCls:'icon-save'" style="width:450px;height:460px;padding:5px;">
+				     <div id="updateContact" class="easyui-window" title="更新联系人" data-options="closed:true,iconCls:'icon-save'" style="width:450px;height:540px;padding:5px;">
 			        	<div style="text-align:center;margin-top:10px;">
 			        		<input id="contactNameUpdate" class="easyui-textbox" label="姓名：" labelPosition="before" style="width:70%;" labelAlign="right">
 			        	</div>
@@ -207,6 +212,9 @@
 		                <div style="text-align:center;margin-top:10px;">
 		                	<input id="qqUpdate" class="easyui-textbox" label="QQ号：" labelPosition="before"  style="width:70%;" labelAlign="right">
 		                </div>
+		                <div style="text-align:center;margin-top:10px;">
+			        		<input id="contactOrderUpdate" class="easyui-numberbox" label="顺序：" labelPosition="before" value="1" style="width:300px" labelAlign="right">
+			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
 			        		<input id="remarkUpdate" class="easyui-textbox" label="备注：" labelPosition="before" style="width:70%;" labelAlign="right">
 			        	</div>
@@ -236,7 +244,7 @@
 				    </div>
 				    <div id="addChat" class="easyui-window" title="新增互动信息" data-options="closed:true,iconCls:'icon-save'" style="width:450px;height:420px;padding:5px;">
 			        	<div style="text-align:center;margin-top:10px;">
-			        		<input id="chatTime" class="easyui-datetimebox" label="互动时间：" labelPosition="left" style="width:300px" data-options="formatter:dateFormatterHHMM, parser:dateParserHHMM, closeText:'关闭',okText:'确认', currentText:'今天'" labelAlign="right">
+			        		<input id="chatTime" class="easyui-datebox" label="互动时间：" labelPosition="left" style="width:300px" data-options="formatter:dateFormatter, parser:dateParser, closeText:'关闭', currentText:'今天'" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
 		                	<select id="chatType" class="easyui-combobox" label="互动方式：" labelPosition="left" style="width:300px" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:true" labelAlign="right">
@@ -266,7 +274,7 @@
 			        		<input id="chatId" class="easyui-textbox" label="互动信息ID：" labelPosition="before" disabled="true" style="width:300px" labelAlign="right">
 			        	</div>
 			        	<div style="text-align:center;margin-top:10px;">
-			        		<input id="chatTimeUpdate" class="easyui-datetimebox" label="互动时间：" labelPosition="left" style="width:300px" data-options="formatter:dateFormatterHHMM, parser:dateParserHHMM,closeText:'关闭',okText:'确认',currentText:'今天'" labelAlign="right">
+			        		<input id="chatTimeUpdate" class="easyui-datebox" label="互动时间：" labelPosition="left" style="width:300px" data-options="formatter:dateFormatter, parser:dateParser,closeText:'关闭',okText:'确认',currentText:'今天'" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
 		                	<select id="chatTypeUpdate" class="easyui-combobox" label="互动方式：" labelPosition="left" style="width:300px" labelAlign="right">
