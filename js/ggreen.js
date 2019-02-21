@@ -591,7 +591,6 @@ function addProject() {
     var startDate = $('#startDate').datebox('getValue').trim()
     var endDate = $('#endDate').datebox('getValue').trim()
     var remark = $('#projectRemark').textbox('getValue').trim()
-    var amount = $('#projectAmount').textbox('getValue').trim()
     $.ajax({
         url: "/project/add",
         xhrFields:{
@@ -607,7 +606,7 @@ function addProject() {
           "startDate": startDate,
           "endDate": endDate,
           "remark": remark,
-          "amount": amount
+          "amount": 0
         }),
         dataType:'json', 
         contentType: 'application/json;charset=UTF-8',
@@ -684,7 +683,6 @@ function updateProjectClick() {
         $('#startDateUpdate').datebox('setValue', row.startDate)
         $('#endDateUpdate').datebox('setValue', row.endDate)
         $('#projectRemarkUpdate').textbox('setValue', row.projectRemark)
-        $('#projectAmountUpdate').numberbox('setValue', row.amount)
         $('#updateProject').window('open')
     }
 }
@@ -697,7 +695,6 @@ function updateProject() {
     var startDate = $('#startDateUpdate').datebox('getValue').trim()
     var endDate = $('#endDateUpdate').datebox('getValue').trim()
     var remark = $('#projectRemarkUpdate').textbox('getValue').trim()
-    var amount = $('#projectAmountUpdate').textbox('getValue').trim()
     $.ajax({
         url: "/project/update",
         xhrFields:{
@@ -713,8 +710,7 @@ function updateProject() {
             "address": address,
             "startDate": startDate,
             "endDate": endDate,
-            "remark": remark,
-            "amount": amount
+            "remark": remark
         }),
         dataType:'json', 
         contentType: 'application/json;charset=UTF-8',

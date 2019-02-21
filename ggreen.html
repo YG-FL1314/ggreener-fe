@@ -113,7 +113,7 @@
 				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="updateProjectClick()">修改</a>
 				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteProject()">删除</a>
 				    </div>
-				     <div id="addProject" class="easyui-window" title="新增项目" data-options="closed:true,iconCls:'icon-save'" style="width:420px;height:46s0px;padding:5px;">
+				     <div id="addProject" class="easyui-window" title="新增项目" data-options="closed:true,iconCls:'icon-save'" style="width:420px;height:420px;padding:5px;">
 			        	<div style="text-align:center;margin-top:10px;">
 			        		<input id="projectName" class="easyui-textbox" label="项目名称：" labelPosition="before" style="width:300px;" labelAlign="right">
 			        	</div>
@@ -128,10 +128,7 @@
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
 		                	<input id="endDate" class="easyui-datebox" label="结束时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:300px;" labelAlign="right">
-		                </div>
-		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="projectAmount" class="easyui-numberbox" label="项目金额：" labelPosition="before" precision="2" suffix="万元" value="0.00" style="width:300px;" labelAlign="right">
-			        	</div>
+		                </div>		           
 		                <div style="text-align:center;margin-top:10px;">
 			        		<input id="projectRemark" class="easyui-textbox" label="备注：" labelPosition="before" multiline="true" style="width:300px;height:100px" labelAlign="right">
 			        	</div>
@@ -140,7 +137,7 @@
 		                	 <a href="#" class="easyui-linkbutton" onclick="$('#addProject').window('close')" style="text-align:center;width:20%;margin-left:20px;">取消</a>
 		                </div>
 				    </div>
-				    <div id="updateProject" class="easyui-window" title="修改项目" data-options="closed:true,iconCls:'icon-save'" style="width:420px;height:480px;padding:5px;">
+				    <div id="updateProject" class="easyui-window" title="修改项目" data-options="closed:true,iconCls:'icon-save'" style="width:420px;height:450px;padding:5px;">
 				    	<div style="text-align:center;margin-top:10px;">
 			        		<input id="projectId" class="easyui-textbox" label="项目ID：" labelPosition="before" style="width:300px;" disabled="true" labelAlign="right">
 			        	</div>
@@ -158,10 +155,7 @@
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
 		                	<input id="endDateUpdate" class="easyui-datebox" label="结束时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:300px;" labelAlign="right">
-		                </div>
-		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="projectAmountUpdate" class="easyui-numberbox" label="项目金额：" labelPosition="before" precision="2" suffix="万元" value="0.00" style="width:300px;" labelAlign="right">
-			        	</div>
+		                </div>		            
 		                <div style="text-align:center;margin-top:10px;">
 			        		<input id="projectRemarkUpdate" class="easyui-textbox" label="备注" labelPosition="before" multiline="true" style="width:300px;height:100px" labelAlign="right">
 			        	</div>
