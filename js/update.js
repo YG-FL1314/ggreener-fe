@@ -9,9 +9,6 @@ function getQueryString(name) {
 
 $.messager.defaults.ok = "确认"
 
-//检查session是否过期
-isLogin()
-
 function getTags(parentId) {
     var result;
     $.ajax({
@@ -519,7 +516,7 @@ function getCompanyDetail(companyId) {
         }, 
         crossDomain: true,
         credentials: 'include',  
-        async: false, //同步调用
+        async: true, //同步调用
         contentType: 'application/json;charset=UTF-8',
         success: function(data){
             if (data.status == 2) {
@@ -1406,7 +1403,7 @@ function getRequires(companyId) {
             }, 
             crossDomain: true,
             credentials: 'include',  
-            async: false, //同步调用
+            async: true, //同步调用
             dataType:'json', 
             contentType: 'application/json;charset=UTF-8',
             success: function(data) {
@@ -1435,154 +1432,22 @@ function getRequires(companyId) {
 }
 
 function initCompanyInfo() {
-    $('#region').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        //panelHeight:'auto', 
-        limitToList: true,
-        data: getTags(REGION_FLAG)
-    });
-    $('#attention').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        data: getTags(ATTENTION_FLAG)
-    });
-    $('#zol').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        //panelHeight:'auto', 
-        limitToList: false,
-        data: getTags(ZOL_FLAG)
-    });
-    $('#unitProperties').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        data: getTags(UNIT_PROPERTIES_FLAG)
-    });
-    $('#equity').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        data: getTags(EQUITY_PARTICIPATION_FLAG)
-    });
+    getSyncTags('region', REGION_FLAG) 
+    getSyncTags('attention', ATTENTION_FLAG)
+    getSyncTags('zol', ZOL_FLAG)
+    getSyncTags('unitProperties', UNIT_PROPERTIES_FLAG)
+    getSyncTags('equity', EQUITY_PARTICIPATION_FLAG)
+    getSyncTags('highTech', HIGH_TECHNOLOGY_FLAG)
+    getSyncTags('companyMarket', COMPANY_MARKET_FLAG)
+    getSyncTags('companyTypes', COMPANY_TYPE_FLAG)
+    getSyncTags('industries', INDUSTRIES_FLAG)
+    getSyncTags('business', BUSINESS_FLAG)
+    getSyncTags('businessArea', BUSINESS_AREA_FLAG)
+    getSyncTags('segmentMarket', SEGMENT_MARKET_FLAG)
+    getSyncTags('advantages', ADVANTAGES_FLAG)
+    getSyncTags('techProduct', TECHNOLOGY_PRODUCT_FLAG)
+
     $('#highTech').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        multiple: true,
-        data: getTags(HIGH_TECHNOLOGY_FLAG),
-        formatter: function (row) {
-            var opts = $(this).combobox('options');
-            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
-        },
-        onSelect: function (row) {
-            //console.log(row);
-            var opts = $(this).combobox('options');
-            var el = opts.finder.getEl(this, row[opts.valueField]);
-            el.find('input.combobox-checkbox')._propAttr('checked', true);
-        },
-        onUnselect: function (row) {
-            var opts = $(this).combobox('options');
-            var el = opts.finder.getEl(this, row[opts.valueField]);
-            el.find('input.combobox-checkbox')._propAttr('checked', false);
-        }
-    });
-    $('#companyMarket').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        data: getTags(COMPANY_MARKET_FLAG)
-    });
-    $('#companyTypes').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        data: getTags(COMPANY_TYPE_FLAG)
-    });
-    $('#industries').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        multiple: true,
-        data: getTags(INDUSTRIES_FLAG),
-        formatter: function (row) {
-            var opts = $(this).combobox('options');
-            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
-        },
-        onSelect: function (row) {
-            //console.log(row);
-            var opts = $(this).combobox('options');
-            var el = opts.finder.getEl(this, row[opts.valueField]);
-            el.find('input.combobox-checkbox')._propAttr('checked', true);
-        },
-        onUnselect: function (row) {
-            var opts = $(this).combobox('options');
-            var el = opts.finder.getEl(this, row[opts.valueField]);
-            el.find('input.combobox-checkbox')._propAttr('checked', false);
-        }
-    });
-    $('#business').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        multiple: true,
-        data: getTags(BUSINESS_FLAG),
-        formatter: function (row) {
-            var opts = $(this).combobox('options');
-            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
-        },
-        onSelect: function (row) {
-            //console.log(row);
-            var opts = $(this).combobox('options');
-            var el = opts.finder.getEl(this, row[opts.valueField]);
-            el.find('input.combobox-checkbox')._propAttr('checked', true);
-        },
-        onUnselect: function (row) {
-            var opts = $(this).combobox('options');
-            var el = opts.finder.getEl(this, row[opts.valueField]);
-            el.find('input.combobox-checkbox')._propAttr('checked', false);
-        }
-    });
-    $('#businessArea').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        multiple: true,
-        data: getTags(BUSINESS_AREA_FLAG),
-        formatter: function (row) {
-            var opts = $(this).combobox('options');
-            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
-        },
-        onSelect: function (row) {
-            //console.log(row);
-            var opts = $(this).combobox('options');
-            var el = opts.finder.getEl(this, row[opts.valueField]);
-            el.find('input.combobox-checkbox')._propAttr('checked', true);
-        },
-        onUnselect: function (row) {
-            var opts = $(this).combobox('options');
-            var el = opts.finder.getEl(this, row[opts.valueField]);
-            el.find('input.combobox-checkbox')._propAttr('checked', false);
-        }
-    });
-    $('#segmentMarket').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        //panelHeight:'auto', 
-        limitToList: false,
-        multiple: true,
-        data: getTags(SEGMENT_MARKET_FLAG),
         formatter: function (row) {
             var opts = $(this).combobox('options');
             return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
@@ -1600,20 +1465,79 @@ function initCompanyInfo() {
         }
     });
 
-    $('#techProduct').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        data: getTags(TECHNOLOGY_PRODUCT_FLAG)
+    $('#industries').combobox({
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
     });
+
+    $('#business').combobox({
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+
+    $('#businessArea').combobox({
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+
+    $('#segmentMarket').combobox({
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+
     $('#advantages').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        multiple: true,
-        data: getTags(ADVANTAGES_FLAG),
         formatter: function (row) {
             var opts = $(this).combobox('options');
             return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
@@ -1634,13 +1558,7 @@ function initCompanyInfo() {
 }
 
 function initMemberInfo() {
-    $('#member').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: false,
-        data: getTags(MEMBER_FLAG)
-    });
+    getSyncTags('member', MEMBER_FLAG)
     getMember(COMPANY_ID)
 }
 
@@ -1708,13 +1626,16 @@ function initChatInfo() {
 }
 
 function initRequireInfo() {
+    getSyncTags('requireBrand', REQUIRE_BRAND_FLAG)
+    getSyncTags('requireResource', REQUIRE_RESOURCE_FLAG)
+    getSyncTags('requireFinance', REQUIRE_FINANCE_FLAG)
+    getSyncTags('requireAbility', REQUIRE_ABILITY_FLAG)
+    getSyncTags('requireInternation', REQUIRE_INTERNATION_FLAG)
+    getSyncTags('requireStandard', REQUIRE_STANDARD_FLAG)
+    getSyncTags('requireIdentify', REQUIRE_INDENTIFACTION_FLAG)
+    getSyncTags('requireConsult', REQUIRE_CONSULT_FLAG)
+    getSyncTags('requireOther', REQUIRE_OTHER_FLAG)
     $('#requireBrand').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: true,
-        multiple: true,
-        data: getTags(REQUIRE_BRAND_FLAG),
         formatter: function (row) {
             var opts = $(this).combobox('options');
             return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
@@ -1732,12 +1653,6 @@ function initRequireInfo() {
         }
     });
     $('#requireResource').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: true,
-        multiple: true,
-        data: getTags(REQUIRE_RESOURCE_FLAG),
         formatter: function (row) {
             var opts = $(this).combobox('options');
             return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
@@ -1755,12 +1670,6 @@ function initRequireInfo() {
         }
     });
     $('#requireFinance').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: true,
-        multiple: true,
-        data: getTags(REQUIRE_FINANCE_FLAG),
         formatter: function (row) {
             var opts = $(this).combobox('options');
             return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
@@ -1778,12 +1687,6 @@ function initRequireInfo() {
         }
     });
     $('#requireAbility').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: true,
-        multiple: true,
-        data: getTags(REQUIRE_ABILITY_FLAG),
         formatter: function (row) {
             var opts = $(this).combobox('options');
             return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
@@ -1801,12 +1704,6 @@ function initRequireInfo() {
         }
     });
     $('#requireInternation').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: true,
-        multiple: true,
-        data: getTags(REQUIRE_INTERNATION_FLAG),
         formatter: function (row) {
             var opts = $(this).combobox('options');
             return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
@@ -1824,12 +1721,6 @@ function initRequireInfo() {
         }
     });
     $('#requireStandard').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: true,
-        multiple: true,
-        data: getTags(REQUIRE_STANDARD_FLAG),
         formatter: function (row) {
             var opts = $(this).combobox('options');
             return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
@@ -1847,12 +1738,6 @@ function initRequireInfo() {
         }
     });
     $('#requireIdentify').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: true,
-        multiple: true,
-        data: getTags(REQUIRE_INDENTIFACTION_FLAG),
         formatter: function (row) {
             var opts = $(this).combobox('options');
             return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
@@ -1870,12 +1755,6 @@ function initRequireInfo() {
         }
     });
     $('#requireConsult').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: true,
-        multiple: true,
-        data: getTags(REQUIRE_CONSULT_FLAG),
         formatter: function (row) {
             var opts = $(this).combobox('options');
             return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
@@ -1893,12 +1772,6 @@ function initRequireInfo() {
         }
     });
     $('#requireOther').combobox({
-        valueField: 'id', 
-        textField: 'name',
-        panelHeight:'auto', 
-        limitToList: true,
-        multiple: true,
-        data: getTags(REQUIRE_OTHER_FLAG),
         formatter: function (row) {
             var opts = $(this).combobox('options');
             return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
@@ -2016,6 +1889,9 @@ function getAllProjects() {
 
 function initProjectInfo() {
     $('#projects').datagrid('loadData', getProjects(COMPANY_ID))
+}
+
+function addProjectClick() {
     $('#projectType').combobox({
         valueField: 'id', 
         textField: 'name',
@@ -2107,6 +1983,7 @@ function initProjectInfo() {
             el.find('input.combobox-checkbox')._propAttr('checked', false);
         }
     });
+    $('#addProject').window('open')
 }
 
 function addProject() {
@@ -2357,6 +2234,8 @@ function deleteProject() {
 
 /*页面加载*/ 
 window.onload = function () {
+    //检查session是否过期
+    isLogin()
     initCompanyInfo()
     $('#tt').tabs({
         onSelect: function(title,index) {

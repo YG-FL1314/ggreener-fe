@@ -179,7 +179,7 @@ function isLogin() {
         }, 
         crossDomain: true,
         credentials: 'include',  
-        async: false,
+        async: true,
         success: function(data){
             if (data.status == 2) {
                 window.location.href = data.message
