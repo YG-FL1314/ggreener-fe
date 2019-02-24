@@ -1129,6 +1129,46 @@ function updateHolderClick() {
     }
 }
 
+function updateHolder() {
+    var holderId = $('#holderId').textbox('getValue')
+    var holderName = $('#holderNameUpdate').textbox('getValue').trim()
+    var holderAmount = $('#holderAmountUpdate').textbox('getValue').trim()
+    var holderPercent = $('#holderPercentUpdate').textbox('getValue').trim()
+    $.ajax({
+        type:'put',
+        url: "/holder/update",
+        xhrFields:{
+            withCredentials:true
+        }, 
+        crossDomain: true,
+        credentials: 'include',  
+        async: false, //同步调用
+        data: JSON.stringify({
+            "id": holderId,
+            "name": holderName,
+            "amount": holderAmount,
+            "percent": holderPercent
+        }),
+        dataType:'json', 
+        contentType: 'application/json;charset=UTF-8',
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } else if (data.status == 0){
+                $.messager.alert('企业','更新股东信息成功!','info');
+                $('#updateHolder').window('close')
+                $('#holder').datagrid({'data': listHolders(COMPANY_ID)})
+            } else {
+                $.messager.alert('企业',data.message,'error');
+            }
+            
+        },
+        error: function(){
+            $.messager.alert('企业','更新股东信息失败!','error');
+        }
+    });
+}
+
 function addBusinessData() {
     if (COMPANY_ID == '') {
         $.messager.alert('企业','请先添加企业！','info');
