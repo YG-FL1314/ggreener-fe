@@ -1607,7 +1607,11 @@ function initContactInfo() {
 }
 
 function initChatInfo() {
-    $('#chat').datagrid({'data': listChats(COMPANY_ID)});
+    
+    $('#chat').datagrid({
+    	'data': listChats(COMPANY_ID)
+    });
+
     $('#chatType').combobox({
         valueField: 'id', 
         textField: 'name',

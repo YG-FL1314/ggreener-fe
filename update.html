@@ -225,15 +225,15 @@
 				    </div>
 		        </div>
 		        <div title="互动信息" style="padding:10px">
-		            <table id="chat" style="width:100%;heighct:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationChat',rownumbers:true">
+		            <table id="chat" style="width:100%;height:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationChat',nowrap:false,fitColumns:true">
 				        <thead>
 				            <tr>
-				            	<th field="chatTime" align="center" width="15%" data-options="formatter:formatCellTooltip">互动时间</th>
-				            	<th field="chatType" align="center" width="10%" data-options="formatter:formatCellTooltip">互动方式</th>
-				                <th field="chatAddress" align="center" width="15%" data-options="formatter:formatCellTooltip">互动地点</th>
-				                <th field="others" align="center" width="15%" data-options="formatter:formatCellTooltip">该方参与人</th>
-				                <th field="owners" align="center" width="15%" data-options="formatter:formatCellTooltip">我方参与人</th>
-				                <th field="content" align="center" width="30%" data-options="formatter:formatCellTooltip">交流内容</th>
+				            	<th field="chatTime" align="center" width="8%" data-options="formatter:formatCellTooltip">互动时间</th>
+				            	<th field="chatType" align="center" width="8%" data-options="formatter:formatCellTooltip">互动方式</th>
+				                <th field="chatAddress" align="center" width="8%" data-options="formatter:formatCellTooltip">互动地点</th>
+				                <th field="others" align="center" width="8%" data-options="formatter:formatCellTooltip">该方参与人</th>
+				                <th field="owners" align="center" width="8%" data-options="formatter:formatCellTooltip">我方参与人</th>
+				                <th field="content" align="center" width="58%" data-options="formatter:formatCellTooltip">交流内容</th>
 				            </tr>
 				        </thead>
 				    </table>
@@ -242,7 +242,7 @@
 				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="updateChatClick()">修改</a>
 				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteChat()">删除</a>
 				    </div>
-				    <div id="addChat" class="easyui-window" title="新增互动信息" data-options="closed:true,iconCls:'icon-save'" style="width:450px;height:420px;padding:5px;">
+				    <div id="addChat" class="easyui-window" title="新增互动信息" data-options="closed:true,iconCls:'icon-save'" style="width:450px;height:470px;padding:5px;">
 			        	<div style="text-align:center;margin-top:10px;">
 			        		<input id="chatTime" class="easyui-datebox" label="互动时间：" labelPosition="left" style="width:300px" data-options="formatter:dateFormatter, parser:dateParser, closeText:'关闭', currentText:'今天'" labelAlign="right">
 			        	</div>
@@ -259,14 +259,14 @@
 		                	<input id="chatOwners" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:300px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="chatContent" class="easyui-textbox" label="交流内容简述：" labelPosition="left" multiline="true" style="width:300px;height: 100px" labelAlign="right">
+			        		<input id="chatContent" class="easyui-textbox" label="交流内容简述：" labelPosition="left" multiline="true" style="width:300px;height: 150px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:20px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="addChat()">新增</a>
 		                	 <a href="#" class="easyui-linkbutton" onclick="$('#addChat').window('close')" style="text-align:center;width:20%;margin-left:20px;">返回</a>
 		                </div>
 				    </div>
-				    <div id="updateChat" class="easyui-window" title="更新互动信息" data-options="closed:true,iconCls:'icon-save'" style="width:450px;height:460px;padding:5px;">
+				    <div id="updateChat" class="easyui-window" title="更新互动信息" data-options="closed:true,iconCls:'icon-save'" style="width:450px;height:510px;padding:5px;">
 				    	<div style="text-align:center;margin-top:10px;">
 			        		<input id="chatId" class="easyui-textbox" label="互动信息ID：" labelPosition="before" disabled="true" style="width:300px" labelAlign="right">
 			        	</div>
@@ -286,7 +286,7 @@
 		                	<input id="chatOwnersUpdate" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:300px">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="chatContentUpdate" class="easyui-textbox" label="交流内容简述：" labelPosition="left" multiline="true" style="width:300px;height: 100px" labelAlign="right">
+			        		<input id="chatContentUpdate" class="easyui-textbox" label="交流内容简述：" labelPosition="left" multiline="true" style="width:300px;height: 150px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:20px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="updateChat()">更新</a>
