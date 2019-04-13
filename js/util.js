@@ -269,7 +269,41 @@ function getListUsers() {
                     name: item.name,
                     nickName: item.nickName,
                     status: item.status, 
-                    // selected: item.name == USER_NAME ? true : false                
+                }
+            })
+            result = items
+        },
+        error: function(){
+            window.location.href="./login.html";
+        }
+    });
+    return result
+}
+
+function getListUsersAndSelectedCurrentUser() {
+    var result
+    $.ajax({
+        url: "/user/list",
+        xhrFields:{
+            withCredentials:true
+        }, 
+        type: 'get',
+        crossDomain: true,
+        credentials: 'include', 
+        contentType: 'application/json;charset=UTF-8',
+        async: false,
+        success: function(data){
+            if (data.status == 2) {
+                window.location.href = data.message
+            } 
+            var items = []
+            $.each(data.obj,function(idx,item){ 
+                items[idx] = {
+                    id: item.uuid,
+                    name: item.name,
+                    nickName: item.nickName,
+                    status: item.status, 
+                    selected: item.name == USER_NAME ? true : false                
                 }
             })
             result = items

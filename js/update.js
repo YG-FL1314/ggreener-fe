@@ -1653,13 +1653,15 @@ function initChatInfo() {
         data: getTags(CHAT_TYPE_FLAG)
     });
 
+    $('#chatTime').datebox('setValue', dateFormatter(new Date()));
+
     $('#chatOwners').combobox({
         valueField: 'id', 
         textField: 'nickName',
         panelHeight:'auto', 
         limitToList: true,
         multiple: true,
-        data: getListUsers(),
+        data: getListUsersAndSelectedCurrentUser(),
         formatter: function (row) {
             var opts = $(this).combobox('options');
             return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]

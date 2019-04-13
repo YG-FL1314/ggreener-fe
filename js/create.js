@@ -1879,7 +1879,7 @@ function initChatInfo() {
         panelHeight:'auto', 
         limitToList: true,
         multiple: true,
-        data: getListUsers(),
+        data: getListUsersAndSelectedCurrentUser(),
         formatter: function (row) {
             var opts = $(this).combobox('options');
             return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
@@ -1896,6 +1896,8 @@ function initChatInfo() {
             el.find('input.combobox-checkbox')._propAttr('checked', false);
         }
     });
+
+    $('#chatTime').datebox('setValue', dateFormatter(new Date()));
 
     $('#chatOthers').combobox({
         valueField: 'id', 
