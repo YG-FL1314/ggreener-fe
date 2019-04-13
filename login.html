@@ -15,13 +15,10 @@
 		<div class="easyui-panel" title="<center>用户登录</center>" style="width:100%;max-width:400px;padding:30px 60px;">
 			<form id="ff" method="post">
 				<div style="margin-bottom:20px">
-					<input id="name" class="easyui-textbox" name="name" style="width:100%" data-options="label:'用户名:',required:true">
+					<input id="name" class="easyui-textbox" name="name" style="width:100%" data-options="label:'用户名:',required:true, missingMessage:'用户名不能为空'">
 				</div>
 				<div style="margin-bottom:20px">
-					<input id="password" class="easyui-passwordbox" name="password" style="width:100%" data-options="label:'密码:',required:true">
-				</div>
-				<div style="margin-bottom:20px">
-				    <a href="#" title="This is the tooltip message." class="easyui-tooltip"></a>
+					<input id="password" class="easyui-passwordbox" name="password" style="width:100%" data-options="label:'密码:',required:true, missingMessage:'密码不能为空'">
 				</div>
 			</form>
 			<div style="text-align:center;padding:5px 0">

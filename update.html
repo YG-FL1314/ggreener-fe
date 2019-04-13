@@ -68,11 +68,12 @@
 						<input id="officeArea" class="easyui-numberbox" label="办公面积：" labelPosition="left" precision="2" suffix="㎡" value="0.00" style="width:19%;" labelAlign="right">
 					</div>
 					<div style="margin-top:20px">
-						<input id="products" class="easyui-textbox" label="自主研发技术产品：" labelPosition="before" style="width:57.4%;height: 100px" multiline="true" labelAlign="right" labelWidth="135px">
+						<input id="products" class="easyui-textbox" label="技术产品：" labelPosition="before" style="width:48%;height: 100px" multiline="true" labelAlign="right" >
+						<input id="honor" class="easyui-textbox" label="企业荣誉：" labelPosition="before" style="width:48%;height: 100px" multiline="true" labelAlign="right">
 					</div>
 					<div style="margin-top:20px">
-						<input id="brief" class="easyui-textbox" label="简介：" labelPosition="before" style="width:48%;height: 100px" multiline="true" labelAlign="right">
-						<input id="honor" class="easyui-textbox" label="企业荣誉：" labelPosition="before" style="width:48%;height: 100px" multiline="true" labelAlign="right">
+						<input id="brief" class="easyui-textbox" label="简介：" labelPosition="before" style="width:96%;height: 100px" multiline="true" labelAlign="right">
+						
 					</div>
 					<div style="margin-top:20px;text-align:center">
 						<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="updateCompany()" style="width:15%;">更新</a>
@@ -80,11 +81,11 @@
 		        </div>
 		        <div title="会员信息" style="padding:10px">
 		            <div style="margin-top:20px">
-		            	<input id="memberCode" class="easyui-textbox" label="会员编码：" labelPosition="before" style="width:19%;" labelAlign="right">
-						<select id="member" class="easyui-combobox" label="会员级别：" labelPosition="left" style="width:19%;" labelAlign="right" data-options="valueField:'id', panelHeight:'auto', textField:'name', limitToList:false">	
+		            	<input id="memberCode" class="easyui-textbox" label="会员编码：" labelPosition="before" style="width:24%;" labelAlign="right">
+						<select id="member" class="easyui-combobox" label="会员级别：" labelPosition="left" style="width:24%;" labelAlign="right" data-options="valueField:'id', panelHeight:'auto', textField:'name', limitToList:false">	
 						</select>					
-						<input id="joiningTime" class="easyui-datebox" label="入会日期：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:19%;" labelAlign="right">
-                        <input id="validityTime" class="easyui-datebox" label="有效期至：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:19%;" labelAlign="right">
+						<input id="joiningTime" class="easyui-datebox" label="入会日期：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:24%;" labelAlign="right">
+                        <input id="validityTime" class="easyui-datebox" label="有效期至：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:24%;" labelAlign="right">
 					</div>
 					<div style="margin-top:20px;text-align:center"> 
 						<a href="#" class="easyui-linkbutton" onclick="updateMember()" data-options="iconCls:'icon-add'" style="width:15%;">更新</a>
@@ -129,7 +130,7 @@
 						<input id="companyAddress" class="easyui-textbox" label="单位地址：" labelPosition="before" style="width:75.5%;" labelAlign="right">
 						<a id="addCompany" href="#" class="easyui-linkbutton" onclick="updateBaseContact()" data-options="iconCls:'icon-edit'" style="width:15%;margin-left:20px;">更新</a>
 					</div>
-		            <table id="contact" style="width:100%;heighct:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationContact',rownumbers:true,scrollbarSize:0">
+		            <table id="contact" style="width:99%;height:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationContact',rownumbers:true,scrollbarSize:0">
 				        <thead>
 				            <tr>
 				            	<th field="contactName" align="center" width="7%">姓名</th>
@@ -225,7 +226,7 @@
 				    </div>
 		        </div>
 		        <div title="互动信息" style="padding:10px">
-		            <table id="chat" style="width:100%;height:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationChat',nowrap:false,fitColumns:true">
+		            <table id="chat" style="width:100%;height:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationChat',nowrap:false,fitColumns:true,pagination:true,pagePosition:'top',scrollbarSize:0,pageSize:50">
 				        <thead>
 				            <tr>
 				            	<th field="chatTime" align="center" width="8%" data-options="formatter:formatCellTooltip">互动时间</th>
@@ -233,7 +234,7 @@
 				                <th field="chatAddress" align="center" width="8%" data-options="formatter:formatCellTooltip">互动地点</th>
 				                <th field="others" align="center" width="8%" data-options="formatter:formatCellTooltip">该方参与人</th>
 				                <th field="owners" align="center" width="8%" data-options="formatter:formatCellTooltip">我方参与人</th>
-				                <th field="content" align="center" width="58%" data-options="formatter:formatCellTooltip">交流内容</th>
+				                <th field="content" align="left" halign="center" width="58%" data-options="formatter:formatCellTooltip">交流内容</th>
 				            </tr>
 				        </thead>
 				    </table>
@@ -242,51 +243,51 @@
 				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="updateChatClick()">修改</a>
 				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteChat()">删除</a>
 				    </div>
-				    <div id="addChat" class="easyui-window" title="新增互动信息" data-options="closed:true,iconCls:'icon-save'" style="width:450px;height:470px;padding:5px;">
+				    <div id="addChat" class="easyui-window" title="新增互动信息" data-options="closed:true,iconCls:'icon-save',minimizable:false,maximizable:false" style="width:480px;height:500px;padding:5px;">
 			        	<div style="text-align:center;margin-top:10px;">
-			        		<input id="chatTime" class="easyui-datebox" label="互动时间：" labelPosition="left" style="width:300px" data-options="formatter:dateFormatter, parser:dateParser, closeText:'关闭', currentText:'今天'" labelAlign="right">
+			        		<input id="chatTime" class="easyui-datebox" label="互动时间：" labelPosition="left" style="width:350px" data-options="formatter:dateFormatter, parser:dateParser, closeText:'关闭', currentText:'今天'" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="chatType" class="easyui-combobox" label="互动方式：" labelPosition="left" style="width:300px" labelAlign="right">
+		                	<input id="chatType" class="easyui-combobox" label="互动方式：" labelPosition="left" style="width:350px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="chatAddress" class="easyui-textbox" label="互动地址：" labelPosition="before" style="width:300px" labelAlign="right">
+			        		<input id="chatAddress" class="easyui-textbox" label="互动地址：" labelPosition="left" style="width:350px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="chatOthers" class="easyui-combobox" label="该方负责人：" labelPosition="left" style="width:300px" labelAlign="right">
+			        		<input id="chatOthers" class="easyui-combobox" label="该方负责人：" labelPosition="left" style="width:380px" labelWidth="100px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="chatOwners" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:300px" labelAlign="right">
+		                	<input id="chatOwners" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:380px" labelWidth="100px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="chatContent" class="easyui-textbox" label="交流内容简述：" labelPosition="left" multiline="true" style="width:300px;height: 150px" labelAlign="right">
+			        		<input id="chatContent" class="easyui-textbox" label="交流内容简述：" labelPosition="left" multiline="true" style="width:425px;height: 170px" labelWidth="120px" labelAlign="right" data-options="validType:'length[0,200]', missingMessage:'内容不能超过200字'">
 			        	</div>
 		                <div style="text-align:center;margin-top:20px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="addChat()">新增</a>
 		                	 <a href="#" class="easyui-linkbutton" onclick="$('#addChat').window('close')" style="text-align:center;width:20%;margin-left:20px;">返回</a>
 		                </div>
 				    </div>
-				    <div id="updateChat" class="easyui-window" title="更新互动信息" data-options="closed:true,iconCls:'icon-save'" style="width:450px;height:510px;padding:5px;">
+				    <div id="updateChat" class="easyui-window" title="更新互动信息" data-options="closed:true,iconCls:'icon-save',minimizable:false,maximizable:false" style="width:500px;height:530px;padding:5px;">
 				    	<div style="text-align:center;margin-top:10px;">
-			        		<input id="chatId" class="easyui-textbox" label="互动信息ID：" labelPosition="before" disabled="true" style="width:300px" labelAlign="right">
+			        		<input id="chatId" class="easyui-textbox" label="互动信息ID：" labelPosition="left" disabled="true" style="width:380px" labelWidth="100px" labelAlign="right">
 			        	</div>
 			        	<div style="text-align:center;margin-top:10px;">
-			        		<input id="chatTimeUpdate" class="easyui-datebox" label="互动时间：" labelPosition="left" style="width:300px" data-options="formatter:dateFormatter, parser:dateParser,closeText:'关闭',currentText:'今天'" labelAlign="right">
+			        		<input id="chatTimeUpdate" class="easyui-datebox" label="互动时间：" labelPosition="left" style="width:350px" data-options="formatter:dateFormatter, parser:dateParser,closeText:'关闭',currentText:'今天'" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="chatTypeUpdate" class="easyui-combobox" label="互动方式：" labelPosition="left" style="width:300px" labelAlign="right">
+		                	<input id="chatTypeUpdate" class="easyui-combobox" label="互动方式：" labelPosition="left" style="width:350px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="chatAddressUpdate" class="easyui-textbox" label="互动地址：" labelPosition="before" style="width:300px" labelAlign="right">
+			        		<input id="chatAddressUpdate" class="easyui-textbox" label="互动地址：" labelPosition="left" style="width:350px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="chatOthersUpdate" class="easyui-combobox" label="该方负责人：" labelPosition="left" style="width:300px" labelAlign="right">
+			        		<input id="chatOthersUpdate" class="easyui-combobox" label="该方负责人：" labelPosition="left" style="width:380px" labelWidth="100px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="chatOwnersUpdate" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:300px">
+		                	<input id="chatOwnersUpdate" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:380px" labelWidth="100px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="chatContentUpdate" class="easyui-textbox" label="交流内容简述：" labelPosition="left" multiline="true" style="width:300px;height: 150px" labelAlign="right">
+			        		<input id="chatContentUpdate" class="easyui-textbox" label="交流内容简述：" labelPosition="left" multiline="true" style="width:425px;height: 170px" labelWidth="120px" labelAlign="right" data-options="validType:'length[0,200]',invalidMessage:'内容不能超过200字'">
 			        	</div>
 		                <div style="text-align:center;margin-top:20px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="updateChat()">更新</a>
@@ -298,14 +299,14 @@
 		            <table id="projects" style="width:100%;height:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationProjects',rownumbers:true">
 				        <thead>
 				            <tr>
-				            	<th field="projectName" align="center" width="20%">项目名称</th>
-				            	<th field="projectType" align="center" width="10%">项目类型</th>
-				            	<th field="startDate" align="center" width="10%">开始时间</th>
-				                <th field="endDate" align="center" width="10%">结束时间</th>
+				            	<th field="projectName" align="center" width="28%">项目名称</th>
+				            	<th field="projectType" align="center" width="8%">项目类型</th>
+				            	<th field="startDate" align="center" width="8%">开始时间</th>
+				                <th field="endDate" align="center" width="8%">结束时间</th>
 				                <th field="projectOthers" align="center" width="10%">对接人</th>
 				                <th field="projectPeople" align="center" width="15%">该方参与人</th>
 				                <th field="projectOwners" align="center" width="15%">我方负责人</th>
-				                <th field="projectAmount" align="center" width="10%">合作金额(万元)</th>
+				                <th field="projectAmount" align="center" width="8%">合作金额(万元)</th>
 				            </tr>
 				        </thead>
 				    </table>
@@ -314,77 +315,77 @@
 				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="updateProjectClick()">修改</a>
 				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteProject()">删除</a>
 				    </div>
-				    <div id="addProject" class="easyui-window" title="新增合作信息" data-options="closed:true,iconCls:'icon-save'" style="width:450px;height:420px;padding:5px;">
-		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="projectName" class="easyui-combobox" label="项目名称：" labelPosition="left" style="width:300px" labelAlign="right">
+				    <div id="addProject" class="easyui-window" title="新增合作信息" data-options="closed:true,iconCls:'icon-save',minimizable:false,maximizable:false" style="width:530px;height:510px;padding:5px;">
+		                <div style="text-align:center;margin-top:20px;">
+		                	<input id="projectName" class="easyui-combobox" label="项目名称：" labelPosition="left" style="width:460px" labelAlign="right">
 		                </div>
-		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="projectType" class="easyui-combobox" label="项目类型：" labelPosition="before" style="width:300px" data-options="readonly:true" labelAlign="right">
+		                <div style="text-align:center;margin-top:20px;">
+			        		<input id="projectType" class="easyui-combobox" label="项目类型：" labelPosition="before" style="width:460px" data-options="readonly:true" labelAlign="right">
 			        	</div>
-			        	<div style="text-align:center;margin-top:10px;">
-		                	<input id="startDate" class="easyui-datebox" label="开始时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天',readonly:true" style="width:300px" labelAlign="right">
+			        	<div style="text-align:center;margin-top:20px;">
+		                	<input id="startDate" class="easyui-datebox" label="开始时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天',readonly:true" style="width:460px" labelAlign="right">
 		                </div>
-		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="endDate" class="easyui-datebox" label="结束时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天',readonly:true" style="width:300px" labelAlign="right">
+		                <div style="text-align:center;margin-top:20px;">
+		                	<input id="endDate" class="easyui-datebox" label="结束时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天',readonly:true" style="width:460px" labelAlign="right">
 		                </div>
-		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="projectOthers" class="easyui-combobox" label="对接人：" labelPosition="left"  style="width:300px" labelAlign="right">
+		                <div style="text-align:center;margin-top:20px;">
+		                	<input id="projectOthers" class="easyui-combobox" label="对接人：" labelPosition="left"  style="width:460px" labelAlign="right">
 		                </div>
-		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="projectPeople" class="easyui-combobox" label="该方参与人：" labelPosition="left"  style="width:300px" labelAlign="right">
+		                <div style="text-align:center;margin-top:20px;">
+		                	<input id="projectPeople" class="easyui-combobox" label="该方参与人：" labelPosition="left"  style="width:490px" labelAlign="right" labelWidth="100px">
 		                </div>
-		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="projectOwners" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:300px" labelAlign="right">
+		                <div style="text-align:center;margin-top:20px;">
+		                	<input id="projectOwners" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:490px" labelAlign="right" labelWidth="100px">
 		                </div>
-		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="projectAmount" class="easyui-numberbox" label="合作金额：" labelPosition="left" precision="2" suffix="万元" value="0.00" style="width:300px" labelAlign="right">
+		                <div style="text-align:center;margin-top:20px;">
+		                	<input id="projectAmount" class="easyui-numberbox" label="合作金额：" labelPosition="left" precision="2" suffix="万元" value="0.00" style="width:460px" labelAlign="right">
 		                </div>
-		                <div style="text-align:center;margin-top:10px;">
-							<a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="addProject()">新增</a>
-							<a href="#" class="easyui-linkbutton" onclick="$('#addProject').window('close')" style="text-align:center;width:20%;margin-left:20px;">返回</a>
+		                <div style="text-align:center;margin-top:20px;">
+							<a href="#" class="easyui-linkbutton" style="text-align:center;width:28%;margin-left:20px;" onclick="addProject()">新增</a>
+							<a href="#" class="easyui-linkbutton" onclick="$('#addProject').window('close')" style="text-align:center;width:28%;margin-left:20px;">返回</a>
 		                </div>
 				    </div>
-				    <div id="updateProject" class="easyui-window" title="更新合作信息" data-options="closed:true,iconCls:'icon-save'" style="width:450px;height:460px;padding:5px;">
-				    	<div style="text-align:center;margin-top:10px;">
-		                	<input id="projectCompanyId" class="easyui-combobox" label="合作ID：" labelPosition="left" style="width:300px" disabled="true" labelAlign="right">
+				    <div id="updateProject" class="easyui-window" title="更新合作信息" data-options="closed:true,iconCls:'icon-save',minimizable:false,maximizable:false" style="width:530px;height:540px;padding:5px;">
+				    	<div style="text-align:center;margin-top:20px;">
+		                	<input id="projectCompanyId" class="easyui-combobox" label="合作ID：" labelPosition="left" style="width:460px" disabled="true" labelAlign="right">
 		                </div>
-				    	<div style="text-align:center;margin-top:10px;">
-		                	<input id="projectNameUpdate" class="easyui-combobox" label="项目名称：" labelPosition="left" style="width:300px" labelAlign="right">
+				    	<div style="text-align:center;margin-top:20px;">
+		                	<input id="projectNameUpdate" class="easyui-combobox" label="项目名称：" labelPosition="left" style="width:460px" labelAlign="right">
 		                </div>
-		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="projectTypeUpdate" class="easyui-combobox" label="项目类型：" labelPosition="before" style="width:300px" data-options="readonly:true" labelAlign="right">
+		                <div style="text-align:center;margin-top:20px;">
+			        		<input id="projectTypeUpdate" class="easyui-combobox" label="项目类型：" labelPosition="before" style="width:460px" data-options="readonly:true" labelAlign="right">
 			        	</div>
-			        	<div style="text-align:center;margin-top:10px;">
-		                	<input id="startDateUpdate" class="easyui-datebox" label="开始时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天',readonly:true" style="width:300px" labelAlign="right">
+			        	<div style="text-align:center;margin-top:20px;">
+		                	<input id="startDateUpdate" class="easyui-datebox" label="开始时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天',readonly:true" style="width:460px" labelAlign="right">
+		                </div>
+		                <div style="text-align:center;margin-top:20px;">
+		                	<input id="endDateUpdate" class="easyui-datebox" label="结束时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天',readonly:true" style="width:460px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="endDateUpdate" class="easyui-datebox" label="结束时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天',readonly:true" style="width:300px" labelAlign="right">
+		                	<input id="projectOthersUpdate" class="easyui-combobox" label="对接人：" labelPosition="left"  style="width:460px" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="projectOthersUpdate" class="easyui-combobox" label="对接人：" labelPosition="left"  style="width:300px" labelAlign="right">
+		                	<input id="projectPeopleUpdate" class="easyui-combobox" label="该方参与人：" labelPosition="left"  style="width:490px" labelAlign="right" labelWidth="100px">
 		                </div>
-		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="projectPeopleUpdate" class="easyui-combobox" label="该方参与人：" labelPosition="left"  style="width:300px" labelAlign="right">
+		                <div style="text-align:center;margin-top:20px;">
+		                	<input id="projectOwnersUpdate" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:490px" labelAlign="right" labelWidth="100px">
 		                </div>
-		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="projectOwnersUpdate" class="easyui-combobox" label="我方负责人：" labelPosition="left"  style="width:300px" labelAlign="right">
+		                <div style="text-align:center;margin-top:20px;">
+		                	<input id="projectAmountUpdate" class="easyui-numberbox" label="合作金额：" labelPosition="left" precision="2" suffix="万元" value="0.00" style="width:460px" labelAlign="right">
 		                </div>
-		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="projectAmountUpdate" class="easyui-numberbox" label="合作金额：" labelPosition="left" precision="2" suffix="万元" value="0.00" style="width:300px" labelAlign="right">
-		                </div>
-		                <div style="text-align:center;margin-top:10px;">
-							<a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="updateProject()">更新</a>
-							<a href="#" class="easyui-linkbutton" onclick="$('#updateProject').window('close')" style="text-align:center;width:20%;margin-left:20px;">返回</a>
+		                <div style="text-align:center;margin-top:20px;">
+							<a href="#" class="easyui-linkbutton" style="text-align:center;width:28%;margin-left:20px;" onclick="updateProject()">更新</a>
+							<a href="#" class="easyui-linkbutton" onclick="$('#updateProject').window('close')" style="text-align:center;width:28%;margin-left:20px;">返回</a>
 		                </div>
 				    </div>
 		        </div>
 		        <div title="经营信息" style="padding:10px">
-		            <table id="holder" style="width:60%;height:50%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationHolder',rownumbers:true,scrollbarSize:0" title="股东信息">
+		            <table id="holder" style="width:99%;height:50%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationHolder',rownumbers:true,scrollbarSize:0" title="股东信息">
 				        <thead>
 				            <tr>
-				            	<th field="holderName" align="center" width="30%">股东名称</th>
-				                <th field="holderAmount" align="center" width="30%">出资额(万元)</th>
-				                <th field="holderPercent" align="center" width="30%">出资比例</th>
+				            	<th field="holderName" align="center" width="45%">股东名称</th>
+				                <th field="holderAmount" align="center" width="27%">出资额(万元)</th>
+				                <th field="holderPercent" align="center" width="27%">出资比例</th>
 				            </tr>
 				        </thead>
 				    </table>
@@ -426,17 +427,17 @@
 		                	 <a href="#" class="easyui-linkbutton" onclick="$('#updateHolder').window('close')" style="text-align:center;width:20%;margin-left:20px;">返回</a>
 		                </div>
 				    </div>
-				    <table id="businessData" style="width:75%;height:50%;" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationBusinessData',rownumbers:true" title="经营数据">
+				    <table id="businessData" style="width:99%;height:50%;" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationBusinessData',rownumbers:true" title="经营数据">
 				        <thead>
 				            <tr>
-				            	<th field="businessYear" align="center" width="10%">年度</th>
-				                <th field="businessTotalAssets" align="center" width="10%">总资产(万元)</th>
-				                <th field="businessNetAssets" align="center" width="10%">净资产(万元)</th>
-				                <th field="businessRevenue" align="center" width="10%">营业收入(万元)</th>
-				                <th field="businessProfit" align="center" width="10%">利润(万元)</th>
-				                <th field="businessDebtRatio" align="center" width="10%">负债率</th>
-				                <th field="businessContractAmount" align="center" width="10%">合同额(万元)</th>
-				                <th field="businessInvestedAmount" align="center" width="10%">投资额(万元)</th>
+				            	<th field="businessYear" align="center" width="5%">年度</th>
+				                <th field="businessTotalAssets" align="center" width="13%">总资产(万元)</th>
+				                <th field="businessNetAssets" align="center" width="13%">净资产(万元)</th>
+				                <th field="businessRevenue" align="center" width="13%">营业收入(万元)</th>
+				                <th field="businessProfit" align="center" width="13%">利润(万元)</th>
+				                <th field="businessDebtRatio" align="center" width="8%">负债率</th>
+				                <th field="businessContractAmount" align="center" width="13%">合同额(万元)</th>
+				                <th field="businessInvestedAmount" align="center" width="13%">投资额(万元)</th>
 				                <th field="businessNumber" align="center" width="10%">签约项目数</th>
 				            </tr>
 				        </thead>
@@ -517,13 +518,13 @@
 				    </div>
 		        </div>
 		        <div title="开票信息" style="padding:10px">
-		            <table id="invoice" style="width:100%;heighct:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationInvoice',rownumbers:true,scrollbarSize:0">
+		            <table id="invoice" style="width:100%;heighct:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationInvoice',nowrap:false,rownumbers:true,scrollbarSize:0">
 				        <thead>
 				            <tr>
-				            	<th field="invoiceName" align="center" width="15%">单位名称</th>
+				            	<th field="invoiceName" align="center" width="22%">单位名称</th>
 				                <th field="invoiceNumber" align="center" width="15%">纳税人识别号</th>
-				                <th field="invoiceAddress" align="center" width="15%">地址</th>
-				                <th field="invoicePhone" align="center" width="15%">电话</th>
+				                <th field="invoiceAddress" align="center" width="22%">地址</th>
+				                <th field="invoicePhone" align="center" width="10%">电话</th>
 				                <th field="invoiceBank" align="center" width="15%">开户行</th>
 				                <th field="invoiceAccount" align="center" width="15%">账号</th>
 				            </tr>

@@ -113,51 +113,51 @@
 				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="updateProjectClick()">修改</a>
 				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteProject()">删除</a>
 				    </div>
-				     <div id="addProject" class="easyui-window" title="新增项目" data-options="closed:true,iconCls:'icon-save'" style="width:420px;height:420px;padding:5px;">
+				     <div id="addProject" class="easyui-window" title="新增项目" data-options="closed:true,iconCls:'icon-save',minimizable:false,maximizable:false" style="width:500px;height:420px;padding:5px;">
 			        	<div style="text-align:center;margin-top:10px;">
-			        		<input id="projectName" class="easyui-textbox" label="项目名称：" labelPosition="before" style="width:300px;" labelAlign="right">
+			        		<input id="projectName" class="easyui-textbox" label="项目名称：" labelPosition="before" style="width:380px;" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="projectType" class="easyui-combobox" label="项目类型：" labelPosition="before"  style="width:300px;" labelAlign="right">
+		                	<input id="projectType" class="easyui-combobox" label="项目类型：" labelPosition="before"  style="width:380px;" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="projectAddress" class="easyui-textbox" label="项目地点：" labelPosition="before" style="width:300px;" labelAlign="right">
+			        		<input id="projectAddress" class="easyui-textbox" label="项目地点：" labelPosition="before" style="width:380px;" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="startDate" class="easyui-datebox" label="开始时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:300px;" labelAlign="right">
+		                	<input id="startDate" class="easyui-datebox" label="开始时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:380px;" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="endDate" class="easyui-datebox" label="结束时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:300px;" labelAlign="right">
+		                	<input id="endDate" class="easyui-datebox" label="结束时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:380px;" labelAlign="right">
 		                </div>		           
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="projectRemark" class="easyui-textbox" label="备注：" labelPosition="before" multiline="true" style="width:300px;height:100px" labelAlign="right">
+			        		<input id="projectRemark" class="easyui-textbox" label="备注：" labelPosition="before" multiline="true" style="width:380px;height:100px" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
 		                	 <a href="#" class="easyui-linkbutton" style="text-align:center;width:20%;margin-left:20px;" onclick="addProject()">新增</a>
 		                	 <a href="#" class="easyui-linkbutton" onclick="$('#addProject').window('close')" style="text-align:center;width:20%;margin-left:20px;">取消</a>
 		                </div>
 				    </div>
-				    <div id="updateProject" class="easyui-window" title="修改项目" data-options="closed:true,iconCls:'icon-save'" style="width:420px;height:450px;padding:5px;">
+				    <div id="updateProject" class="easyui-window" title="修改项目" data-options="closed:true,iconCls:'icon-save',minimizable:false,maximizable:false" style="width:500px;height:450px;padding:5px;">
 				    	<div style="text-align:center;margin-top:10px;">
-			        		<input id="projectId" class="easyui-textbox" label="项目ID：" labelPosition="before" style="width:300px;" disabled="true" labelAlign="right">
+			        		<input id="projectId" class="easyui-textbox" label="项目ID：" labelPosition="before" style="width:380px;" disabled="true" labelAlign="right">
 			        	</div>
 				     	<div style="text-align:center;margin-top:10px;">
-			        		<input id="projectNameUpdate" class="easyui-textbox" label="项目名称：" labelPosition="before" style="width:300px;" labelAlign="right">
+			        		<input id="projectNameUpdate" class="easyui-textbox" label="项目名称：" labelPosition="before" style="width:380px;" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="projectTypeUpdate" class="easyui-combobox" label="项目类型：" labelPosition="before"  style="width:300px;" labelAlign="right">
+		                	<input id="projectTypeUpdate" class="easyui-combobox" label="项目类型：" labelPosition="before"  style="width:380px;" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="projectAddressUpdate" class="easyui-textbox" label="项目地点：" labelPosition="before" style="width:300px;" labelAlign="right">
+			        		<input id="projectAddressUpdate" class="easyui-textbox" label="项目地点：" labelPosition="before" style="width:380px;" labelAlign="right">
 			        	</div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="startDateUpdate" class="easyui-datebox" label="开始时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:300px;" labelAlign="right">
+		                	<input id="startDateUpdate" class="easyui-datebox" label="开始时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:380px;" labelAlign="right">
 		                </div>
 		                <div style="text-align:center;margin-top:10px;">
-		                	<input id="endDateUpdate" class="easyui-datebox" label="结束时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:300px;" labelAlign="right">
+		                	<input id="endDateUpdate" class="easyui-datebox" label="结束时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:380px;" labelAlign="right">
 		                </div>		            
 		                <div style="text-align:center;margin-top:10px;">
-			        		<input id="projectRemarkUpdate" class="easyui-textbox" label="备注" labelPosition="before" multiline="true" style="width:300px;height:100px" labelAlign="right">
+			        		<input id="projectRemarkUpdate" class="easyui-textbox" label="备注" labelPosition="before" multiline="true" style="width:380px;height:100px" labelAlign="right">
 			        	</div>
 
 		                <div style="text-align:center;margin-top:10px;">
@@ -167,12 +167,12 @@
 				    </div>
 		        </div>
 		        <div title="用户管理" style="padding:20px">
-		            <table id="users" style="width:80%;height:80%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationUser',rownumbers:true">
+		            <table id="users" style="width:99%;height:80%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationUser',rownumbers:true">
 				        <thead>
 				            <tr>
-				                <th field="name" align="center" width="15%">用户名</th>
-				                <th field="nickName" align="center" width="15%">昵称</th>
-				                <th field="status" align="center" width="15%">状态</th>
+				                <th field="name" align="center" width="30%">用户名</th>
+				                <th field="nickName" align="center" width="30%">昵称</th>
+				                <th field="status" align="center" width="20%">状态</th>
 				            </tr>
 				        </thead>
 				    </table>
@@ -181,7 +181,7 @@
 				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="modifyUserOperationByAdmin()">修改</a>
 				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteUserByAdmin()">删除</a>
 				    </div>
-			        <div id="addUsers" class="easyui-window" title="新增用户" data-options="closed:true,iconCls:'icon-save'" style="width:420px;height:270px;padding:5px;">
+			        <div id="addUsers" class="easyui-window" title="新增用户" data-options="closed:true,iconCls:'icon-save',minimizable:false,maximizable:false" style="width:420px;height:270px;padding:5px;">
 			        	<div style="text-align:center;margin-top:20px;">
 			        		<input id="userName" class="easyui-textbox" label="用户名：" labelPosition="before" style="width:70%;" labelAlign="right">
 			        	</div>
@@ -196,7 +196,7 @@
 		                	 <a href="#" class="easyui-linkbutton" onclick="$('#addUsers').window('close')" style="text-align:center;width:20%;margin-left:20px;">取消</a>
 		                </div>
 				    </div>
-				    <div id="updateUsers" class="easyui-window" title="修改用户" data-options="closed:true,iconCls:'icon-save'" style="width:420px;height:310px;padding:5px;">
+				    <div id="updateUsers" class="easyui-window" title="修改用户" data-options="closed:true,iconCls:'icon-save',minimizable:false,maximizable:false" style="width:420px;height:310px;padding:5px;">
 				     	<div style="text-align:center;margin-top:20px;">
 			        		<input id="userUuidUpdate" class="easyui-textbox" label="用户ID：" disabled="true"  labelPosition="before" style="width:70%;" labelAlign="right">
 			        	</div>
@@ -219,7 +219,7 @@
 		        	<div style="text-align:left;margin-bottom:10px">
 		        		<select id="parents" class="easyui-combobox" label="父标签：" labelPosition="left" style="width:19%;"></select>
 					</div>	
-		            <table id="tags" style="width:60%;height:80%;" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationTag'">
+		            <table id="tags" style="width:99%;height:98%;" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationTag',scrollbarSize:0,fitColumns:true,pagination:true,pagePosition:'top',pageSize:50">
 				        <thead>
 				            <tr>
 				                <th field="id" align="center" width="20%">标签ID</th>
@@ -234,7 +234,7 @@
 				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" onclick="modifyTagOperationByAdmin()" plain="true">修改</a>
 				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" onclick="deleteTagByAdmin()" plain="true">删除</a>
 				    </div>
-			        <div id="addTags" class="easyui-window" title="新增标签" data-options="closed:true,iconCls:'icon-save'" style="width:420px;height:300px;padding:5px;">
+			        <div id="addTags" class="easyui-window" title="新增标签" data-options="closed:true,iconCls:'icon-save',minimizable:false,maximizable:false" style="width:420px;height:300px;padding:5px;">
 			        	<div style="text-align:center;margin-top:20px;">
 			        		<input id="tagName" class="easyui-textbox" label="标签名称：" labelPosition="before" style="width:300px" labelAlign="right">
 			        	</div>
@@ -249,7 +249,7 @@
 		                	 <a href="#" class="easyui-linkbutton" onclick="$('#addTags').window('close')" style="text-align:center;width:20%;margin-left:20px;">取消</a>
 		                </div>
 				    </div>
-				    <div id="updateTags" class="easyui-window" title="修改标签" data-options="closed:true,iconCls:'icon-save'" style="width:420px;height:320px;padding:5px;">
+				    <div id="updateTags" class="easyui-window" title="修改标签" data-options="closed:true,iconCls:'icon-save',minimizable:false,maximizable:false" style="width:420px;height:320px;padding:5px;">
 				    	<div style="text-align:center;margin-top:20px;">
 			        		<input id="tagIdUpdate" class="easyui-textbox" label="标签ID：" labelPosition="before" disabled="true" style="width:300px" labelAlign="right">
 			        	</div>

@@ -1,3 +1,4 @@
+
 function submitForm(){
   var name = $('#name').textbox('getValue').trim()
   var password = $('#password').passwordbox('getValue').trim()

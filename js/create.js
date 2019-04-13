@@ -581,7 +581,10 @@ function addChat() {
             } else if (data.status == 0){
                 $.messager.alert('企业','添加互动信息成功!','info');
                 $('#addChat').window('close')
-                $('#chat').datagrid('loadData', listChats(COMPANY_ID))
+                var opts = $('#chat').datagrid('options');
+                var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
+                var limit = start + parseInt(opts.pageSize);
+                $('#chat').datagrid('loadData', listChats(COMPANY_ID, start, limit))
             } else {
                 $.messager.alert('企业',data.message,'error');
             }
@@ -698,7 +701,10 @@ function updateChat() {
             } else if (data.status == 0){
                 $.messager.alert('企业','更新互动信息成功!','info');
                 $('#updateChat').window('close')
-                $('#chat').datagrid('loadData', listChats(COMPANY_ID))
+                var opts = $('#chat').datagrid('options');
+                var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
+                var limit = start + parseInt(opts.pageSize);
+                $('#chat').datagrid('loadData', listChats(COMPANY_ID, start, limit))
             } else {
                 $.messager.alert('企业',data.message,'error');
             }
@@ -733,7 +739,10 @@ function deleteChat() {
                             window.location.href = data.message
                         } else if (data.status == 0){
                             $.messager.alert('企业','删除互动信息成功!','info');
-                            $('#chat').datagrid('loadData', listChats(COMPANY_ID))
+                            var opts = $('#chat').datagrid('options');
+                            var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
+                            var limit = start + parseInt(opts.pageSize);
+                            $('#chat').datagrid('loadData', listChats(COMPANY_ID, start, limit))
                         } else {
                             $.messager.alert('企业',data.message,'error');
                         }
@@ -747,11 +756,11 @@ function deleteChat() {
     }
 }
 
-function listChats(companyId) {
-    var result = []
+function listChats(companyId, start, limit) {
+    var result = {}
     $.ajax({
         type:'get',
-        url: "/chat/list?companyId=" + companyId,
+        url: "/chat/list?companyId=" + companyId + "&start=" + start + "&limit=" + limit,
         xhrFields:{
             withCredentials:true
         }, 
@@ -759,12 +768,12 @@ function listChats(companyId) {
         credentials: 'include',  
         async: false, //同步调用
         contentType: 'application/json;charset=UTF-8',
-        success: function(data){
+        success: function(data) {
+            var items = []
             if (data.status == 2) {
                 window.location.href = data.message
             } else if (data.status == 0){
-                var items = []
-                $.each(data.obj,function(idx,item){ 
+                $.each(data.obj.list, function(idx,item){ 
                     items[idx] = {
                         id: item.id,
                         companyId: item.companyId,
@@ -776,9 +785,11 @@ function listChats(companyId) {
                         content: item.content
                     }
                 })
-                result = items
+                result['rows'] = items
+                result['total'] = data.obj.count
             } else {
-                $.messager.alert('企业',data.message,'error');
+                result['rows'] = items
+                result['total'] = 0
             }
             
         },
@@ -1515,7 +1526,7 @@ function addProject() {
         var projectOthers = $('#projectOthers').combobox('getText').trim()
         var projectPeople = $('#projectPeople').combobox('getText').trim()
         var projectOwners = $('#projectOwners').combobox('getText').trim()
-        var projectAmount = $('#projectAmount').numberbox('getText').trim()
+        var projectAmount = $('#projectAmount').numberbox('getValue').trim()
         $.ajax({
             type:'post',
             url: "/projectcompany/add",
@@ -1677,7 +1688,7 @@ function updateProject() {
         var projectOthers = $('#projectOthersUpdate').combobox('getText').trim()
         var projectPeople = $('#projectPeopleUpdate').combobox('getText').trim()
         var projectOwners = $('#projectOwnersUpdate').combobox('getText').trim()
-        var projectAmount = $('#projectAmountUpdate').numberbox('getText').trim()
+        var projectAmount = $('#projectAmountUpdate').numberbox('getValue').trim()
         $.ajax({
             type:'put',
             url: "/projectcompany/update",
@@ -1849,7 +1860,19 @@ function initProjectInfo() {
 }
 
 function initChatInfo() {
-    $('#chat').datagrid('loadData', listChats(COMPANY_ID));
+    $('#chat').datagrid('getPager').pagination({
+        'displayMsg': '共计{total}次互动',
+        'showPageList': false,
+        'showPageInfo': true,
+        onSelectPage: function(pageNum, pageSize) {
+            $('#chat').datagrid('loadData', listChats(COMPANY_ID, (pageNum - 1) * pageSize, pageSize))
+        }
+    });
+
+    var opts = $('#chat').datagrid('options');
+    var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
+    var limit = start + parseInt(opts.pageSize); 
+
     $('#chatOwners').combobox({
         valueField: 'id', 
         textField: 'nickName',

@@ -268,7 +268,8 @@ function getListUsers() {
                     id: item.uuid,
                     name: item.name,
                     nickName: item.nickName,
-                    status: item.status                
+                    status: item.status, 
+                    // selected: item.name == USER_NAME ? true : false                
                 }
             })
             result = items

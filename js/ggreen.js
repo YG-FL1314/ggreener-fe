@@ -12,10 +12,20 @@ function sort_int(a,b){
     else return -1;
 }  
 
+$(document).keypress(function(e) {  
+    if((e.keyCode || e.which)==13) {  
+        $('#companys').datagrid('gotoPage', 1);
+        var opts = $('#companys').datagrid('options');
+        var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
+        var limit = start + parseInt(opts.pageSize); 
+        $('#companys').datagrid('loadData', searchCompanies(start, limit))
+    }  
+}); 
+
 function getTags(parentId) {
     var result, url;
     if (!parentId && parentId != 0) { 
-        url = "/tag/list" 
+        url = "/tag/list"
     } else {
         url = "/tag/list?parentId=" + parentId
     }
@@ -53,7 +63,7 @@ function getTags(parentId) {
 
 function getSyncTags(id, parentId) {
     if (!parentId && parentId != 0) { 
-        url = "/tag/list" 
+        url = "/tag/list"
     } else {
         url = "/tag/list?parentId=" + parentId
     }
@@ -363,8 +373,11 @@ function updateTagByAdmin() {
         success: function(data){
             if (data.status == 0) {
                 $.messager.alert('标签','修改标签成功!');
+                var opts = $('#tags').datagrid('options');
+                var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
+                var limit = start + parseInt(opts.pageSize);  
+                $('#tags').datagrid('loadData', getTags($('#parents').combobox('getValue')))
                 $('#updateTags').window('close')
-                $('#tags').datagrid({'data': getTags()})
             } else {
                 $.messager.alert('标签','修改标签失败!','error');
             }
@@ -392,8 +405,8 @@ function deleteTagByAdmin() {
                 async: false,
                 success: function(data){
                     if (data.status == 0) {
-                        $.messager.alert('标签','删除标签成功!');
-                        $('#users').datagrid({'data': getListUsers()})
+                        $.messager.alert('标签','删除标签成功!'); 
+                        $('#tags').datagrid('loadData', getTags($('#parents').combobox('getValue')))
                     } else {
                         $.messager.alert('标签','删除标签失败!','error');
                     }
@@ -505,7 +518,7 @@ function searchCompanies(start, limit) {
                         attention: item.attention == null ? "" : item.attention,
                         name: item.name == null ? "" : item.name,
                         region: item.region == null ? "" : item.region,
-                        createTime: item.createTime.substring(0,10),
+                        createTime: isEmpty(item.createTime) ? "" : item.createTime.substring(0,10),
                         registeredCapital: item.register == null ? "" : item.register,
                         companyType: item.companyType == null ? "" : item.companyType,
                         industry: item.industry == null ? "" : item.industry,
@@ -933,6 +946,12 @@ $(function() {
         }
     });
     $('#companys').datagrid('getPanel').removeClass('panel-body').addClass('ggreen-body');
+
+    $('#tags').datagrid('getPager').pagination({
+        'displayMsg': '共计{total}个标签',
+        'showPageList': false,
+        'showPageInfo': true
+    });
 })
 
 /*页面加载*/ 
@@ -1002,8 +1021,8 @@ window.onload = function () {
                     //panelHeight:'auto', 
                     limitToList: false,
                     data: getTags(PARENT_FLAG),
-                    onChange:function(){  
-                        $('#tags').datagrid('loadData', getTags(($('#parents').combobox('getValue'))));  
+                    onChange:function(){   
+                        $('#tags').datagrid('loadData', getTags($('#parents').combobox('getValue')))
                     } 
                 });
                 $('#tags').datagrid('loadData', getTags())
@@ -1015,3 +1034,4 @@ window.onload = function () {
     var limit = start + parseInt(opts.pageSize);  
     $('#companys').datagrid('loadData', searchCompanies(start, limit))
 }
+

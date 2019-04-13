@@ -192,8 +192,14 @@ function getMember(companyId) {
             } else if (data.status == 0) {
                 $('#memberCode').textbox('setValue', data.obj.memberCode)
                 $('#member').combobox('setValue', data.obj.tagId)
-                $('#joiningTime').datebox('setValue', data.obj.joiningTime.substring(0,10))
-                $('#validityTime').datebox('setValue', data.obj.validityTime.substring(0,10))
+                var joiningTime = data.obj.joiningTime
+                if (!isEmpty(joiningTime)) {
+                    $('#joiningTime').datebox('setValue', joiningTime.substring(0,10))
+                }
+                var validityTime = data.obj.validityTime;
+                if (!isEmpty(validityTime)) {
+                    $('#validityTime').datebox('setValue', validityTime.substring(0,10))
+                }
             } else {
                 $.messager.alert('企业',data.message,'error');
             }
@@ -208,8 +214,14 @@ function getMember(companyId) {
 function updateMember() {
     var memberCode = $('#memberCode').textbox('getValue').trim()
     var member = $('#member').combobox('getValue').trim()
-    var joiningTime = $('#joiningTime').combobox('getValue').substring(0,10)
-    var validityTime = $('#validityTime').combobox('getValue').substring(0,10)
+    var joiningTime = $('#joiningTime').combobox('getValue')
+    if (!isEmpty(joiningTime)) {
+        joiningTime = joiningTime.substring(0,10)
+    }
+    var validityTime = $('#validityTime').combobox('getValue');
+    if (!isEmpty(validityTime)) {
+        validityTime = validityTime.substring(0,10)
+    }
     $.ajax({
         type:'put',
         url: "/member/update",
@@ -527,7 +539,7 @@ function getCompanyDetail(companyId) {
                 $('#region').combobox('setValue', data.obj.region)
                 $('#zol').combobox('setValue', data.obj.zol)
                 $('#unitProperties').combobox('setValue', data.obj.unitProperty)
-                $('#createTime').datebox('setValue', data.obj.establishedTime.substring(0,10))
+                $('#createTime').datebox('setValue', isEmpty(data.obj.establishedTime) ? "" : data.obj.establishedTime.substring(0,10),)
                 $('#register').numberbox('setValue', data.obj.registeredCapital)
                 $('#equity').combobox('setValue', data.obj.equity)
                 $('#highTech').combobox('setValues', data.obj.highTechs == null ? [] : data.obj.highTechs)
@@ -600,7 +612,10 @@ function addChat() {
                 } else if (data.status == 0){
                     $.messager.alert('企业','添加互动信息成功!','info');
                     $('#addChat').window('close')
-                    $('#chat').datagrid({'data': listChats(COMPANY_ID)})
+                    var opts = $('#chat').datagrid('options');
+					var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
+					var limit = start + parseInt(opts.pageSize);
+                    $('#chat').datagrid('loadData', listChats(COMPANY_ID, start, limit))
                 } else {
                     $.messager.alert('企业',data.message,'error');
                 }
@@ -718,7 +733,10 @@ function updateChat() {
             } else if (data.status == 0){
                 $.messager.alert('企业','更新互动信息成功!','info');
                 $('#updateChat').window('close')
-                $('#chat').datagrid({'data': listChats(COMPANY_ID)})
+                var opts = $('#chat').datagrid('options');
+                var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
+                var limit = start + parseInt(opts.pageSize);
+                $('#chat').datagrid('loadData', listChats(COMPANY_ID, start, limit))
             } else {
                 $.messager.alert('企业',data.message,'error');
             }
@@ -753,7 +771,10 @@ function deleteChat() {
                             window.location.href = data.message
                         } else if (data.status == 0){
                             $.messager.alert('企业','删除互动信息成功!','info');
-                            $('#chat').datagrid({'data': listChats(COMPANY_ID)})
+                            var opts = $('#chat').datagrid('options');
+                            var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
+                            var limit = start + parseInt(opts.pageSize);
+                            $('#chat').datagrid('loadData', listChats(COMPANY_ID, start, limit))
                         } else {
                             $.messager.alert('企业',data.message,'error');
                         }
@@ -767,11 +788,11 @@ function deleteChat() {
     }
 }
 
-function listChats(companyId) {
-    var result = []
+function listChats(companyId, start, limit) {
+    var result = {}
     $.ajax({
         type:'get',
-        url: "/chat/list?companyId=" + companyId,
+        url: "/chat/list?companyId=" + companyId + "&start=" + start + "&limit=" + limit,
         xhrFields:{
             withCredentials:true
         }, 
@@ -779,12 +800,12 @@ function listChats(companyId) {
         credentials: 'include',  
         async: false, //同步调用
         contentType: 'application/json;charset=UTF-8',
-        success: function(data){
+        success: function(data) {
+        	var items = []
             if (data.status == 2) {
                 window.location.href = data.message
             } else if (data.status == 0){
-                var items = []
-                $.each(data.obj,function(idx,item){ 
+                $.each(data.obj.list, function(idx,item){ 
                     items[idx] = {
                         id: item.id,
                         companyId: item.companyId,
@@ -796,9 +817,11 @@ function listChats(companyId) {
                         content: item.content
                     }
                 })
-                result = items
+                result['rows'] = items
+                result['total'] = data.obj.count
             } else {
-                $.messager.alert('企业',data.message,'error');
+                result['rows'] = items
+                result['total'] = 0
             }
             
         },
@@ -1607,10 +1630,20 @@ function initContactInfo() {
 }
 
 function initChatInfo() {
-    
-    $('#chat').datagrid({
-    	'data': listChats(COMPANY_ID)
+   
+	$('#chat').datagrid('getPager').pagination({
+        'displayMsg': '共计{total}次互动',
+        'showPageList': false,
+        'showPageInfo': true,
+        onSelectPage: function(pageNum, pageSize) {
+            $('#chat').datagrid('loadData', listChats(COMPANY_ID, (pageNum - 1) * pageSize, pageSize))
+        }
     });
+
+    var opts = $('#chat').datagrid('options');
+    var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
+    var limit = start + parseInt(opts.pageSize); 
+    $('#chat').datagrid('loadData', listChats(COMPANY_ID, start, limit)) 
 
     $('#chatType').combobox({
         valueField: 'id', 

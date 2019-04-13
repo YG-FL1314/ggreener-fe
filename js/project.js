@@ -32,7 +32,9 @@ function getProject(projectId) {
                 startDate: data.obj.startDate,
                 endDate: data.obj.endDate,
                 projectRemark: data.obj.remark,
-                amount: data.obj.amount                
+                amount: data.obj.amount,
+                companyCount: data.obj.companyCount, 
+                people: data.obj.people
             }
             result = items
         },
@@ -85,6 +87,12 @@ $(function() {
 
 /*页面加载*/ 
 window.onload = function () { 
+    $('#companies').datagrid({
+        striped: true,
+        onDblClickRow: function(rowIndex, rowData) {  
+            window.open("./detail.html?companyId=" + rowData.id)
+        }
+    })
     $('#projects').datagrid('loadData', getProject(PROJECT_ID))
     $('#companies').datagrid('loadData', getCompanyByProject(PROJECT_ID))
 }
