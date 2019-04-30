@@ -180,8 +180,14 @@ function getMember(companyId) {
             } else if (data.status == 0) {
                 $('#memberCode').textbox('setValue', data.obj.memberCode)
                 $('#member').combobox('setValue', data.obj.tagId)
-                $('#joiningTime').datebox('setValue', data.obj.joiningTime.substring(0,10))
-                $('#validityTime').datebox('setValue', data.obj.validityTime.substring(0,10))
+                var joiningTime = data.obj.joiningTime
+                if (!isEmpty(joiningTime)) {
+                    $('#joiningTime').datebox('setValue', joiningTime.substring(0,10))
+                }
+                var validityTime = data.obj.validityTime;
+                if (!isEmpty(validityTime)) {
+                    $('#validityTime').datebox('setValue', validityTime.substring(0,10))
+                }
             } else {
                 $.messager.alert('企业',data.message,'error');
             }
