@@ -1700,6 +1700,7 @@ function updateProject() {
             async: false, //同步调用
             data: JSON.stringify({
                 "id": projectCompanyId,
+                "companyId": COMPANY_ID,
                 "projectId": projectId,
                 "people": projectPeople,
                 "others": projectOthers,
@@ -1896,6 +1897,15 @@ function initChatInfo() {
             el.find('input.combobox-checkbox')._propAttr('checked', false);
         }
     });
+
+    $('#chatType').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: true,
+        data: getTags(CHAT_TYPE_FLAG)
+    });
+
 
     $('#chatTime').datebox('setValue', dateFormatter(new Date()));
 

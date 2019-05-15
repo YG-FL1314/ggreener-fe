@@ -303,7 +303,7 @@ function getListUsersAndSelectedCurrentUser() {
                     name: item.name,
                     nickName: item.nickName,
                     status: item.status, 
-                    selected: item.name == USER_NAME ? true : false                
+                    selected: item.nickName == USER_NAME ? true : false                
                 }
             })
             result = items

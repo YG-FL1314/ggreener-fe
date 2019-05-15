@@ -2247,6 +2247,7 @@ function updateProject() {
             async: false, //同步调用
             data: JSON.stringify({
                 "id": projectCompanyId,
+                "companyId": COMPANY_ID,
                 "projectId": projectId,
                 "people": projectPeople,
                 "others": projectOthers,

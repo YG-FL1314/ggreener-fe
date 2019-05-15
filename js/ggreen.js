@@ -524,7 +524,9 @@ function searchCompanies(start, limit) {
                         industry: item.industry == null ? "" : item.industry,
                         business: item.business == null ? "" : item.business,
                         businessArea: item.businessArea == null ? "" : item.businessArea,
-                        advantages: item.advantage == null ? "" : item.advantage 
+                        advantages: item.advantage == null ? "" : item.advantage, 
+                        updateTime: item.updateTime == null ? "" : item.updateTime, 
+                        updateUser: item.updateUser == null ? "" : item.updateUser 
                     }
                 })
                 result['rows'] = items

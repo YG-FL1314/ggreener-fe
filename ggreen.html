@@ -73,17 +73,18 @@
 						</select>
 					</div>
 					<div style="margin-top:20px">
-			            <table id="companys" class="easyui-datagrid" data-options="singleSelect:true,pagination:true,pagePosition:'top',toolbar:'#operationCompany',scrollbarSize:0,pageSize:50,fitColumns:true">
+			            <table id="companys" class="easyui-datagrid" data-options="singleSelect:true,pagination:true,pagePosition:'bottom',footer:'#operationCompany',scrollbarSize:0,pageSize:50,fitColumns:true">
         					<thead>
 					            <tr>
 					                <th field="memberCode" align="center" width="8%" height="20px" data-options="formatter:formatCellTooltip">会员编号</th>
 					                <th field="memberName" align="center" width="8%" height="20px" data-options="formatter:formatCellTooltip">会员等级</th>
-					                <th field="attention" align="center" width="8%" height="20px" data-options="formatter:formatCellTooltip">关注等级</th>
+					                <th field="attention" align="center" width="7%" height="20px" data-options="formatter:formatCellTooltip">关注等级</th>
 					                <th field="name" align="left" halign="center" width="30%" height="20px" data-options="formatter:formatCellTooltip">单位名称</th>
 					                <th field="region" align="center" width="8%" height="20px" data-options="formatter:formatCellTooltip">所在地区</th>
-					                <th field="createTime" align="center" width="10%" height="20px" data-options="formatter:formatCellTooltip">成立时间</th>
-					                <th field="registeredCapital" align="center" width="12%" height="20px" data-options="formatter:formatCellTooltip">注册资金(万元)</th>
-					                <th field="companyType" align="center" width="16%" height="20px" data-options="formatter:formatCellTooltip">单位类型</th>
+					                <th field="createTime" align="center" width="8%" height="20px" data-options="formatter:formatCellTooltip">成立时间</th>
+					                <th field="registeredCapital" align="center" width="10%" height="20px" data-options="formatter:formatCellTooltip">注册资金(万元)</th>
+					                <th field="updateUser" align="center" width="7%" height="20px" data-options="formatter:formatCellTooltip">最近修改人</th>
+					                <th field="updateTime" align="center" width="14%" height="20px" data-options="formatter:formatCellTooltip">最近修改时间</th>
 					            </tr>
 					        </thead>
 					    </table>
