@@ -268,7 +268,7 @@ function getListUsers() {
                     id: item.uuid,
                     name: item.name,
                     nickName: item.nickName,
-                    status: item.status, 
+                    status: item.status == 1 ? "正常":"停用",
                 }
             })
             result = items

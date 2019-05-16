@@ -20,7 +20,7 @@ $(document).keypress(function(e) {  
         var limit = start + parseInt(opts.pageSize); 
         $('#companys').datagrid('loadData', searchCompanies(start, limit))
     }  
-}); 
+});
 
 function getTags(parentId) {
     var result, url;
@@ -299,7 +299,7 @@ function updateUserByAdmin() {
 
 function deleteUserByAdmin() {
     var row = $('#users').datagrid('getSelected');
-    var message = "确认删除 " + row.name + " 用户?"
+    var message = "确认停用 " + row.name + " 用户?"
     $.messager.confirm('用户', message, function(r) {
         if (r) {
             $.ajax({
@@ -314,14 +314,45 @@ function deleteUserByAdmin() {
                 async: false,
                 success: function(data){
                     if (data.status == 0) {
-                        $.messager.alert('用户','删除用户成功!');
+                        $.messager.alert('用户','停用用户成功!');
                         $('#users').datagrid({'data': getListUsers()})
                     } else {
-                        $.messager.alert('用户','删除用户失败!','error');
+                        $.messager.alert('用户','停用用户失败!','error');
                     }
                 },
                 error: function(){
-                    $.messager.alert('用户','删除用户失败!','error');
+                    $.messager.alert('用户','停用用户失败!','error');
+                }
+            });
+        }
+    })
+}
+
+function startUserByAdmin() {
+    var row = $('#users').datagrid('getSelected');
+    var message = "确认启用 " + row.name + " 用户?"
+    $.messager.confirm('用户', message, function(r) {
+        if (r) {
+            $.ajax({
+                url: "/user/update/status?status=1&id=" + row.id,
+                xhrFields:{
+                    withCredentials:true
+                }, 
+                type: 'delete',
+                crossDomain: true,
+                credentials: 'include', 
+                contentType: 'application/json;charset=UTF-8',
+                async: false,
+                success: function(data){
+                    if (data.status == 0) {
+                        $.messager.alert('用户','启用用户成功!');
+                        $('#users').datagrid({'data': getListUsers()})
+                    } else {
+                        $.messager.alert('用户','启用用户失败!','error');
+                    }
+                },
+                error: function(){
+                    $.messager.alert('用户','启用用户失败!','error');
                 }
             });
         }
