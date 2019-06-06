@@ -443,6 +443,7 @@ function updateContact() {
 }
 
 function updateBaseContact() {
+    var createTime = $('#createTime').datebox('getValue').trim()
     var telephone = $('#companyPhone').textbox('getValue').trim()
     var fax = $('#companyFax').textbox('getValue').trim()
     var website = $('#companyWebsite').textbox('getValue').trim()
@@ -460,6 +461,7 @@ function updateBaseContact() {
             "id": COMPANY_ID,
             "telephone": telephone,
             "fax": fax,
+            "establishedTime": createTime,
             "website": website,
             "address": address 
         }),

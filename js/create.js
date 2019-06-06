@@ -412,6 +412,7 @@ function updateBaseContact() {
     var fax = $('#companyFax').textbox('getValue').trim()
     var website = $('#companyWebsite').textbox('getValue').trim()
     var address = $('#companyAddress').textbox('getValue').trim()
+    var createTime = $('#createTime').datebox('getValue').trim()
     $.ajax({
         type:'put',
         url: "/company/update",
@@ -425,6 +426,7 @@ function updateBaseContact() {
             "id": COMPANY_ID,
             "telephone": telephone,
             "fax": fax,
+            "establishedTime": createTime,
             "website": website,
             "address": address 
         }),
@@ -489,7 +491,7 @@ function addChatClick() {
     if (COMPANY_ID == '') {
         $.messager.alert('企业','请先添加企业！','info');
     } else {
-         $('#chatType').combobox({
+        $('#chatType').combobox({
             valueField: 'id', 
             textField: 'name',
             panelHeight:'auto', 
