@@ -333,7 +333,7 @@ function listContacts(companyId) {
     return result
 }
 
-function updateContractWindow() {
+function updateContactWindow() {
     var row = $('#contact').datagrid('getSelected');
     if (!row) {
         $.messager.alert('联系人','请先选择一个联系人!','info'); 
