@@ -550,7 +550,7 @@ function searchCompanies(start, limit) {
                         name: item.name == null ? "" : item.name,
                         region: item.region == null ? "" : item.region,
                         createTime: isEmpty(item.createTime) ? "" : item.createTime.substring(0,10),
-                        registeredCapital: item.register == null ? "" : item.register,
+                        registeredCapital: item.register == 0 ? "" : item.register,
                         companyType: item.companyType == null ? "" : item.companyType,
                         industry: item.industry == null ? "" : item.industry,
                         business: item.business == null ? "" : item.business,
