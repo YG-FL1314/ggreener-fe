@@ -1518,6 +1518,101 @@ function getAllProjects() {
     return result
 }
 
+function addProjectClick() {
+    $('#projectType').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: false,
+        data: getTags(PROJECT_TYPE_FLAG)
+    });
+    $('#projectName').combobox({
+        valueField: 'id', 
+        textField: 'name',
+        panelHeight:'auto', 
+        limitToList: true,
+        data: getAllProjects(),
+        onSelect: function (row) {
+            var data = getProjectDetail(row.id)
+            $('#projectType').combobox('setText', data.type)
+            $('#startDate').datebox('setValue', data.startDate)
+            $('#endDate').datebox('setValue', data.endDate)
+        }
+    });
+    $('#projectOwners').combobox({
+        valueField: 'id', 
+        textField: 'nickName',
+        panelHeight:'auto', 
+        limitToList: true,
+        multiple: true,
+        data: getListUsers(),
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    var others = listContacts(COMPANY_ID)
+    $('#projectPeople').combobox({
+        valueField: 'id', 
+        textField: 'contactName',
+        panelHeight:'auto', 
+        limitToList: true,
+        multiple: true,
+        data: others,
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+
+    $('#projectOthers').combobox({
+        valueField: 'id', 
+        textField: 'contactName',
+        panelHeight:'auto', 
+        limitToList: true,
+        multiple: true,
+        data: others,
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    $('#addProject').window('open')
+}
+
 function addProject() {
     if (COMPANY_ID == '') {
         $.messager.alert('企业','请先添加企业！','info');

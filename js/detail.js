@@ -1658,7 +1658,6 @@ function initChatInfo() {
     $('#chatOthers').combobox({
         valueField: 'id', 
         textField: 'contactName',
-        panelHeight:'auto', 
         limitToList: true,
         multiple: true,
         data: listContacts(COMPANY_ID),
@@ -1957,7 +1956,6 @@ function addProjectClick() {
     $('#projectName').combobox({
         valueField: 'id', 
         textField: 'name',
-        panelHeight:'auto', 
         limitToList: true,
         data: getAllProjects(),
         onSelect: function (row) {
@@ -2104,7 +2102,6 @@ function updateProjectClick() {
         $('#projectNameUpdate').combobox({
             valueField: 'id', 
             textField: 'name',
-            panelHeight:'auto', 
             limitToList: true,
             data: allProject,
             onSelect: function (row) {

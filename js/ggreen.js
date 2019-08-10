@@ -492,31 +492,31 @@ function searchCompanies(start, limit) {
     var result = {}
     var name = $('#name').textbox('getValue').trim()
     var tags = []
-    var member = $('#member').combobox('getValue').trim()
-    var attention = $('#attention').combobox('getValue').trim()
-    var region = $('#region').combobox('getValue').trim()
-    var zol = $('#zol').combobox('getValue').trim()
+    var members = $('#member').combobox('getValues')
+    var attentions = $('#attention').combobox('getValues')
+    var regions = $('#region').combobox('getValues')
+    var zols = $('#zol').combobox('getValues')
     var unitProperties = $('#unitProperties').textbox('getValue').trim()
     var equity = $('#equity').combobox('getValue').trim()
     var companyType = $('#companyType').combobox('getValue').trim()
 
     var industry = $('#industry').combobox('getValues')
-    var companyMarket = $('#companyMarket').textbox('getValue').trim()
+    var companyMarkets = $('#companyMarket').textbox('getValues')
     var business = $('#business').combobox('getValues')
     var highTech = $('#highTech').combobox('getValues')
     var businessArea = $('#businessArea').combobox('getValues')
     var segmentMarket = $('#segmentMarket').combobox('getValues')
     var advantages = $('#advantages').combobox('getValues')
-    if (!isEmpty(member)) tags.push(member)
-    if (!isEmpty(attention)) tags.push(attention)
-    if (!isEmpty(region)) tags.push(region)    
-    if (!isEmpty(zol)) tags.push(zol) 
+    if (!isEmpty(members)) tags.concat(member)
+    if (!isEmpty(attentions)) tags.concat(attention)
+    if (!isEmpty(regions)) tags.concat(region)    
+    if (!isEmpty(zols)) tags.concat(zol) 
     if (!isEmpty(unitProperties)) tags.push(unitProperties) 
     if (!isEmpty(equity)) tags.push(equity) 
     if (!isEmpty(companyType)) tags.push(companyType) 
     if (!isEmpty(industry)) tags = tags.concat(industry) 
-    if (!isEmpty(companyMarket)) tags.push(companyMarket) 
-    if (!isEmpty(business)) tags = tags.concat(business) 
+    if (!isEmpty(companyMarkets)) tags.concat(companyMarket) 
+    if (!isEmpty(business)) tags = tags.concat(business)
     if (!isEmpty(highTech)) tags = tags.concat(highTech) 
     if (!isEmpty(businessArea)) tags = tags.concat(businessArea) 
     if (!isEmpty(segmentMarket)) tags = tags.concat(segmentMarket) 
@@ -836,13 +836,91 @@ $(function() {
             el.find('input.combobox-checkbox')._propAttr('checked', false);
         }
     });
-    //上市公司
-    // $('#companyMarker').combobox({
-    //     valueField: 'id', 
-    //     textField: 'name',
-    //     panelHeight:'auto', 
-    //     limitToList: false
-    // });
+    $('#member').combobox({
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    $('#attention').combobox({
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    $('#region').combobox({
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    $('#zol').combobox({
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    $('#companyMarket').combobox({
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
     //主营业务
     $('#business').combobox({
         // valueField: 'id', 
