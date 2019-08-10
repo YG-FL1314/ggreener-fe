@@ -263,7 +263,6 @@ function addContact() {
                     $.messager.alert('公司','添加联系人成功!','info');
                     $('#addContact').window('close')
                     $('#contact').datagrid('loadData', listContacts(COMPANY_ID))
-                    $('#chatOthers').datagrid('loadData', listContacts(COMPANY_ID))
                 } else {
                     $.messager.alert('公司',data.message,'error');
                 }
@@ -395,7 +394,6 @@ function updateContact() {
                 $.messager.alert('企业','更新联系人成功!','info');
                 $('#updateContact').window('close')
                 $('#contact').datagrid('loadData', listContacts(COMPANY_ID))
-                $('#chatOthers').datagrid('loadData', listContacts(COMPANY_ID))
             } else {
                 $.messager.alert('企业',data.message,'error');
             }
@@ -1917,6 +1915,7 @@ function initChatInfo() {
         panelHeight:'auto', 
         limitToList: true,
         multiple: true,
+        data: listContacts(COMPANY_ID),
         formatter: function (row) {
             var opts = $(this).combobox('options');
             return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
