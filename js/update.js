@@ -2018,7 +2018,6 @@ function addProjectClick() {
     $('#projectPeople').combobox({
         valueField: 'id', 
         textField: 'contactName',
-        panelHeight:'auto', 
         limitToList: true,
         multiple: true,
         data: others,
@@ -2042,7 +2041,6 @@ function addProjectClick() {
     $('#projectOthers').combobox({
         valueField: 'id', 
         textField: 'contactName',
-        panelHeight:'auto', 
         limitToList: true,
         multiple: true,
         data: others,
@@ -2164,7 +2162,6 @@ function updateProjectClick() {
         $('#projectPeopleUpdate').combobox({
             valueField: 'id', 
             textField: 'contactName',
-            panelHeight:'auto', 
             limitToList: true,
             multiple: true,
             data: others,

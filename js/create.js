@@ -1872,7 +1872,6 @@ function initProjectInfo() {
     $('#projectName').combobox({
         valueField: 'id', 
         textField: 'name',
-        panelHeight:'auto', 
         limitToList: true,
         data: getAllProjects(),
         onSelect: function (row) {
@@ -1909,7 +1908,6 @@ function initProjectInfo() {
     $('#projectPeople').combobox({
         valueField: 'id', 
         textField: 'contactName',
-        panelHeight:'auto', 
         limitToList: true,
         multiple: true,
         data: others,
@@ -1933,7 +1931,6 @@ function initProjectInfo() {
     $('#projectOthers').combobox({
         valueField: 'id', 
         textField: 'contactName',
-        panelHeight:'auto', 
         limitToList: true,
         multiple: true,
         data: others,
