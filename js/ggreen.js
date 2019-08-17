@@ -1216,7 +1216,7 @@ window.onload = function () {
     getSyncTags('highTech', HIGH_TECHNOLOGY_FLAG)//
     getSyncTags('businessArea', BUSINESS_AREA_FLAG)
     getSyncTags('segmentMarket', SEGMENT_MARKET_FLAG)
-    getSyncTags('advantages', ADVANTAGES_FLAG
+    getSyncTags('advantages', ADVANTAGES_FLAG)
     getSyncTags('cooperation', COOPERATION_FLAG)
     var requires = []
     var tag1 = getTags(REQUIRE_BRAND_FLAG);
