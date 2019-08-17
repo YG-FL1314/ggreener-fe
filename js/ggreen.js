@@ -532,7 +532,8 @@ function searchCompanies(start, limit) {
     if (!isEmpty(highTech)) tags = tags.concat(highTech) 
     if (!isEmpty(businessArea)) tags = tags.concat(businessArea) 
     if (!isEmpty(segmentMarket)) tags = tags.concat(segmentMarket) 
-    if (!isEmpty(advantages)) tags = tags.concat(advantages)   
+    if (!isEmpty(advantages)) tags = tags.concat(advantages)  
+    if (!isEmpty(cooperation)) tags = tags.concat(cooperation) 
     $.ajax({
         url: "/company/list",
         xhrFields:{
