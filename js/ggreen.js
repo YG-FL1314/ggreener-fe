@@ -507,6 +507,8 @@ function searchCompanies(start, limit) {
     var businessArea = $('#businessArea').combobox('getValues')
     var segmentMarket = $('#segmentMarket').combobox('getValues')
     var advantages = $('#advantages').combobox('getValues')
+    var requires = $('#requirements').combobox('getValues')
+
     if (!isEmpty(members)) tags = tags.concat(members)
     if (!isEmpty(attentions)) tags = tags.concat(attentions)
     if (!isEmpty(regions)) tags = tags.concat(regions)    
@@ -532,6 +534,7 @@ function searchCompanies(start, limit) {
         data: JSON.stringify({
           "name": name,
           "tags": tags,
+          "requires": requires,
           "start": start,
           "limit": limit
         }),
@@ -1036,6 +1039,24 @@ $(function() {
             el.find('input.combobox-checkbox')._propAttr('checked', false);
         }
     });
+    //单位优势
+    $('#requirements').combobox({
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
     $('#companys').datagrid({
         striped: true,
         onDblClickRow: function(rowIndex, rowData) {  
@@ -1187,7 +1208,18 @@ window.onload = function () {
     getSyncTags('businessArea', BUSINESS_AREA_FLAG)
     getSyncTags('segmentMarket', SEGMENT_MARKET_FLAG)
     getSyncTags('advantages', ADVANTAGES_FLAG)
-
+    var requires = []
+    var tag1 = getTags(REQUIRE_BRAND_FLAG);
+    var tag2 = getTags(REQUIRE_RESOURCE_FLAG);
+    var tag3 = getTags(REQUIRE_FINANCE_FLAG);
+    var tag4 = getTags(REQUIRE_ABILITY_FLAG);
+    var tag5 = getTags(REQUIRE_INTERNATION_FLAG);
+    var tag6 = getTags(REQUIRE_STANDARD_FLAG);
+    var tag7 = getTags(REQUIRE_INDENTIFACTION_FLAG);
+    var tag8 = getTags(REQUIRE_CONSULT_FLAG);
+    var tag9 = getTags(REQUIRE_OTHER_FLAG);
+    var requires = requires.concat(tag1).concat(tag2).concat(tag3).concat(tag4).concat(tag5).concat(tag6).concat(tag7).concat(tag8).concat(tag9)
+    $('#requirements').combobox('loadData', requires)
     $('#tt').tabs({
         onSelect: function(title,index) {
             if (title == "项目管理") {
