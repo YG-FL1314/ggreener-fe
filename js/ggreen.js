@@ -516,6 +516,7 @@ function searchCompanies(start, limit) {
     var businessArea = $('#businessArea').combobox('getValues')
     var segmentMarket = $('#segmentMarket').combobox('getValues')
     var advantages = $('#advantages').combobox('getValues')
+    var cooperation = $('#cooperation').combobox('getValues')
     var requires = $('#requirements').combobox('getValues')
 
     if (!isEmpty(members)) tags = tags.concat(members)
@@ -1050,6 +1051,24 @@ $(function() {
     });
     //单位优势
     $('#requirements').combobox({
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    //单位优势
+    $('#cooperation').combobox({
         formatter: function (row) {
             var opts = $(this).combobox('options');
             return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
