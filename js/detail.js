@@ -103,6 +103,7 @@ function updateCompany() {
     var utilityPatents = $('#utilityPatents').textbox('getValue').trim()
     var softwares = $('#softwares').textbox('getValue').trim()
     var advantages = $('#advantages').combobox('getValues')
+    var cooperation = $('#cooperation').combobox('getValues')
     var staffNumber = $('#staffNumber').textbox('getValue').trim()
     var technicians = $('#technicians').textbox('getValue').trim()
     var officeArea = $('#officeArea').textbox('getValue').trim()
@@ -138,7 +139,8 @@ function updateCompany() {
             "patents": patents,
             "utilityPatents": utilityPatents,
             "softwares": softwares,
-            "advantages": advantages,
+            "advantages": advantages
+            "cooperation": cooperation,
             "staffNumber": staffNumber,
             "technicians": technicians,
             "officeArea": officeArea,
@@ -537,6 +539,7 @@ function getCompanyDetail(companyId) {
                 $('#utilityPatents').textbox('setValue', data.obj.utilityPatents)
                 $('#softwares').textbox('setValue', data.obj.softwares)
                 $('#advantages').combobox('setValues', data.obj.advantages == null ? [] : data.obj.advantages)
+                $('#cooperation').combobox('setValues', data.obj.cooperation == null ? [] : data.obj.cooperation)
                 $('#staffNumber').numberbox('setValue', data.obj.staffNumber)
                 $('#technicians').numberbox('setValue', data.obj.technicians)
                 $('#officeArea').numberbox('setValue', data.obj.officeArea)
@@ -1486,6 +1489,7 @@ function initCompanyInfo() {
     getSyncTags('segmentMarket', SEGMENT_MARKET_FLAG)
     getSyncTags('advantages', ADVANTAGES_FLAG)
     getSyncTags('techProduct', TECHNOLOGY_PRODUCT_FLAG)
+    getSyncTags('cooperation', COOPERATION_FLAG)
 
     $('#highTech').combobox({
         formatter: function (row) {
@@ -1578,6 +1582,23 @@ function initCompanyInfo() {
     });
 
     $('#advantages').combobox({
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
+    $('#cooperation').combobox({
         formatter: function (row) {
             var opts = $(this).combobox('options');
             return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]

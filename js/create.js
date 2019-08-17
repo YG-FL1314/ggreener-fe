@@ -101,6 +101,7 @@ function addCompany() {
     var utilityPatents = $('#utilityPatents').textbox('getValue').trim()
     var softwares = $('#softwares').textbox('getValue').trim()
     var advantages = $('#advantages').combobox('getValues')
+    var cooperation = $('#cooperation').combobox('getValues')
     var staffNumber = $('#staffNumber').textbox('getValue').trim()
     var technicians = $('#technicians').textbox('getValue').trim() 
     var officeArea = $('#officeArea').textbox('getValue').trim() 
@@ -124,6 +125,7 @@ function addCompany() {
     if (!isEmpty(businessArea)) tags = tags.concat(businessArea) 
     if (!isEmpty(segmentMarket)) tags = tags.concat(segmentMarket) 
     if (!isEmpty(advantages)) tags = tags.concat(advantages)   
+    if (!isEmpty(cooperation)) tags = tags.concat(cooperation)   
 
     $.ajax({
         type:'post',
@@ -2188,21 +2190,7 @@ $(function() {
             el.find('input.combobox-checkbox')._propAttr('checked', false);
         }
     });
-
-    // $('#techProduct').combobox({
-    //     valueField: 'id', 
-    //     textField: 'name',
-    //     panelHeight:'auto', 
-    //     limitToList: false,
-    //     data: getTags(TECHNOLOGY_PRODUCT_FLAG)
-    // });
     $('#advantages').combobox({
-        // valueField: 'id', 
-        // textField: 'name',
-        // panelHeight:'auto', 
-        // limitToList: false,
-        // multiple: true,
-        // data: getTags(ADVANTAGES_FLAG),
         formatter: function (row) {
             var opts = $(this).combobox('options');
             return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
@@ -2219,13 +2207,23 @@ $(function() {
             el.find('input.combobox-checkbox')._propAttr('checked', false);
         }
     });
-    // $('#member').combobox({
-    //     valueField: 'id', 
-    //     textField: 'name',
-    //     panelHeight:'auto', 
-    //     limitToList: false,
-    //     data: getTags(MEMBER_FLAG)
-    // });
+    $('#cooperation').combobox({
+        formatter: function (row) {
+            var opts = $(this).combobox('options');
+            return '<input type="checkbox" class="combobox-checkbox">' + row[opts.textField]
+        },
+        onSelect: function (row) {
+            //console.log(row);
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', true);
+        },
+        onUnselect: function (row) {
+            var opts = $(this).combobox('options');
+            var el = opts.finder.getEl(this, row[opts.valueField]);
+            el.find('input.combobox-checkbox')._propAttr('checked', false);
+        }
+    });
     $('#requireBrand').combobox({
         formatter: function (row) {
             var opts = $(this).combobox('options');
@@ -2387,6 +2385,7 @@ window.onload = function () {
     getSyncTags('businessArea', BUSINESS_AREA_FLAG)
     getSyncTags('segmentMarket', SEGMENT_MARKET_FLAG)
     getSyncTags('advantages', ADVANTAGES_FLAG)
+    getSyncTags('cooperation', COOPERATION_FLAG)
     getSyncTags('techProduct', TECHNOLOGY_PRODUCT_FLAG)
     getSyncTags('member', MEMBER_FLAG)
 

@@ -127,6 +127,15 @@ function getSyncTags(id, parentId) {
                 }
                 itemIndex++;
             } 
+            if (id == 'cooperation') {
+                items[itemIndex] = {
+                    id: parentId,
+                    name: '所有合作单位',
+                    parent: 0,
+                    order: 0 
+                }
+                itemIndex++;
+            } 
             $.each(data.obj,function(idx,item){ 
                 var parent = convertIdToName(item.parentId)
                 items[itemIndex] = {
@@ -1207,7 +1216,8 @@ window.onload = function () {
     getSyncTags('highTech', HIGH_TECHNOLOGY_FLAG)//
     getSyncTags('businessArea', BUSINESS_AREA_FLAG)
     getSyncTags('segmentMarket', SEGMENT_MARKET_FLAG)
-    getSyncTags('advantages', ADVANTAGES_FLAG)
+    getSyncTags('advantages', ADVANTAGES_FLAG
+    getSyncTags('cooperation', COOPERATION_FLAG)
     var requires = []
     var tag1 = getTags(REQUIRE_BRAND_FLAG);
     var tag2 = getTags(REQUIRE_RESOURCE_FLAG);

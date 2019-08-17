@@ -31,6 +31,7 @@ const REQUIRE_INDENTIFACTION_FLAG = 167
 const REQUIRE_CONSULT_FLAG = 168
 const REQUIRE_OTHER_FLAG = 169
 const PROJECT_TYPE_FLAG = 200
+const COOPERATION_FLAG = 220
 
 const PARENT_NAME = '一级标签'
 const MEMBER_NAME = '会员等级'
@@ -61,6 +62,7 @@ const REQUIRE_INDENTIFACTION_NAME = '认证需求'
 const REQUIRE_CONSULT_NAME = '咨询服务'
 const REQUIRE_OTHER_NAME = '其他需求'
 const PROJECT_TYPE_NAME = '项目类型'
+const COOPERATION_NAME = '合作单位'
 
 $.messager.defaults.ok = "确认"
 $.messager.defaults.cancel = "取消"
@@ -155,6 +157,9 @@ function convertIdToName(parentId) {
       break;
     case 200:
       name = PROJECT_TYPE_NAME
+      break;
+    case 220:
+      name = COOPERATION_NAME
       break;
     default:
       name = ""
