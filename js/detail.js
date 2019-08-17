@@ -139,7 +139,7 @@ function updateCompany() {
             "patents": patents,
             "utilityPatents": utilityPatents,
             "softwares": softwares,
-            "advantages": advantages
+            "advantages": advantages,
             "cooperation": cooperation,
             "staffNumber": staffNumber,
             "technicians": technicians,
