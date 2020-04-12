@@ -18,7 +18,8 @@ $(document).keypress(function(e) {  
         var opts = $('#companys').datagrid('options');
         var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
         var limit = start + parseInt(opts.pageSize); 
-        $('#companys').datagrid('loadData', searchCompanies(start, limit))
+        //$('#companys').datagrid('loadData', searchCompanies(start, limit))
+        $("#companys").datagrid('getPager').pagination('select', opts.pageNumber);
     }  
 });
 
@@ -494,7 +495,8 @@ function searchClick() {
     var opts = $('#companys').datagrid('options');
     var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
     var limit = start + parseInt(opts.pageSize); 
-    $('#companys').datagrid('loadData', searchCompanies(start, limit))
+    //$('#companys').datagrid('loadData', searchCompanies(start, limit))
+    $("#companys").datagrid('getPager').pagination('select', opts.pageNumber);
 }
 
 function searchCompanies(start, limit) {
@@ -628,7 +630,8 @@ function deleteCompany() {
                             var opts = $('#companys').datagrid('options');
                             var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
                             var limit = start + parseInt(opts.pageSize); 
-                            $('#companys').datagrid('loadData', searchCompanies(start, limit))
+                            //$('#companys').datagrid('loadData', searchCompanies(start, limit))
+                            $("#companys").datagrid('getPager').pagination('select', opts.pageNumber);
                         } else if (data.status == 2) {
                             window.location.href = data.message;
                         } else {
@@ -1104,6 +1107,9 @@ $(function() {
         'showPageInfo': true,
         onSelectPage: function(pageNum, pageSize) {
             $('#companys').datagrid('loadData', searchCompanies((pageNum - 1) * pageSize, pageSize))
+            $('#companys').datagrid('getPager').pagination('refresh',{
+            	pageNumber: pageNum
+            });
         }
     });
     $('#companys').datagrid('getPanel').removeClass('panel-body').addClass('ggreen-body');
@@ -1277,7 +1283,8 @@ window.onload = function () {
                 var opts = $('#companys').datagrid('options');
                 var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
                 var limit = start + parseInt(opts.pageSize); 
-                $('#companys').datagrid('loadData', searchCompanies(start, limit)) 
+                //$('#companys').datagrid('loadData', searchCompanies(start, limit))
+                $("#companys").datagrid('getPager').pagination('select', opts.pageNumber);
             } else if (title == "用户管理") {
                 $('#users').datagrid('loadData', getListUsers())
             } else if (title == "标签管理") {
