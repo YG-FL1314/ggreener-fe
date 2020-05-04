@@ -40,42 +40,62 @@
             		<a id="addCompany" href="#" class="easyui-linkbutton" onclick="createCompany()" data-options="iconCls:'icon-add'" style="width:26%;margin-left:20px;">新增企业</a>
             		<div style="margin-top:20px">
 						<select id="member" class="easyui-combobox" label="会员级别：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true" labelAlign="right">	
-						</select>					
+						</select>
+						<select id="memberStatus" class="easyui-combobox" label="会员状态：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true" labelAlign="right">
+						</select>
 						<select id="attention" class="easyui-combobox" label="关注等级：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true" labelAlign="right">	
-						</select>					
-						<select id="region" class="easyui-combobox" label="所在地区：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',limitToList:false,multiple:true" labelAlign="right">
-						</select>	
-						<select id="zol" class="easyui-combobox" label="中关村：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',limitToList:false,multiple:true" labelAlign="right">
-						</select>						
-						<select id="unitProperties" class="easyui-combobox" label="单位性质：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true" labelAlign="right"> 
-						</select>								
+						</select>
+						<select id="normalService" class="easyui-combobox" label="日常服务：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false" labelAlign="right">
+						</select>
+						<select id="abutment" class="easyui-combobox" label="深度对接：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false" labelAlign="right">
+						</select>
 					</div>
-            		<div style="margin-top:20px"> 
-						<select id="equity" class="easyui-combobox" label="出资方式：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false" labelAlign="right">
-						</select>				
+            		<div style="margin-top:20px">
+						<select id="region" class="easyui-combobox" label="所在地区：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',limitToList:false,multiple:true" labelAlign="right">
+						</select>
+						<select id="unitProperties" class="easyui-combobox" label="单位性质：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true" labelAlign="right">
+						</select>
 						<select id="companyType" class="easyui-combobox" label="单位类型：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false" labelAlign="right">
 						</select>
 						<select id="industry" class="easyui-combobox" label="所属行业：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',limitToList:false,multiple:true" labelAlign="right">
-						</select>
-						<select id="companyMarket" class="easyui-combobox" label="上市公司：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true" labelAlign="right">
 						</select>
 						<select id="business" class="easyui-combobox" label="主营业务：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',limitToList:false,multiple:true" labelAlign="right">
 						</select>
 					</div>
 					<div style="margin-top:20px">
-						<select id="highTech" class="easyui-combobox" label="高新技术：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true" labelAlign="right">
-						</select>
 						<select id="businessArea" class="easyui-combobox" label="业务领域：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',limitToList:false,multiple:true" labelAlign="right">
 						</select>
 						<select id="segmentMarket" class="easyui-combobox" label="细分市场：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',limitToList:false,multiple:true" labelAlign="right">
+						</select>
+						<select id="techProduct" class="easyui-combobox" label="技术产品：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false" labelAlign="right">
+						</select>
+						<select id="highTech" class="easyui-combobox" label="高新技术：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true" labelAlign="right">
+						</select>
+						<select id="zol" class="easyui-combobox" label="中关村：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',limitToList:false,multiple:true" labelAlign="right">
+						</select>
+					</div>
+					<div style="margin-top:20px">
+						<select id="income" class="easyui-combobox" label="年收入额：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:false" labelAlign="right">
+						</select>
+						<select id="profit" class="easyui-combobox" label="年利润额：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:false" labelAlign="right">
+						</select>
+						<select id="totalAssets" class="easyui-combobox" label="资产总额：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false" labelAlign="right">
+						</select>
+						<select id="totalProjects" class="easyui-combobox" label="累计项目：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:false" labelAlign="right">
+						</select>
+						<select id="staffNumber" class="easyui-combobox" label="员工人数：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:false" labelAlign="right">
+						</select>
+					</div>
+					<div style="margin-top:20px">
+						<select id="companyMarket" class="easyui-combobox" label="上市公司：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true" labelAlign="right">
 						</select>
 						<select id="advantages" class="easyui-combobox" label="单位优势：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true" labelAlign="right">
 						</select>
 						<select id="requirements" class="easyui-combobox" label="需求信息：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',limitToList:false,multiple:true" labelAlign="right">
 						</select>
-					</div>
-					<div style="margin-top:20px">
-						<select id="cooperation" class="easyui-combobox" label="合作单位：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',limitToList:false,multiple:true" labelAlign="right">
+						<select id="cooperation" class="easyui-combobox" label="合作单位：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:true" labelAlign="right">
+						</select>
+						<select id="cooperationInfo" class="easyui-combobox" label="合作信息：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false" labelAlign="right">
 						</select>
 					</div>
 					<div style="margin-top:20px">
@@ -107,7 +127,14 @@
 		        	</div>
 		        </div>
 		        <div title="项目管理" style="padding:20px">
-		            <table id="projects" style="width:100%;height:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationProject',rownumbers:true,remoteSort:false, sortName:'startDate', sortOrder:'desc'">
+					<div style="margin-bottom:20px">
+						<select id="searchProjectType" class="easyui-combobox" label="项目类型：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:false" labelAlign="right">
+						</select>
+						<input id="searchStartDate" class="easyui-datebox" label="开始时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:220px;" labelAlign="right">
+						<input id="searchEndDate" class="easyui-datebox" label="结束时间：" labelPosition="left" data-options="formatter:dateFormatter,parser:dateParser,closeText:'关闭',currentText:'今天'" style="width:220px;" labelAlign="right">
+						<a id="searchProjects" href="#" class="easyui-linkbutton" onclick="searchProjects()" data-options="iconCls:'icon-search'" style="width:36%;margin-left:20px;">项目查询</a>
+					</div>
+					<table id="projects" style="width:100%;height:100%" class="easyui-datagrid" singleSelect="true" data-options="toolbar:'#operationProject',rownumbers:true">
 		            	<thead>
 				            <tr>
 				                <th field="projectName" align="left" halign="center" width="35%">项目名称</th>
@@ -124,6 +151,7 @@
 				        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="$('#addProject').window('open')" plain="true">增加</a>
 				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="updateProjectClick()">修改</a>
 				        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteProject()">删除</a>
+						<a id="projectInfo" style="float: right"></a>
 				    </div>
 				     <div id="addProject" class="easyui-window" title="新增项目" data-options="closed:true,iconCls:'icon-save',minimizable:false,maximizable:false" style="width:500px;height:420px;padding:5px;">
 			        	<div style="text-align:center;margin-top:10px;">
@@ -149,7 +177,7 @@
 		                	 <a href="#" class="easyui-linkbutton" onclick="$('#addProject').window('close')" style="text-align:center;width:20%;margin-left:20px;">取消</a>
 		                </div>
 				    </div>
-				    <div id="updateProject" class="easyui-window" title="修改项目" data-options="closed:true,iconCls:'icon-save',minimizable:false,maximizable:false" style="width:500px;height:450px;padding:5px;">
+				     <div id="updateProject" class="easyui-window" title="修改项目" data-options="closed:true,iconCls:'icon-save',minimizable:false,maximizable:false" style="width:500px;height:450px;padding:5px;">
 				    	<div style="text-align:center;margin-top:10px;">
 			        		<input id="projectId" class="easyui-textbox" label="项目ID：" labelPosition="before" style="width:380px;" disabled="true" labelAlign="right">
 			        	</div>

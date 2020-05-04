@@ -82,50 +82,140 @@ function addCompany() {
     var tags = []
     var name = $('#name').textbox('getValue').trim()
     var attention = $('#attention').combobox('getValue').trim()
+    var normalService = $('#normalService').combobox('getValue').trim()
+    var abutment = $('#abutment').combobox('getValue').trim()
+
     var region = $('#region').combobox('getValue').trim()
-    var zol = $('#zol').combobox('getValue').trim()
     var unitProperties = $('#unitProperties').combobox('getValue').trim()
     var createTime = $('#createTime').datebox('getValue').trim()
     var register = $('#register').textbox('getValue').trim()
     var equity = $('#equity').combobox('getValue').trim()
-    var highTech = $('#highTech').combobox('getValues')
-    var companyMarket = $('#companyMarket').combobox('getValue').trim()
-    var sharesCode = $('#sharesCode').textbox('getValue').trim()
+
     var companyTypes = $('#companyTypes').combobox('getValue').trim()
     var industries = $('#industries').combobox('getValues')
     var business = $('#business').combobox('getValues')
     var businessArea = $('#businessArea').combobox('getValues')
     var segmentMarket = $('#segmentMarket').combobox('getValues')
+
     var techProduct = $('#techProduct').combobox('getValue').trim()
-    var patents = $('#patents').textbox('getValue').trim()
-    var utilityPatents = $('#utilityPatents').textbox('getValue').trim()
+    var utilityPatents = $('#utilityPatents').numberbox('getValue').trim()
     var softwares = $('#softwares').textbox('getValue').trim()
+    var highTech = $('#highTech').combobox('getValues')
+    var zol = $('#zol').combobox('getValue').trim()
+
+    var income = $('#income').textbox('getValue').trim()
+    var profit = $('#profit').textbox('getValue').trim()
+    var totalAssets = $('#totalAssets').textbox('getValue').trim()
+    var totalProjects = $('#totalProjects').textbox('getValue')
+    var staffNumber = $('#staffNumber').textbox('getValue').trim()
+
+    var companyMarket = $('#companyMarket').combobox('getValue').trim()
+    var credit = $('#credit').combobox('getValues')
+    var sharesCode = $('#sharesCode').textbox('getValue').trim()
     var advantages = $('#advantages').combobox('getValues')
     var cooperation = $('#cooperation').combobox('getValues')
-    var staffNumber = $('#staffNumber').textbox('getValue').trim()
-    var technicians = $('#technicians').textbox('getValue').trim() 
-    var officeArea = $('#officeArea').textbox('getValue').trim() 
+
     var products = $('#products').textbox('getValue').trim()
+    var honor = $('#honor').textbox('getValue').trim()
+    var brief = $('#brief').textbox('getValue').trim()
+
     var telephone = $('#companyPhone').textbox('getValue').trim()
     var fax = $('#companyFax').textbox('getValue').trim()
     var website = $('#companyWebsite').textbox('getValue').trim()
     var address = $('#companyAddress').textbox('getValue').trim()
-    var honor = $('#honor').textbox('getValue').trim()
-    var brief = $('#brief').textbox('getValue').trim()
+
     if (!isEmpty(attention)) tags.push(attention)
-    if (!isEmpty(region)) tags.push(region)    
-    if (!isEmpty(zol)) tags.push(zol) 
-    if (!isEmpty(unitProperties)) tags.push(unitProperties) 
-    if (!isEmpty(equity)) tags.push(equity) 
-    if (!isEmpty(companyTypes)) tags.push(companyTypes) 
-    if (!isEmpty(industries)) tags = tags.concat(industries) 
-    if (!isEmpty(companyMarket)) tags.push(companyMarket) 
-    if (!isEmpty(business)) tags = tags.concat(business) 
-    if (!isEmpty(highTech)) tags = tags.concat(highTech) 
-    if (!isEmpty(businessArea)) tags = tags.concat(businessArea) 
-    if (!isEmpty(segmentMarket)) tags = tags.concat(segmentMarket) 
-    if (!isEmpty(advantages)) tags = tags.concat(advantages)   
-    if (!isEmpty(cooperation)) tags = tags.concat(cooperation)   
+    if (!isEmpty(normalService)) tags.push(normalService)
+    if (!isEmpty(abutment)) tags.push(abutment)
+
+    if (!isEmpty(region)) tags.push(region)
+    if (!isEmpty(unitProperties)) tags.push(unitProperties)
+    if (!isEmpty(equity)) tags.push(equity)
+    if (!isEmpty(companyTypes)) tags.push(companyTypes)
+    if (!isEmpty(industries)) tags = tags.concat(industries)
+    if (!isEmpty(business)) tags = tags.concat(business)
+    if (!isEmpty(businessArea)) tags = tags.concat(businessArea)
+    if (!isEmpty(segmentMarket)) tags = tags.concat(segmentMarket)
+    if (!isEmpty(techProduct)) tags.push(techProduct)
+    if (!isEmpty(zol)) tags.push(zol)
+    if (!isEmpty(highTech)) tags = tags.concat(highTech)
+
+    if (!isEmpty(companyMarket)) tags.push(companyMarket)
+    if (!isEmpty(advantages)) tags = tags.concat(advantages)
+    if (!isEmpty(cooperation)) tags = tags.concat(cooperation)
+    if (!isEmpty(credit)) tags = tags.concat(credit)
+
+    if (utilityPatents <= 0) {
+        tags = tags.concat(UTILITY_PATENTS_ZERO)
+    } else if (utilityPatents <= 10) {
+        tags = tags.concat(UTILITY_PATENTS_TEN)
+    } else if (utilityPatents <= 50) {
+        tags = tags.concat(UTILITY_PATENTS_FIFTY)
+    } else if (utilityPatents <= 100) {
+        tags = tags.concat(UTILITY_PATENTS_HUNDRED)
+    } else {
+        tags = tags.concat(UTILITY_PATENTS_MORE_HUNDRED)
+    }
+
+    if (income <= 1000) {
+        tags = tags.concat(INCOME_1000)
+    } else if (income <= 5000) {
+        tags = tags.concat(INCOME_5000)
+    } else if (income <= 10000) {
+        tags = tags.concat(INCOME_10000)
+    } else if (income <= 50000) {
+        tags = tags.concat(INCOME_50000)
+    } else {
+        tags = tags.concat(INCOME_MORE_50000)
+    }
+
+    if (profit <= 500) {
+        tags = tags.concat(PROFIT_500)
+    } else if (profit <= 1000) {
+        tags = tags.concat(PROFIT_1000)
+    } else if (profit <= 5000) {
+        tags = tags.concat(PROFIT_5000)
+    } else if (profit <= 10000) {
+        tags = tags.concat(PROFIT_10000)
+    } else {
+        tags = tags.concat(PROFIT_MORE_10000)
+    }
+
+    if (totalAssets <= 1000) {
+        tags = tags.concat(TOTAL_ASSETS_1000)
+    } else if (totalAssets <= 5000) {
+        tags = tags.concat(TOTAL_ASSETS_5000)
+    } else if (totalAssets <= 10000) {
+        tags = tags.concat(TOTAL_ASSETS_10000)
+    } else if (totalAssets <= 100000) {
+        tags = tags.concat(TOTAL_ASSETS_100000)
+    } else {
+        tags = tags.concat(TOTAL_ASSETS_MORE_100000)
+    }
+
+    if (totalProjects <= 10) {
+        tags = tags.concat(TOTAL_PROJECTS_10)
+    } else if (totalProjects <= 50) {
+        tags = tags.concat(TOTAL_PROJECTS_50)
+    } else if (totalProjects <= 100) {
+        tags = tags.concat(TOTAL_PROJECTS_100)
+    } else if (totalProjects <= 200) {
+        tags = tags.concat(TOTAL_PROJECTS_200)
+    } else {
+        tags = tags.concat(TOTAL_PROJECTS_MORE_200)
+    }
+
+    if (staffNumber <= 50) {
+        tags = tags.concat(STAFF_NUMBER_50)
+    } else if (staffNumber <= 100) {
+        tags = tags.concat(STAFF_NUMBER_100)
+    } else if (staffNumber <= 500) {
+        tags = tags.concat(STAFF_NUMBER_500)
+    } else if (staffNumber <= 1000) {
+        tags = tags.concat(STAFF_NUMBER_1000)
+    } else {
+        tags = tags.concat(STAFF_NUMBER_MORE_1000)
+    }
 
     $.ajax({
         type:'post',
@@ -142,19 +232,20 @@ function addCompany() {
           "establishedTime": createTime,
           "registeredCapital": register,
           "sharesCode": sharesCode,
-          "patents": patents,
           "utilityPatents": utilityPatents,
           "softwares": softwares,
-          "officeArea": officeArea,
           "staffNumber": staffNumber,
-          "technicians": technicians,
           "products": products,
           "telephone": telephone,
           "fax": fax,
           "website": website,
           "address": address,
           "honor": honor,
-          "brief": brief
+          "brief": brief,
+          "income": income,
+          "profit": profit,
+          "totalAssets": totalAssets,
+          "totalProjects": totalProjects
         }),
         dataType:'json', 
         contentType: 'application/json;charset=UTF-8',
@@ -1441,20 +1532,33 @@ function getProjects(companyId) {
                 window.location.href = data.message
             } 
             var items = []
-            $.each(data.obj,function(idx,item){ 
+            $.each(data.obj.list,function(idx,item){
                 items[idx] = {
                     id: item.id,
                     projectName: item.projectName,
                     projectType: item.projectType,
                     startDate: item.startDate,
                     endDate: item.endDate,
-                    projectOthers: item.others,   
-                    projectPeople: item.people,  
+                    projectOthers: item.others,
+                    projectPeople: item.people,
                     projectOwners: item.owners,
-                    projectAmount: item.amount           
+                    projectAmount: item.amount,
+                    projectRemark: item.remark
                 }
             })
-            result = items
+            var footer = [{
+                "projectOwners": "合作总金额",
+                "projectAmount": data.obj.money + "万元",
+                "projectOthers": "记录总数",
+                "projectPeople": data.obj.count
+            }]
+            result = {
+                "total": data.obj.count,
+                "rows": items,
+                "footer": footer
+            }
+            var projectInfoStr = '共计' + data.obj.count + '条记录，总金额' + data.obj.money + '万元'
+            document.getElementById("projectInfo").innerText = projectInfoStr;
         },
         error: function(){
             window.location.href="./login.html";
@@ -1623,6 +1727,7 @@ function addProject() {
         var projectPeople = $('#projectPeople').combobox('getText').trim()
         var projectOwners = $('#projectOwners').combobox('getText').trim()
         var projectAmount = $('#projectAmount').numberbox('getValue').trim()
+        var projectRemark = $('#projectRemark').numberbox('getValue').trim()
         $.ajax({
             type:'post',
             url: "/projectcompany/add",
@@ -1638,7 +1743,8 @@ function addProject() {
                 "people": projectPeople,
                 "others": projectOthers,
                 "owners": projectOwners,
-                "amount": projectAmount
+                "amount": projectAmount,
+                "remark": projectRemark
             }),
             dataType:'json', 
             contentType: 'application/json;charset=UTF-8',
@@ -1770,6 +1876,7 @@ function updateProjectClick() {
         $('#projectPeopleUpdate').textbox('setValue', row.projectPeople)
         $('#projectOwnersUpdate').textbox('setValue', row.projectOwners)
         $('#projectAmountUpdate').numberbox('setValue', row.projectAmount)
+        $('#projectRemarkUpdate').textbox('setValue', row.projectRemark)
         $('#updateProject').window('open') 
     }
 }
@@ -1784,6 +1891,7 @@ function updateProject() {
         var projectPeople = $('#projectPeopleUpdate').combobox('getText').trim()
         var projectOwners = $('#projectOwnersUpdate').combobox('getText').trim()
         var projectAmount = $('#projectAmountUpdate').numberbox('getValue').trim()
+        var projectRemark = $('#projectRemarkUpdate').numberbox('getValue').trim()
         $.ajax({
             type:'put',
             url: "/projectcompany/update",
@@ -1800,7 +1908,8 @@ function updateProject() {
                 "people": projectPeople,
                 "others": projectOthers,
                 "owners": projectOwners,
-                "amount": projectAmount
+                "amount": projectAmount,
+                "remark": projectRemark
             }),
             dataType:'json', 
             contentType: 'application/json;charset=UTF-8',
@@ -2024,7 +2133,6 @@ function initChatInfo() {
         }
     });
 }
-
 
 $(function() {
     // $('#region').combobox({
@@ -2388,6 +2496,9 @@ window.onload = function () {
     getSyncTags('cooperation', COOPERATION_FLAG)
     getSyncTags('techProduct', TECHNOLOGY_PRODUCT_FLAG)
     getSyncTags('member', MEMBER_FLAG)
+    getSyncTags('normalService', NORMAL_SERVICE_FLAG)
+    getSyncTags('abutment', ABUTMENT_FLAG)
+    getSyncTags('credit', CREDIT_FLAG)
 
     getSyncTags('requireBrand', REQUIRE_BRAND_FLAG)
     getSyncTags('requireResource', REQUIRE_RESOURCE_FLAG)

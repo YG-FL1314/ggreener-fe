@@ -495,47 +495,71 @@ function searchClick() {
     var opts = $('#companys').datagrid('options');
     var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
     var limit = start + parseInt(opts.pageSize); 
-    //$('#companys').datagrid('loadData', searchCompanies(start, limit))
-    $("#companys").datagrid('getPager').pagination('select', opts.pageNumber);
+    $('#companys').datagrid('loadData', searchCompanies(start, limit))
+    //$("#companys").datagrid('getPager').pagination('select', opts.pageNumber);
 }
 
 function searchCompanies(start, limit) {
     var result = {}
     var name = $('#name').textbox('getValue').trim()
     var tags = []
-    var members = $('#member').combobox('getValues')
-    var attentions = $('#attention').combobox('getValues')
-    var regions = $('#region').combobox('getValues')
-    var zols = $('#zol').combobox('getValues')
-    var unitProperties = $('#unitProperties').textbox('getValue')
-    var equity = $('#equity').combobox('getValue').trim()
-    var companyType = $('#companyType').combobox('getValue').trim()
 
+    var members = $('#member').combobox('getValues')
+    var memberStatus = $('#memberStatus').combobox('getValues')//alone
+    var attentions = $('#attention').combobox('getValues')
+    var normalServices = $('#normalService').combobox('getValues')
+    var abutments = $('#abutment').combobox('getValues')
+
+    var regions = $('#region').combobox('getValues')
+    var unitProperties = $('#unitProperties').textbox('getValue')
+    var companyType = $('#companyType').combobox('getValue').trim()
     var industry = $('#industry').combobox('getValues')
-    var companyMarkets = $('#companyMarket').combobox('getValues')
     var business = $('#business').combobox('getValues')
-    var highTech = $('#highTech').combobox('getValues')
+
     var businessArea = $('#businessArea').combobox('getValues')
     var segmentMarket = $('#segmentMarket').combobox('getValues')
+    var techProducts = $('#techProduct').combobox('getValues') //alone
+    var highTech = $('#highTech').combobox('getValues')
+    var zols = $('#zol').combobox('getValues')
+
+    var incomes = $('#income').combobox('getValue')
+    var profits = $('#profit').combobox('getValue')
+    var totalAssets = $('#totalAssets').combobox('getValue')
+    var totalProjects = $('#totalProjects').combobox('getValue')
+    var staffNumbers = $('#staffNumber').combobox('getValue')
+
+    var companyMarkets = $('#companyMarket').combobox('getValues')
     var advantages = $('#advantages').combobox('getValues')
     var cooperation = $('#cooperation').combobox('getValues')
     var requires = $('#requirements').combobox('getValues')
+    var cooperationInfos = $('#cooperationInfo').combobox('getValue') //alone
 
     if (!isEmpty(members)) tags = tags.concat(members)
     if (!isEmpty(attentions)) tags = tags.concat(attentions)
-    if (!isEmpty(regions)) tags = tags.concat(regions)    
-    if (!isEmpty(zols)) tags = tags.concat(zols) 
-    if (!isEmpty(unitProperties)) tags.push(unitProperties) 
-    if (!isEmpty(equity)) tags.push(equity) 
-    if (!isEmpty(companyType)) tags.push(companyType) 
-    if (!isEmpty(industry)) tags = tags.concat(industry) 
-    if (!isEmpty(companyMarkets)) tags = tags.concat(companyMarkets) 
+    if (!isEmpty(normalServices)) tags = tags.concat(normalServices)
+    if (!isEmpty(abutments)) tags = tags.concat(abutments)
+
+    if (!isEmpty(regions)) tags = tags.concat(regions)
+    if (!isEmpty(unitProperties)) tags.push(unitProperties)
+    if (!isEmpty(companyType)) tags.push(companyType)
+    if (!isEmpty(industry)) tags = tags.concat(industry)
     if (!isEmpty(business)) tags = tags.concat(business)
-    if (!isEmpty(highTech)) tags = tags.concat(highTech) 
-    if (!isEmpty(businessArea)) tags = tags.concat(businessArea) 
-    if (!isEmpty(segmentMarket)) tags = tags.concat(segmentMarket) 
-    if (!isEmpty(advantages)) tags = tags.concat(advantages)  
-    if (!isEmpty(cooperation)) tags = tags.concat(cooperation) 
+
+    if (!isEmpty(businessArea)) tags = tags.concat(businessArea)
+    if (!isEmpty(segmentMarket)) tags = tags.concat(segmentMarket)
+    if (!isEmpty(highTech)) tags = tags.concat(highTech)
+    if (!isEmpty(zols)) tags = tags.concat(zols)
+    if (!isEmpty(techProducts)) tags = tags.concat(techProducts)
+
+    if (!isEmpty(incomes)) tags = tags.concat(incomes)
+    if (!isEmpty(profits)) tags.push(profits)
+    if (!isEmpty(totalAssets)) tags.push(totalAssets)
+    if (!isEmpty(totalProjects)) tags = tags.concat(totalProjects)
+    if (!isEmpty(staffNumbers)) tags = tags.concat(staffNumbers)
+
+    if (!isEmpty(companyMarkets)) tags = tags.concat(companyMarkets)
+    if (!isEmpty(advantages)) tags = tags.concat(advantages)
+    if (!isEmpty(cooperation)) tags = tags.concat(cooperation)
     $.ajax({
         url: "/company/list",
         xhrFields:{
@@ -547,6 +571,8 @@ function searchCompanies(start, limit) {
         data: JSON.stringify({
           "name": name,
           "tags": tags,
+          "memberStatus": memberStatus,
+          "cooperationInfos": cooperationInfos,
           "requires": requires,
           "start": start,
           "limit": limit
@@ -608,6 +634,8 @@ function updateCompany() {
 
 function deleteCompany() {
     var row = $('#companys').datagrid('getSelected');
+    var pageNumber = $("#companys").datagrid('getPager').data("pagination").options.pageNumber;
+    var pageSize = $("#companys").datagrid('getPager').data("pagination").options.pageSize;
     if (!row) {
         $.messager.alert('企业','请先选择一个企业!','info'); 
     } else { 
@@ -627,11 +655,15 @@ function deleteCompany() {
                     success: function(data){
                         if (data.status == 0) {
                             $.messager.alert('企业','删除企业成功!','info');
-                            var opts = $('#companys').datagrid('options');
-                            var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
-                            var limit = start + parseInt(opts.pageSize); 
+
+                            var start = (pageNumber-1)*parseInt(pageSize);
+                            var limit = start + parseInt(pageSize);
+                            $('#companys').datagrid('loadData', searchCompanies(start, limit))
+                            $('#companys').datagrid('getPager').pagination('refresh',{
+                                pageNumber: pageNumber
+                            });
                             //$('#companys').datagrid('loadData', searchCompanies(start, limit))
-                            $("#companys").datagrid('getPager').pagination('select', opts.pageNumber);
+                            //$("#companys").datagrid('getPager').pagination('select', opts.pageNumber);
                         } else if (data.status == 2) {
                             window.location.href = data.message;
                         } else {
@@ -687,12 +719,31 @@ function addProject() {
             $.messager.alert('项目','添加项目失败!','error');
         }
     });
-} 
+}
+
+function searchProjects() {
+    getProjects();
+    $('#projects').datagrid('loadData', getProjects())
+}
 
 function getProjects() {
+    var projectType = $('#searchProjectType').combobox('getValue')
+    var startDate = $('#searchStartDate').datebox('getValue').trim()
+    var endDate = $('#searchEndDate').datebox('getValue').trim()
+    var urlParam = ""
+    if (!isEmpty(projectType)) {
+        urlParam += "&projectType=" + projectType
+    }
+    if (!isEmpty(startDate)) {
+        urlParam += "&startDate=" + startDate + " 00:00:00"
+    }
+    if (!isEmpty(endDate)) {
+        urlParam += "&endDate=" + endDate + " 23:59:59"
+    }
+    var url = "/project/list?a=1" + urlParam
     var result
     $.ajax({
-        url: "/project/list",
+        url: url,
         xhrFields:{
             withCredentials:true
         }, 
@@ -706,7 +757,7 @@ function getProjects() {
                 window.location.href = data.message
             } 
             var items = []
-            $.each(data.obj,function(idx,item){ 
+            $.each(data.obj.list,function(idx,item){
                 items[idx] = {
                     id: item.id,
                     projectName: item.name,
@@ -718,10 +769,22 @@ function getProjects() {
                     amount: item.amount                
                 }
             })
-            result = items
+            var footer = [{
+                "projectRemark": "合作总金额",
+                "amount": data.obj.money + "万元",
+                "startDate": "记录总数",
+                "endDate": data.obj.count
+            }]
+            result = {
+                "total": data.obj.count,
+                "rows": items,
+                "footer": footer
+            }
+            var projectInfoStr = '共计' + data.obj.count + '条记录，总金额' + data.obj.money + '万元'
+            document.getElementById("projectInfo").innerText = projectInfoStr;
         },
         error: function(){
-            window.location.href="./login.html";
+            //window.location.href="./login.html";
         }
     });
     return result
@@ -1092,7 +1155,7 @@ $(function() {
     $('#companys').datagrid({
         striped: true,
         onDblClickRow: function(rowIndex, rowData) {  
-            window.open("./detail.html?companyId=" + rowData.id)
+            window.open("./update.html?companyId=" + rowData.id)
         },
         // rowStyler: function(index,row){
         //     if (index % 2 == 0){
@@ -1229,19 +1292,42 @@ window.onload = function () {
     } else {
         hideUserTabs()
     }
-    getSyncTags('attention', ATTENTION_FLAG)//
-    getSyncTags('member', MEMBER_FLAG)//
+    getSyncTags('member', MEMBER_FLAG)
+    $('#memberStatus').combobox('loadData', [{
+        id: 1,
+        name: '有效期内',
+        parent: 633,
+        order: 1
+    },{
+        id: 2,
+        name: '即将到期',
+        parent: 633,
+        order: 2
+    },{
+        id: 3,
+        name: '已经过期',
+        parent: 633,
+        order: 3
+    }])
+    getSyncTags('attention', ATTENTION_FLAG)
+    getSyncTags('normalService', NORMAL_SERVICE_FLAG)
+    getSyncTags('abutment', ABUTMENT_FLAG)
     getSyncTags('region', REGION_FLAG)
-    getSyncTags('zol', ZOL_FLAG)//
     getSyncTags('unitProperties', UNIT_PROPERTIES_FLAG)
-    getSyncTags('equity', EQUITY_PARTICIPATION_FLAG)
     getSyncTags('companyType', COMPANY_TYPE_FLAG)
     getSyncTags('industry', INDUSTRIES_FLAG)
-    getSyncTags('companyMarket', COMPANY_MARKET_FLAG)//
     getSyncTags('business', BUSINESS_FLAG)
-    getSyncTags('highTech', HIGH_TECHNOLOGY_FLAG)//
     getSyncTags('businessArea', BUSINESS_AREA_FLAG)
     getSyncTags('segmentMarket', SEGMENT_MARKET_FLAG)
+    getSyncTags('techProduct', TECHNOLOGY_PRODUCT_FLAG)
+    getSyncTags('highTech', HIGH_TECHNOLOGY_FLAG)
+    getSyncTags('zol', ZOL_FLAG)
+    getSyncTags('income', INCOME_FLAG)
+    getSyncTags('profit', PROFIT_FLAG)
+    getSyncTags('totalAssets', TOTAL_ASSETS_FLAG)
+    getSyncTags('totalProjects', TOTAL_PROJECTS_FLAG)
+    getSyncTags('staffNumber', STAFF_NUMBER_FLAG)
+    getSyncTags('companyMarket', COMPANY_MARKET_FLAG)
     getSyncTags('advantages', ADVANTAGES_FLAG)
     getSyncTags('cooperation', COOPERATION_FLAG)
     var requires = []
@@ -1256,6 +1342,18 @@ window.onload = function () {
     var tag9 = getTags(REQUIRE_OTHER_FLAG);
     var requires = requires.concat(tag1).concat(tag2).concat(tag3).concat(tag4).concat(tag5).concat(tag6).concat(tag7).concat(tag8).concat(tag9)
     $('#requirements').combobox('loadData', requires)
+    $('#cooperationInfo').combobox('loadData', [{
+        id: 1,
+        name: '有',
+        parent: 100000,
+        order: 1
+    },{
+        id: 2,
+        name: '无',
+        parent: 100000,
+        order: 2
+    }])
+
     $('#tt').tabs({
         onSelect: function(title,index) {
             if (title == "项目管理") {
@@ -1263,6 +1361,13 @@ window.onload = function () {
                     valueField: 'id', 
                     textField: 'name',
                     panelHeight:'auto', 
+                    limitToList: false,
+                    data: getTags(PROJECT_TYPE_FLAG)
+                });
+                $('#searchProjectType').combobox({
+                    valueField: 'id',
+                    textField: 'name',
+                    panelHeight:'auto',
                     limitToList: false,
                     data: getTags(PROJECT_TYPE_FLAG)
                 });
@@ -1312,7 +1417,7 @@ window.onload = function () {
     });
     var opts = $('#companys').datagrid('options');
     var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
-    var limit = start + parseInt(opts.pageSize);  
+    var limit = parseInt(opts.pageSize);
     $('#companys').datagrid('loadData', searchCompanies(start, limit))
 }
 

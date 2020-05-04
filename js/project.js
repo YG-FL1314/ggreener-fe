@@ -62,7 +62,7 @@ function getCompanyByProject(projectId) {
                 window.location.href = data.message
             } 
             var items = []
-            $.each(data.obj,function(idx,item){ 
+            $.each(data.obj.list,function(idx,item){
                 items[idx] = {
                     id: item.id,
                     companyName: item.companyName,
@@ -90,7 +90,7 @@ window.onload = function () {
     $('#companies').datagrid({
         striped: true,
         onDblClickRow: function(rowIndex, rowData) {  
-            window.open("./detail.html?companyId=" + rowData.id)
+            window.open("./update.html?companyId=" + rowData.id)
         }
     })
     $('#projects').datagrid('loadData', getProject(PROJECT_ID))
