@@ -294,7 +294,9 @@ function getMember(companyId) {
                 if (!isEmpty(validityTime)) {
                     $('#validityTime').datebox('setValue', validityTime.substring(0,10))
                 }
-                $('#memberStatus').combobox('setValue', data.obj.status)
+                if (data.obj.status != '0') {
+                    $('#memberStatus').combobox('setValue', data.obj.status)
+                }
             } else {
                 $.messager.alert('企业',data.message,'error');
             }
@@ -309,6 +311,9 @@ function getMember(companyId) {
 function updateMember() {
     var memberCode = $('#memberCode').textbox('getValue').trim()
     var member = $('#member').combobox('getValue').trim()
+    if (isEmpty(member)) {
+        member = ""
+    }
     var joiningTime = $('#joiningTime').combobox('getValue')
     if (!isEmpty(joiningTime)) {
         joiningTime = joiningTime.substring(0,10)
@@ -1762,6 +1767,7 @@ function initMemberInfo() {
         parent: 633,
         order: 3
     }])
+     $('#memberStatus').combobox('disable');
 }
 
 function initContactInfo() {
@@ -2102,7 +2108,7 @@ function getAllProjects() {
                 window.location.href = data.message
             } 
             var items = []
-            $.each(data.obj,function(idx,item){ 
+            $.each(data.obj.list, function(idx,item){
                 items[idx] = {
                     id: item.id,
                     name: item.name               
