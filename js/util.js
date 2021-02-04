@@ -41,6 +41,7 @@ const TOTAL_ASSETS_FLAG = 602
 const TOTAL_PROJECTS_FLAG = 603
 const STAFF_NUMBER_FLAG = 604
 const CREDIT_FLAG = 599
+const TECH_CASE_FLAG = 654
 
 const PARENT_NAME = '一级标签'
 const MEMBER_NAME = '会员等级'
@@ -72,6 +73,7 @@ const REQUIRE_CONSULT_NAME = '咨询服务'
 const REQUIRE_OTHER_NAME = '其他需求'
 const PROJECT_TYPE_NAME = '项目类型'
 const COOPERATION_NAME = '合作单位'
+const TECH_CASE_NAME = '技术案例'
 
 $.messager.defaults.ok = "确认"
 $.messager.defaults.cancel = "取消"

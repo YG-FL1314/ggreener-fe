@@ -482,12 +482,16 @@ function logout() {
 
 function hideUserTabs() {
     $('#tt').tabs('getTab',"用户管理").panel('options').tab.hide();
-    $('#tt').tabs('getTab',"标签管理").panel('options').tab.hide();    
+    $('#tt').tabs('getTab',"标签管理").panel('options').tab.hide();
+	$('#topDeleteCompanyBtn').linkbutton('disable');
+	$('#bottomDeleteCompanyBtn').linkbutton('disable');    
 }
 
 function showUserTabs() {
     $('#tt').tabs('getTab',"用户管理").panel('options').tab.show();
     $('#tt').tabs('getTab',"标签管理").panel('options').tab.show(); 
+	$('#topDeleteCompanyBtn').linkbutton('enable'); 
+    $('#bottomDeleteCompanyBtn').linkbutton('enable');	 
 }
 
 function searchClick() {
@@ -526,7 +530,8 @@ function searchCompanies(start, limit) {
     var profits = $('#profit').combobox('getValue')
     var totalAssets = $('#totalAssets').combobox('getValue')
     var totalProjects = $('#totalProjects').combobox('getValue')
-    var staffNumbers = $('#staffNumber').combobox('getValue')
+    //var staffNumbers = $('#staffNumber').combobox('getValue')
+    var techCase = $('#techCase').combobox('getValue')
 
     var companyMarkets = $('#companyMarket').combobox('getValues')
     var advantages = $('#advantages').combobox('getValues')
@@ -555,7 +560,8 @@ function searchCompanies(start, limit) {
     if (!isEmpty(profits)) tags.push(profits)
     if (!isEmpty(totalAssets)) tags.push(totalAssets)
     if (!isEmpty(totalProjects)) tags = tags.concat(totalProjects)
-    if (!isEmpty(staffNumbers)) tags = tags.concat(staffNumbers)
+//    if (!isEmpty(staffNumbers)) tags = tags.concat(staffNumbers)
+    if (!isEmpty(techCase)) tags = tags.concat(techCase)
 
     if (!isEmpty(companyMarkets)) tags = tags.concat(companyMarkets)
     if (!isEmpty(advantages)) tags = tags.concat(advantages)
@@ -1152,6 +1158,7 @@ $(function() {
             el.find('input.combobox-checkbox')._propAttr('checked', false);
         }
     });
+
     $('#companys').datagrid({
         striped: true,
         onDblClickRow: function(rowIndex, rowData) {  
@@ -1330,6 +1337,7 @@ window.onload = function () {
     getSyncTags('companyMarket', COMPANY_MARKET_FLAG)
     getSyncTags('advantages', ADVANTAGES_FLAG)
     getSyncTags('cooperation', COOPERATION_FLAG)
+    getSyncTags('techCase', TECH_CASE_FLAG)
     var requires = []
     var tag1 = getTags(REQUIRE_BRAND_FLAG);
     var tag2 = getTags(REQUIRE_RESOURCE_FLAG);

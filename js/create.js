@@ -108,9 +108,10 @@ function addCompany() {
     var totalAssets = $('#totalAssets').textbox('getValue').trim()
     var totalProjects = $('#totalProjects').textbox('getValue')
     var staffNumber = $('#staffNumber').textbox('getValue').trim()
+    var techCase = $('#techCase').combobox('getValue')
 
     var companyMarket = $('#companyMarket').combobox('getValue').trim()
-    var credit = $('#credit').combobox('getValues')
+    //var credit = $('#credit').combobox('getValues')
     var sharesCode = $('#sharesCode').textbox('getValue').trim()
     var advantages = $('#advantages').combobox('getValues')
     var cooperation = $('#cooperation').combobox('getValues')
@@ -139,11 +140,12 @@ function addCompany() {
     if (!isEmpty(techProduct)) tags.push(techProduct)
     if (!isEmpty(zol)) tags.push(zol)
     if (!isEmpty(highTech)) tags = tags.concat(highTech)
+    if (!isEmpty(techCase)) tags.push(techCase)
 
     if (!isEmpty(companyMarket)) tags.push(companyMarket)
     if (!isEmpty(advantages)) tags = tags.concat(advantages)
     if (!isEmpty(cooperation)) tags = tags.concat(cooperation)
-    if (!isEmpty(credit)) tags = tags.concat(credit)
+//    if (!isEmpty(credit)) tags = tags.concat(credit)
 
     if (utilityPatents <= 0) {
         tags = tags.concat(UTILITY_PATENTS_ZERO)
@@ -2511,6 +2513,7 @@ window.onload = function () {
     getSyncTags('requireOther', REQUIRE_OTHER_FLAG)
 
     getSyncTags('chatType', CHAT_TYPE_FLAG)
+    getSyncTags('techCase', TECH_CASE_FLAG)
 
     // $('#chatType').combobox({
     //     valueField: 'id', 

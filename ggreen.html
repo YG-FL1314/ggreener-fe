@@ -83,7 +83,9 @@
 						</select>
 						<select id="totalProjects" class="easyui-combobox" label="累计项目：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:false" labelAlign="right">
 						</select>
-						<select id="staffNumber" class="easyui-combobox" label="员工人数：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:false" labelAlign="right">
+<!--						<select id="staffNumber" class="easyui-combobox" label="员工人数：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:false" labelAlign="right">-->
+<!--						</select>-->
+						<select id="techCase" class="easyui-combobox" label="技术案例：" labelPosition="left" style="width:19%;" data-options="valueField:'id',textField:'name',panelHeight:'auto',limitToList:false,multiple:false" labelAlign="right">
 						</select>
 					</div>
 					<div style="margin-top:20px">
@@ -117,12 +119,12 @@
 					    <div id="operationCompany" style="padding:2px 5px;">
 					        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="createCompany()" plain="true">增加</a>
 					        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="updateCompany()">修改</a>
-					        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteCompany()">删除</a>
+					        <a href="javascript:void(0)" id="topDeleteCompanyBtn" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteCompany()">删除</a>
 					    </div>
 					    <div id="operationCompanyBottom" style="padding:2px 5px;">
 					        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="createCompany()" plain="true">增加</a>
 					        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="updateCompany()">修改</a>
-					        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteCompany()">删除</a>
+					        <a href="javascript:void(0)" id="bottomDeleteCompanyBtn" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteCompany()">删除</a>
 					    </div>
 		        	</div>
 		        </div>

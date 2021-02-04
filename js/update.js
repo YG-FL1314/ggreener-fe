@@ -111,9 +111,10 @@ function updateCompany() {
     var totalAssets = $('#totalAssets').textbox('getValue').trim()
     var totalProjects = $('#totalProjects').textbox('getValue')
     var staffNumber = $('#staffNumber').textbox('getValue').trim()
+    var techCase = $('#techCase').combobox('getValue')
 
     var companyMarket = $('#companyMarket').combobox('getValue').trim()
-    var credit = $('#credit').combobox('getValues')
+    //var credit = $('#credit').combobox('getValues')
     var sharesCode = $('#sharesCode').textbox('getValue').trim()
     var advantages = $('#advantages').combobox('getValues')
     var cooperation = $('#cooperation').combobox('getValues')
@@ -146,7 +147,8 @@ function updateCompany() {
     if (!isEmpty(companyMarket)) tags.push(companyMarket)
     if (!isEmpty(advantages)) tags = tags.concat(advantages)
     if (!isEmpty(cooperation)) tags = tags.concat(cooperation)
-    if (!isEmpty(credit)) tags = tags.concat(credit)
+    //if (!isEmpty(credit)) tags = tags.concat(credit)
+    if (!isEmpty(techCase)) tags = tags.concat(techCase)
 
     if (utilityPatents <= 0) {
         tags = tags.concat(UTILITY_PATENTS_ZERO)
@@ -656,6 +658,7 @@ function getCompanyDetail(companyId) {
                 $('#businessArea').combobox('setValues', data.obj.businessArea == null ? [] : data.obj.businessArea)
                 $('#segmentMarket').combobox('setValues', data.obj.segmentMarket == null ? [] : data.obj.segmentMarket)
                 $('#techProduct').combobox('setValue', data.obj.techProduct)
+                $('#techCase').combobox('setValue', data.obj.techCase)
                 $('#utilityPatents').textbox('setValue', data.obj.utilityPatents)
                 $('#softwares').textbox('setValue', data.obj.softwares)
                 $('#advantages').combobox('setValues', data.obj.advantages == null ? [] : data.obj.advantages)
@@ -1620,6 +1623,7 @@ function initCompanyInfo() {
     getSyncTags('normalService', NORMAL_SERVICE_FLAG)
     getSyncTags('abutment', ABUTMENT_FLAG)
     getSyncTags('credit', CREDIT_FLAG)
+    getSyncTags('techCase', TECH_CASE_FLAG)
 
     $('#highTech').combobox({
         formatter: function (row) {
